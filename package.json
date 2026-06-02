@@ -6,12 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:push": "prisma db push",
+    "db:generate": "prisma generate",
+    "test-marketplace": "npx tsx scripts/test-marketplace.ts",
+    "fuzz": "npx tsx scripts/fuzz-telemetry.ts",
+    "soak": "npx tsx scripts/soak-test.ts",
+    "simulate": "npx tsx scripts/simulate-arena.ts",
+    "chaos": "npx tsx scripts/chaos-engine.ts",
+    "scale-test": "npx tsx scripts/scale-test.ts",
+    "certify": "npx tsx scripts/run-certification.ts"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^5.6.1",
+    "@prisma/client": "^5.22.0",
+    "@privy-io/react-auth": "^3.23.1",
+    "@privy-io/server-auth": "^1.32.5",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.14.0",
     "next": "16.2.6",
+    "phaser": "^4.1.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "viem": "^2.47.12"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -20,6 +37,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "prisma": "^5.22.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

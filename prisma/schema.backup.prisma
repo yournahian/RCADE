@@ -1,0 +1,227 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                        String          @id
+  wallet                    String?         @unique
+  username                  String?
+  highestUnlockedLevel      Int             @default(1)
+  highestScore              Int             @default(0)
+  highestCombo              Float           @default(1.0)
+  createdAt                 DateTime        @default(now())
+  effectiveProgressionLevel Int             @default(0)
+  gameRuns                  GameRun[]
+  sessions                  GameSession[]
+  levelProgress             LevelProgress[]
+  matchPlayers              MatchPlayer[]
+  matchSessions             MatchSession[]
+  ranks                     PlayerRank[]
+  rewards                   Reward[]
+}
+
+model LevelProgress {
+  id           String    @id @default(uuid())
+  userId       String
+  level        Int
+  completed    Boolean   @default(false)
+  highestScore Int       @default(0)
+  bestCombo    Float     @default(1.0)
+  completedAt  DateTime?
+  user         User      @relation(fields: [userId], references: [id])
+
+  @@unique([userId, level])
+}
+
+model GameSession {
+  id        String   @id @default(uuid())
+  userId    String
+  level     Int
+  validFrom DateTime @default(now())
+  status    String   @default("ACTIVE")
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model GameRun {
+  id        String   @id @default(uuid())
+  userId    String
+  level     Int
+  score     Int
+  combo     Float
+  duration  Int
+  completed Boolean
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Reward {
+  id             String    @id @default(uuid())
+  userId         String
+  levelId        String
+  season         String    @default("season-1")
+  rarity         String
+  completionRank Int
+  originalOwner  String
+  claimStatus    String    @default("PREPARED")
+  sessionId      String?
+  createdAt      DateTime  @default(now())
+  claimedAt      DateTime?
+  tokenId        String?
+  txHash         String?
+  user           User      @relation(fields: [userId], references: [id])
+
+  @@index([userId, levelId, season])
+}
+
+model IndexedEvent {
+  id              String   @id @default(uuid())
+  eventName       String
+  transactionHash String
+  logIndex        Int
+  blockNumber     Int
+  processedAt     DateTime @default(now())
+
+  @@unique([transactionHash, logIndex])
+}
+
+model NFTOwnership {
+  id         String   @id @default(uuid())
+  wallet     String
+  tokenId    String
+  amount     Int      @default(1)
+  acquiredAt DateTime @default(now())
+  isActive   Boolean  @default(true)
+
+  @@unique([wallet, tokenId])
+  @@index([wallet])
+  @@index([tokenId])
+}
+
+model MarketplaceListing {
+  id                 String        @id @default(uuid())
+  listingHash        String        @unique
+  seller             String
+  buyer              String?
+  tokenId            String
+  amount             Int
+  price              String
+  expiry             Int
+  nonce              String
+  signature          String
+  status             ListingStatus @default(ACTIVE)
+  chainId            Int
+  saleTxHash         String?
+  createdBlockNumber BigInt?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  @@index([seller])
+  @@index([buyer])
+  @@index([tokenId])
+  @@index([status])
+}
+
+model PlayerRank {
+  id                        String    @id @default(uuid())
+  userId                    String
+  gameId                    Int
+  arenaTier                 ArenaTier
+  mmr                       Int       @default(1000)
+  confidence                Float     @default(350.0)
+  isPlaced                  Boolean   @default(false)
+  placementMatchesRemaining Int       @default(5)
+  matchesPlayed             Int       @default(0)
+  matchesWon                Int       @default(0)
+  matchesLost               Int       @default(0)
+  winStreak                 Int       @default(0)
+  updatedAt                 DateTime  @updatedAt
+  user                      User      @relation(fields: [userId], references: [id])
+
+  @@unique([userId, gameId, arenaTier])
+  @@index([gameId, arenaTier, mmr(sort: Desc)])
+}
+
+model Match {
+  id          String         @id @default(uuid())
+  gameId      Int
+  arenaTier   ArenaTier
+  status      MatchStatus    @default(PENDING)
+  wagerType   String         @default("FREE")
+  wagerAmount String?
+  winnerId    String?
+  createdAt   DateTime       @default(now())
+  resolvedAt  DateTime?
+  players     MatchPlayer[]
+  sessions    MatchSession[]
+
+  @@index([gameId, arenaTier, status])
+}
+
+model MatchPlayer {
+  id          String            @id @default(uuid())
+  matchId     String
+  userId      String
+  score       Int?
+  combo       Float?
+  duration    Int?
+  status      MatchPlayerStatus @default(WAITING)
+  sessionId   String?
+  joinedAt    DateTime          @default(now())
+  submittedAt DateTime?
+  match       Match             @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user        User              @relation(fields: [userId], references: [id])
+
+  @@unique([matchId, userId])
+}
+
+model MatchSession {
+  id            String   @id @default(uuid())
+  matchId       String
+  userId        String
+  validFrom     DateTime @default(now())
+  status        String   @default("ACTIVE")
+  clientSalt    String
+  sessionSeed   String
+  replayData    Json?
+  checkpoints   Json?
+  telemetryHash String?
+  match         Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user          User     @relation(fields: [userId], references: [id])
+}
+
+enum ListingStatus {
+  ACTIVE
+  SOLD
+  CANCELLED
+  EXPIRED
+  INVALID
+}
+
+enum ArenaTier {
+  BRONZE
+  SILVER
+  ELITE
+}
+
+enum MatchStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  EXPIRED
+  FORFEITED
+  INVALIDATED
+}
+
+enum MatchPlayerStatus {
+  WAITING
+  PLAYING
+  SUBMITTED
+  EXPIRED
+  FORFEITED
+  DISQUALIFIED
+}

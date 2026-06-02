@@ -1,26 +1,503 @@
 @import "tailwindcss";
 
+/* ============================================================
+   RCADE — RETRO ARCADE DESIGN SYSTEM
+   Aesthetic: 80s Arcade Cabinet meets Web3
+   
+   Palette:
+     Background:  #0a0a0a  (near-black)
+     Surface:     #111111  (dark charcoal)
+     Card:        #161616  (card fill)
+     Border:      #222222  (default border)
+     
+     Primary:     #f97316  (electric orange)
+     Bright:      #fb923c  (lighter orange)
+     Hot:         #ff4500  (red-orange flash)
+     Amber:       #f59e0b  (amber gold)
+     
+     Text:        #f5f5f5  (off-white)
+     Muted:       #6b6b6b  (mid grey)
+     Dim:         #333333  (dark grey)
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core palette */
+  --orange:       #a9ddd3;
+  --orange-bright:#b9ede3;
+  --orange-hot:   #89cdc3;
+  --amber:        #a9ddd3;
+  --amber-dim:    #89cdc3;
+
+  /* Backgrounds */
+  --bg-void:      #010101;
+  --bg-dark:      #060606;
+  --bg-card:      #0d0d0d;
+  --bg-raised:    #121212;
+
+  /* Borders */
+  --border:       #161616;
+  --border-lit:   #a9ddd3;
+  --border-dim:   #1e1e1e;
+
+  /* Text */
+  --text-primary:   #e8e3d5;
+  --text-secondary: #a8a499;
+  --text-muted:     #6c6960;
+
+  /* Glows */
+  --glow-orange:  rgba(169, 221, 211, 0.6);
+  --glow-amber:   rgba(169, 221, 211, 0.5);
+  --glow-hot:     rgba(169, 221, 211, 0.55);
+
+  /* Legacy compat */
+  --background:      var(--bg-void);
+  --foreground:      var(--text-primary);
+  --neon-cyan:       var(--orange);
+  --neon-magenta:    var(--orange-hot);
+  --neon-purple:     var(--amber);
+  --arcade-dark:     var(--bg-card);
+  --accent-violet:   var(--orange);
+  --accent-indigo:   var(--amber-dim);
+  --accent-cyan:     var(--orange-bright);
+  --accent-gold:     var(--amber);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background:    var(--bg-void);
+  --color-foreground:    var(--text-primary);
+  --color-bg-void:       var(--bg-void);
+  --color-bg-dark:       var(--bg-dark);
+  --color-bg-card:       var(--bg-card);
+  --color-bg-raised:     var(--bg-raised);
+  --color-arcade-dark:   var(--bg-card);
+
+  --color-orange:        var(--orange);
+  --color-orange-bright: var(--orange-bright);
+  --color-orange-hot:    var(--orange-hot);
+  --color-amber:         var(--amber);
+  --color-amber-dim:     var(--amber-dim);
+
+  --color-neon-cyan:     var(--orange);
+  --color-neon-magenta:  var(--orange-hot);
+  --color-neon-purple:   var(--amber);
+  --color-accent-violet: var(--orange);
+  --color-accent-cyan:   var(--orange-bright);
+  --color-accent-gold:   var(--amber);
+
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted:     var(--text-muted);
+
+  --font-sans:    var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-orbitron), system-ui, sans-serif;
+
+  --animate-float:      float 6s ease-in-out infinite;
+  --animate-flicker:    flicker 4s step-end infinite;
+  --animate-scanline:   scanline 6s linear infinite;
+  --animate-shimmer:    shimmer 2.5s linear infinite;
+  --animate-blink:      blink 1s step-end infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
 }
+
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%           { opacity: 0.4; }
+  97%           { opacity: 1; }
+  98%           { opacity: 0.2; }
+  99%           { opacity: 1; }
+}
+
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes crt-on {
+  0%   { transform: scaleY(0.001) scaleX(1.1); opacity: 0.8; }
+  30%  { transform: scaleY(1.05) scaleX(1); opacity: 1; }
+  100% { transform: scaleY(1) scaleX(1); opacity: 1; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--glow-orange), 0 0 20px var(--glow-orange); }
+  50%       { box-shadow: 0 0 16px var(--glow-orange), 0 0 40px var(--glow-orange); }
+}
+
+@keyframes pixel-shift {
+  0%         { text-shadow: 2px 0 #89cdc3, -2px 0 #b9ede3; }
+  25%        { text-shadow: -2px 0 #89cdc3, 2px 0 #b9ede3; }
+  50%        { text-shadow: 2px 2px #89cdc3, -2px -2px #b9ede3; }
+  75%        { text-shadow: -2px 2px #89cdc3, 2px -2px #b9ede3; }
+  100%       { text-shadow: 2px 0 #89cdc3, -2px 0 #b9ede3; }
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* ============================================================
+   CRT SCANLINE EFFECT (applied via ::before on sections)
+   ============================================================ */
+
+.crt-overlay {
+  position: relative;
+}
+
+.crt-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ============================================================
+   PIXEL GRID BACKGROUND
+   ============================================================ */
+
+.pixel-grid {
+  background-image:
+    linear-gradient(rgba(169,221,211,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(169,221,211,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ============================================================
+   PANELS & CARDS
+   ============================================================ */
+
+.arcade-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+}
+
+.arcade-panel-hover {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.arcade-panel-hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 0 20px rgba(169, 221, 211, 0.2), inset 0 0 40px rgba(169, 221, 211, 0.03);
+  transform: translateY(-2px);
+}
+
+/* Thick orange left-border accent */
+.panel-accent-l {
+  border-left: 3px solid var(--orange);
+}
+
+/* Orange top-border header card */
+.panel-accent-t {
+  border-top: 2px solid var(--orange);
+}
+
+/* Glass panel — legacy compat */
+.glass-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s ease;
+}
+
+.glass-panel-hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 0 20px rgba(169, 221, 211, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   GRADIENT BORDER (orange glow)
+   ============================================================ */
+
+.gradient-border {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-card);
+  border-radius: 0.25rem;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 0.375rem;
+  background: linear-gradient(135deg, var(--orange), var(--amber));
+  z-index: -1;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-border:hover::before { opacity: 1; }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+
+/* Glitch / pixel shift title */
+.text-arcade {
+  color: var(--orange);
+  animation: pixel-shift 8s ease-in-out infinite;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--orange-bright) 0%, var(--amber) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-hero {
+  background: linear-gradient(135deg, #ffffff 0%, var(--orange-bright) 50%, var(--amber) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg, var(--text-secondary) 0%, #fff 40%, var(--orange) 60%, var(--text-secondary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: var(--animate-shimmer);
+}
+
+.text-neon-cyan    { color: var(--orange);       text-shadow: 0 0 10px var(--glow-orange); }
+.text-neon-magenta { color: var(--orange-hot);   text-shadow: 0 0 10px var(--glow-hot); }
+.text-neon-violet  { color: var(--amber);        text-shadow: 0 0 10px var(--glow-amber); }
+
+/* Blinking cursor */
+.cursor-blink::after {
+  content: "_";
+  animation: var(--animate-blink);
+  color: var(--orange);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.875rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #000;
+  background: var(--orange);
+  border: 1px solid var(--orange);
+  border-radius: 0.125rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  box-shadow: 0 0 20px rgba(169, 221, 211, 0.4);
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.4s ease;
+}
+
+.btn-primary:hover {
+  background: var(--orange-bright);
+  border-color: var(--orange-bright);
+  box-shadow: 0 0 30px rgba(169, 221, 211, 0.7), 0 0 60px rgba(169, 221, 211, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-primary:hover::before { left: 100%; }
+
+.btn-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.875rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: transparent;
+  border: 1px solid var(--orange);
+  border-radius: 0.125rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(169, 221, 211, 0.1);
+  box-shadow: 0 0 20px rgba(169, 221, 211, 0.3), inset 0 0 20px rgba(169, 221, 211, 0.05);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   STAT CHIP
+   ============================================================ */
+
+.stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  background: rgba(169, 221, 211, 0.08);
+  border: 1px solid rgba(169, 221, 211, 0.2);
+  border-radius: 0.125rem;
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   GLOW CARD (same name used in page.tsx)
+   ============================================================ */
+
+.glow-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.glow-card:hover {
+  border-color: rgba(169, 221, 211, 0.4);
+  box-shadow: 0 0 24px rgba(169, 221, 211, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   LEADERBOARD RANK BADGES
+   ============================================================ */
+
+.rank-1 { color: #f59e0b; text-shadow: 0 0 8px rgba(245,158,11,0.6); }
+.rank-2 { color: #d4d4d4; }
+.rank-3 { color: #cd7c2f; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+
+.glass-nav {
+  background: rgba(9,9,9,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ============================================================
+   SECTION DIVIDER — orange scanline
+   ============================================================ */
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--orange), var(--amber), transparent);
+  opacity: 0.4;
+}
+
+/* ============================================================
+   NOISE OVERLAY (light, for depth)
+   ============================================================ */
+
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================================
+   SCROLLBAR — orange
+   ============================================================ */
+
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-void); }
+::-webkit-scrollbar-thumb { background: rgba(169, 221, 211, 0.4); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+
+/* ============================================================
+   ANIMATION UTILITIES
+   ============================================================ */
+
+.animate-float    { animation: var(--animate-float); }
+.animate-flicker  { animation: var(--animate-flicker); }
+.animate-fade-up  { animation: fade-up 0.6s ease both; }
+.animate-fade-in  { animation: fade-in 0.5s ease both; }
+.animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+.animate-blink    { animation: var(--animate-blink); }
+
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-400 { animation-delay: 0.40s; }
+.delay-500 { animation-delay: 0.50s; }

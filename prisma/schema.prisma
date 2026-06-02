@@ -1,0 +1,478 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                        String          @id
+  wallet                    String?         @unique
+  username                  String?
+  highestUnlockedLevel      Int             @default(1)
+  highestScore              Int             @default(0)
+  highestCombo              Float           @default(1.0)
+  createdAt                 DateTime        @default(now())
+  effectiveProgressionLevel Int             @default(0)
+  gameRuns                  GameRun[]
+  sessions                  GameSession[]
+  levelProgress             LevelProgress[]
+  matchPlayers              MatchPlayer[]
+  matchSessions             MatchSession[]
+  ranks                     PlayerRank[]
+  rewards                   Reward[]
+
+  // New Arena PvP Relations
+  playerArenaStats          PlayerArenaStats?
+  playerGameRanks           PlayerGameRank[]
+  trophyHistory             TrophyHistory[]
+  arenaQueues               ArenaQueue[]
+  createdRooms              ArenaRoom[]       @relation("CreatedRooms")
+  joinedRooms               ArenaRoom[]       @relation("JoinedRooms")
+  player1Matches            ArenaMatch[]      @relation("Player1Matches")
+  player2Matches            ArenaMatch[]      @relation("Player2Matches")
+  wagerTransactions         WagerTransaction[]
+  antiFraudFlags            AntiFraudFlag[]
+  leaderboardEntries        LeaderboardEntry[]
+}
+
+model LevelProgress {
+  id           String    @id @default(uuid())
+  userId       String
+  level        Int
+  completed    Boolean   @default(false)
+  highestScore Int       @default(0)
+  bestCombo    Float     @default(1.0)
+  completedAt  DateTime?
+  user         User      @relation(fields: [userId], references: [id])
+
+  @@unique([userId, level])
+}
+
+model GameSession {
+  id        String   @id @default(uuid())
+  userId    String
+  level     Int
+  validFrom DateTime @default(now())
+  status    String   @default("ACTIVE")
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model GameRun {
+  id        String   @id @default(uuid())
+  userId    String
+  level     Int
+  score     Int
+  combo     Float
+  duration  Int
+  completed Boolean
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Reward {
+  id             String    @id @default(uuid())
+  userId         String
+  levelId        String
+  season         String    @default("season-1")
+  rarity         String
+  completionRank Int
+  originalOwner  String
+  claimStatus    String    @default("PREPARED")
+  sessionId      String?
+  createdAt      DateTime  @default(now())
+  claimedAt      DateTime?
+  tokenId        String?
+  txHash         String?
+  user           User      @relation(fields: [userId], references: [id])
+
+  @@index([userId, levelId, season])
+}
+
+model IndexedEvent {
+  id              String   @id @default(uuid())
+  eventName       String
+  transactionHash String
+  logIndex        Int
+  blockNumber     Int
+  processedAt     DateTime @default(now())
+
+  @@unique([transactionHash, logIndex])
+}
+
+model NFTOwnership {
+  id         String   @id @default(uuid())
+  wallet     String
+  tokenId    String
+  amount     Int      @default(1)
+  acquiredAt DateTime @default(now())
+  isActive   Boolean  @default(true)
+
+  @@unique([wallet, tokenId])
+  @@index([wallet])
+  @@index([tokenId])
+}
+
+model MarketplaceListing {
+  id                 String        @id @default(uuid())
+  listingHash        String        @unique
+  seller             String
+  buyer              String?
+  tokenId            String
+  amount             Int
+  price              String
+  expiry             Int
+  nonce              String
+  signature          String
+  status             ListingStatus @default(ACTIVE)
+  chainId            Int
+  saleTxHash         String?
+  createdBlockNumber BigInt?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  @@index([seller])
+  @@index([buyer])
+  @@index([tokenId])
+  @@index([status])
+}
+
+model PlayerRank {
+  id                        String    @id @default(uuid())
+  userId                    String
+  gameId                    Int
+  arenaTier                 ArenaTier
+  mmr                       Int       @default(1000)
+  confidence                Float     @default(350.0)
+  isPlaced                  Boolean   @default(false)
+  placementMatchesRemaining Int       @default(5)
+  matchesPlayed             Int       @default(0)
+  matchesWon                Int       @default(0)
+  matchesLost               Int       @default(0)
+  winStreak                 Int       @default(0)
+  updatedAt                 DateTime  @updatedAt
+  user                      User      @relation(fields: [userId], references: [id])
+
+  @@unique([userId, gameId, arenaTier])
+  @@index([gameId, arenaTier, mmr(sort: Desc)])
+}
+
+model Match {
+  id          String         @id @default(uuid())
+  gameId      Int
+  arenaTier   ArenaTier
+  status      MatchStatus    @default(PENDING)
+  wagerType   String         @default("FREE")
+  wagerAmount String?
+  winnerId    String?
+  createdAt   DateTime       @default(now())
+  resolvedAt  DateTime?
+  players     MatchPlayer[]
+  sessions    MatchSession[]
+
+  @@index([gameId, arenaTier, status])
+}
+
+model MatchPlayer {
+  id          String            @id @default(uuid())
+  matchId     String
+  userId      String
+  score       Int?
+  combo       Float?
+  duration    Int?
+  status      MatchPlayerStatus @default(WAITING)
+  sessionId   String?
+  joinedAt    DateTime          @default(now())
+  submittedAt DateTime?
+  match       Match             @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user        User              @relation(fields: [userId], references: [id])
+
+  @@unique([matchId, userId])
+}
+
+model MatchSession {
+  id            String   @id @default(uuid())
+  matchId       String
+  userId        String
+  validFrom     DateTime @default(now())
+  status        String   @default("ACTIVE")
+  protocolVersion String @default("1.0.0-alpha")
+  clientSalt    String
+  sessionSeed   String
+  replayData    Json?
+  checkpoints   Json?
+  telemetryHash String?
+  match         Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user          User     @relation(fields: [userId], references: [id])
+}
+
+enum ListingStatus {
+  ACTIVE
+  SOLD
+  CANCELLED
+  EXPIRED
+  INVALID
+}
+
+enum ArenaTier {
+  BRONZE
+  SILVER
+  ELITE
+}
+
+enum MatchStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  EXPIRED
+  FORFEITED
+  INVALIDATED
+}
+
+enum MatchPlayerStatus {
+  WAITING
+  PLAYING
+  SUBMITTED
+  EXPIRED
+  FORFEITED
+  DISQUALIFIED
+}
+
+model AuditArchive {
+  id          String   @id @default(uuid())
+  sequenceId  Int      @unique
+  entryType   String
+  payload     Json
+  timestamp   DateTime @default(now())
+  prevHash    String
+  currentHash String
+}
+
+model DistributedLock {
+  key           String   @id
+  holder        String
+  fencingToken  Int      @default(1)
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
+}
+
+model SettlementJournal {
+  id            String   @id @default(uuid())
+  matchId       String
+  status        String
+  attemptCount  Int      @default(0)
+  lastError     String?
+  rollbackState Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([matchId])
+}
+
+model ModerationAppeal {
+  id          String   @id @default(uuid())
+  matchId     String
+  userId      String
+  reason      String
+  status      String   @default("PENDING")
+  evidence    Json?
+  moderatorId String?
+  resolvedAt  DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model MatchReceipt {
+  id               String   @id @default(uuid())
+  matchId          String   @unique
+  protocolVersion  String   @default("1.0.0-alpha")
+  winnerId         String?
+  telemetryHash    String
+  settlementHash   String
+  payload          Json
+  createdAt        DateTime @default(now())
+
+  @@index([matchId])
+}
+
+// ==========================================
+// V1 ARENA PVP MODULE MODELS
+// ==========================================
+
+model SeasonData {
+  id            String           @id @default(uuid())
+  seasonName    String
+  startDate     DateTime
+  endDate       DateTime
+  isActive      Boolean          @default(true)
+  playerRanks   PlayerGameRank[]
+  trophyHistory TrophyHistory[]
+}
+
+model PlayerArenaStats {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  totalMatches   Int      @default(0)
+  totalWins      Int      @default(0)
+  totalLosses    Int      @default(0)
+  totalWagersWon Float    @default(0.0)
+  totalXp        Int      @default(0)
+  user           User     @relation(fields: [userId], references: [id])
+}
+
+model PlayerGameRank {
+  id                       String      @id @default(uuid())
+  userId                   String
+  gameId                   Int
+  seasonId                 String?
+  trophies                 Int         @default(100)
+  peakTrophies             Int         @default(100)
+  xp                       Int         @default(0)
+  matchesPlayed            Int         @default(0)
+  matchesWon               Int         @default(0)
+  matchesLost              Int         @default(0)
+  winStreak                Int         @default(0)
+  lastOpponentId           String?
+  consecutiveOpponentCount Int         @default(0)
+  updatedAt                DateTime    @updatedAt
+  user                     User        @relation(fields: [userId], references: [id])
+  season                   SeasonData? @relation(fields: [seasonId], references: [id])
+
+  @@unique([userId, gameId, seasonId])
+  @@index([gameId, trophies(sort: Desc)])
+}
+
+model TrophyHistory {
+  id               String      @id @default(uuid())
+  userId           String
+  gameId           Int
+  seasonId         String?
+  matchId          String?
+  delta            Int
+  absoluteTrophies Int
+  createdAt        DateTime    @default(now())
+  user             User        @relation(fields: [userId], references: [id])
+  season           SeasonData? @relation(fields: [seasonId], references: [id])
+}
+
+model ArenaQueue {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  gameId      Int
+  mode        String
+  trophies    Int
+  wagerAmount String?
+  region      String   @default("global")
+  ping        Int      @default(0)
+  joinedAt    DateTime @default(now())
+  expiresAt   DateTime
+  status      String   @default("QUEUING")
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@index([gameId, mode, trophies])
+}
+
+model ArenaRoom {
+  id          String   @id @default(uuid())
+  roomCode    String   @unique
+  gameId      Int
+  creatorId   String
+  guestId     String?
+  wagerAmount String?
+  platformFee String?
+  status      String   @default("LOBBY")
+  createdAt   DateTime @default(now())
+  matchId     String?
+  creator     User     @relation("CreatedRooms", fields: [creatorId], references: [id])
+  guest       User?    @relation("JoinedRooms", fields: [guestId], references: [id])
+}
+
+model ArenaMatch {
+  id                 String          @id @default(uuid())
+  gameId             Int
+  mode               String
+  roomCode           String?
+  status             String          @default("QUEUED")
+  winnerId           String?
+  duration           Int?
+  createdAt          DateTime        @default(now())
+  resolvedAt         DateTime?
+  player1Id          String
+  player2Id          String
+  player1Score       Float?
+  player2Score       Float?
+  player1Status      String          @default("WAITING")
+  player2Status      String          @default("WAITING")
+  player1SubmittedAt DateTime?
+  player2SubmittedAt DateTime?
+  escrowId           String?
+  player1            User            @relation("Player1Matches", fields: [player1Id], references: [id])
+  player2            User            @relation("Player2Matches", fields: [player2Id], references: [id])
+  replays            MatchReplay[]
+  antiFraudFlags     AntiFraudFlag[]
+}
+
+model EscrowState {
+  id           String             @id @default(uuid())
+  matchId      String             @unique
+  wagerAmount  String
+  platformFee  String
+  payoutAmount String
+  status       String             @default("HELD")
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  transactions WagerTransaction[]
+}
+
+model WagerTransaction {
+  id        String      @id @default(uuid())
+  escrowId  String
+  userId    String
+  amount    String
+  type      String
+  status    String
+  txHash    String?
+  createdAt DateTime    @default(now())
+  user      User        @relation(fields: [userId], references: [id])
+  escrow    EscrowState @relation(fields: [escrowId], references: [id])
+}
+
+model MatchReplay {
+  id         String     @id @default(uuid())
+  matchId    String
+  userId     String
+  replayData Json
+  score      Float
+  duration   Int
+  seed       String
+  checksum   String
+  createdAt  DateTime   @default(now())
+  match      ArenaMatch @relation(fields: [matchId], references: [id])
+}
+
+model LeaderboardEntry {
+  id        String   @id @default(uuid())
+  gameId    Int
+  userId    String
+  seasonId  String?
+  rank      Int
+  trophies  Int
+  updatedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([gameId, seasonId, trophies(sort: Desc)])
+}
+
+model AntiFraudFlag {
+  id        String      @id @default(uuid())
+  matchId   String?
+  userId    String
+  flagType  String
+  severity  String
+  details   String?
+  resolved  Boolean     @default(false)
+  createdAt DateTime    @default(now())
+  user      User        @relation(fields: [userId], references: [id])
+  match     ArenaMatch? @relation(fields: [matchId], references: [id])
+}

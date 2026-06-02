@@ -1,0 +1,5012 @@
+{
+  "seasonData": [],
+  "playerArenaStats": [
+    {
+      "id": "id_f2j5lirsm",
+      "createdAt": "2026-05-25T16:56:10.666Z",
+      "updatedAt": "2026-05-26T20:48:11.249Z",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "totalWagersWon": 280,
+      "totalWins": 7,
+      "totalMatches": 7
+    },
+    {
+      "id": "id_80zi1ee2r",
+      "createdAt": "2026-05-25T18:35:20.146Z",
+      "updatedAt": "2026-05-25T18:35:20.146Z",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "totalWagersWon": 40,
+      "totalWins": 1,
+      "totalMatches": 1
+    },
+    {
+      "id": "id_tlov1nmp4",
+      "createdAt": "2026-05-26T17:31:32.205Z",
+      "updatedAt": "2026-05-27T18:11:54.622Z",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "totalWagersWon": 560,
+      "totalWins": 14,
+      "totalMatches": 14
+    }
+  ],
+  "playerGameRank": [
+    {
+      "id": "id_dro1edcfi_15401",
+      "createdAt": "2026-05-23T20:08:35.401Z",
+      "updatedAt": "2026-05-25T17:21:15.693Z",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "gameId": 1,
+      "seasonId": null,
+      "trophies": 100,
+      "peakTrophies": 100,
+      "lastOpponentId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "consecutiveOpponentCount": 1
+    },
+    {
+      "id": "id_o05ga3yfb_15524",
+      "createdAt": "2026-05-23T20:08:35.524Z",
+      "updatedAt": "2026-05-25T17:21:15.691Z",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "gameId": 1,
+      "seasonId": null,
+      "trophies": 100,
+      "peakTrophies": 100,
+      "lastOpponentId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "consecutiveOpponentCount": 1
+    },
+    {
+      "id": "id_zqjygrbwp_89658",
+      "createdAt": "2026-05-24T10:46:29.658Z",
+      "updatedAt": "2026-05-27T18:33:55.054Z",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "gameId": 5,
+      "seasonId": null,
+      "trophies": 100,
+      "peakTrophies": 100,
+      "lastOpponentId": "ghost:system-bot",
+      "consecutiveOpponentCount": 1
+    },
+    {
+      "id": "id_p8opx2gjv_89681",
+      "createdAt": "2026-05-24T10:46:29.681Z",
+      "updatedAt": "2026-05-25T18:35:06.063Z",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "gameId": 5,
+      "seasonId": null,
+      "trophies": 100,
+      "peakTrophies": 100,
+      "lastOpponentId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "consecutiveOpponentCount": 15
+    },
+    {
+      "id": "id_iaq4dkyn6_03720",
+      "createdAt": "2026-05-24T19:55:03.720Z",
+      "updatedAt": "2026-05-24T19:55:03.720Z",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "gameId": 6,
+      "seasonId": null,
+      "trophies": 100,
+      "peakTrophies": 100
+    },
+    {
+      "id": "id_mierotcxq_81183",
+      "createdAt": "2026-05-26T17:28:01.183Z",
+      "updatedAt": "2026-05-26T17:28:01.183Z",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "gameId": 1,
+      "seasonId": null,
+      "trophies": 100,
+      "peakTrophies": 100
+    },
+    {
+      "id": "id_r2do9ayy6_37286",
+      "createdAt": "2026-05-26T17:28:57.286Z",
+      "updatedAt": "2026-05-27T18:34:13.111Z",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "gameId": 5,
+      "seasonId": null,
+      "trophies": 100,
+      "peakTrophies": 100,
+      "lastOpponentId": "ghost:system-bot",
+      "consecutiveOpponentCount": 1
+    },
+    {
+      "id": "id_yqsqydoil_35050",
+      "createdAt": "2026-05-27T18:33:55.050Z",
+      "updatedAt": "2026-05-27T18:34:13.108Z",
+      "userId": "ghost:system-bot",
+      "gameId": 5,
+      "seasonId": null,
+      "trophies": 100,
+      "peakTrophies": 100,
+      "lastOpponentId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "consecutiveOpponentCount": 1
+    }
+  ],
+  "trophyHistory": [],
+  "arenaQueue": [],
+  "arenaRoom": [
+    {
+      "id": "id_32yc5fs8n_92330",
+      "createdAt": "2026-05-23T20:09:52.330Z",
+      "updatedAt": "2026-05-25T17:21:10.590Z",
+      "roomCode": "VA44A2",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_hhldhm4up_99525",
+      "createdAt": "2026-05-23T20:09:59.525Z",
+      "updatedAt": "2026-05-25T17:21:15.082Z",
+      "roomCode": "FENE8Q",
+      "gameId": 1,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_hcvcidi5z_04147",
+      "createdAt": "2026-05-23T20:10:04.147Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "UJZVZM",
+      "gameId": 1,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_gb9pc4ip_99896",
+      "createdAt": "2026-05-23T20:11:39.896Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "E2N8NV",
+      "gameId": 1,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_p2npjz5i3_35628",
+      "createdAt": "2026-05-23T20:13:55.628Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "AZF2SW",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_o8ijszrso_38568",
+      "createdAt": "2026-05-23T20:15:38.568Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "2CB48R",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_pu9pubslc_44580",
+      "createdAt": "2026-05-23T20:15:44.580Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "WT6FAS",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_jokueopgg_17462",
+      "createdAt": "2026-05-23T20:16:57.462Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "95SQF7",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_hdiew46zf_20510",
+      "createdAt": "2026-05-23T20:18:40.510Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "EDG5SF",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_9bscud8g7_27590",
+      "createdAt": "2026-05-23T20:18:47.590Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "EC7LDK",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_vldo0ympt_78681",
+      "createdAt": "2026-05-23T20:19:38.681Z",
+      "updatedAt": "2026-05-23T20:20:01.648Z",
+      "roomCode": "7N6PUD",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_pdho4t1nd_01641"
+    },
+    {
+      "id": "id_tuidmvjkq_18138",
+      "createdAt": "2026-05-23T20:20:18.138Z",
+      "updatedAt": "2026-05-23T20:20:25.747Z",
+      "roomCode": "8LNNVZ",
+      "gameId": 1,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "matchId": "id_qtcpncyee_25743"
+    },
+    {
+      "id": "id_bypoeun4x_17865",
+      "createdAt": "2026-05-23T20:25:17.865Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "PHY6LE",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_tilfmzraa_17874",
+      "createdAt": "2026-05-23T20:25:17.874Z",
+      "updatedAt": "2026-05-23T20:25:26.478Z",
+      "roomCode": "7KYYWN",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_xaj902u64_26471"
+    },
+    {
+      "id": "id_3tk56d1k6_83830",
+      "createdAt": "2026-05-24T10:19:43.830Z",
+      "updatedAt": "2026-05-24T10:20:03.596Z",
+      "roomCode": "HD7BFY",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_h1l9xng25_03587"
+    },
+    {
+      "id": "id_af04ya86z_29462",
+      "createdAt": "2026-05-24T10:20:29.462Z",
+      "updatedAt": "2026-05-24T10:20:43.229Z",
+      "roomCode": "WQRKQ2",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_nf10y92k6_43224"
+    },
+    {
+      "id": "id_ds6b8q3x3_35432",
+      "createdAt": "2026-05-24T10:28:55.432Z",
+      "updatedAt": "2026-05-24T10:29:48.420Z",
+      "roomCode": "N4NA3Z",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_61q5hvszr_88414"
+    },
+    {
+      "id": "id_1avlzdtow_94933",
+      "createdAt": "2026-05-24T10:29:54.933Z",
+      "updatedAt": "2026-05-24T10:30:15.407Z",
+      "roomCode": "43SPZ9",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_lkonqoo66_15399"
+    },
+    {
+      "id": "id_ga4yjjbrc_99965",
+      "createdAt": "2026-05-24T10:29:59.966Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "ZKRWXB",
+      "gameId": 1,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_0yxafcsx2_23616",
+      "createdAt": "2026-05-24T10:35:23.616Z",
+      "updatedAt": "2026-05-24T10:35:41.399Z",
+      "roomCode": "DCRVB7",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_m8yovssp4_41389"
+    },
+    {
+      "id": "id_x8csicjj0_77071",
+      "createdAt": "2026-05-24T10:46:17.072Z",
+      "updatedAt": "2026-05-24T10:46:28.224Z",
+      "roomCode": "ZRU583",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_qhywzz7f7_88215"
+    },
+    {
+      "id": "id_1epg5sj0e_77030",
+      "createdAt": "2026-05-24T11:01:17.030Z",
+      "updatedAt": "2026-05-24T11:01:39.228Z",
+      "roomCode": "3XRX65",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_ftwte5y38_99216"
+    },
+    {
+      "id": "id_9i7c32g0v_85646",
+      "createdAt": "2026-05-24T11:18:05.646Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "62LLYU",
+      "gameId": 1,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_bvju4evn9_89620",
+      "createdAt": "2026-05-24T11:19:49.620Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "H86LHW",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp"
+    },
+    {
+      "id": "id_e7hkgv3jl_64584",
+      "createdAt": "2026-05-24T11:24:24.584Z",
+      "updatedAt": "2026-05-24T11:24:35.855Z",
+      "roomCode": "YCBQLH",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_7y0pwix0a_75844"
+    },
+    {
+      "id": "id_lu4f71ei1_23725",
+      "createdAt": "2026-05-24T11:25:23.725Z",
+      "updatedAt": "2026-05-24T11:25:29.839Z",
+      "roomCode": "RMPQTP",
+      "gameId": 1,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "matchId": "id_ahjgltqal_29828"
+    },
+    {
+      "id": "id_77gqskclz_12012",
+      "createdAt": "2026-05-24T11:28:32.012Z",
+      "updatedAt": "2026-05-24T11:28:40.947Z",
+      "roomCode": "R4FW7R",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_1sinri7ar_20938"
+    },
+    {
+      "id": "id_uhrn0l29p_35824",
+      "createdAt": "2026-05-24T11:32:15.824Z",
+      "updatedAt": "2026-05-24T11:32:28.731Z",
+      "roomCode": "L7N2KQ",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_ghsj4up97_48718"
+    },
+    {
+      "id": "id_q6yazh6om_68389",
+      "createdAt": "2026-05-24T11:39:28.389Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "J4X7XF",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp"
+    },
+    {
+      "id": "id_8a1ixc76v_77187",
+      "createdAt": "2026-05-24T11:39:37.187Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "GHNZLG",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_c66hn4fhq_77191",
+      "createdAt": "2026-05-24T11:39:37.191Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "7Y4TG4",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_fxi7tij1n_77201",
+      "createdAt": "2026-05-24T11:39:37.201Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "84TL5E",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_zekry0qpa_80313",
+      "createdAt": "2026-05-24T11:39:40.313Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "EKA7N4",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_7ory2uxbz_51826",
+      "createdAt": "2026-05-24T11:45:51.826Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "77HX8K",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_hhxjvl2nj_51833",
+      "createdAt": "2026-05-24T11:45:51.833Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "KKTAML",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_xiu54963g_52467",
+      "createdAt": "2026-05-24T11:45:52.467Z",
+      "updatedAt": "2026-05-24T11:46:31.786Z",
+      "roomCode": "34DWC2",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_1mw4422ek_91775"
+    },
+    {
+      "id": "id_cvsp5r48m_20956",
+      "createdAt": "2026-05-24T17:37:00.956Z",
+      "updatedAt": "2026-05-24T17:39:12.253Z",
+      "roomCode": "VDGFQH",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_0frpjhync_52241"
+    },
+    {
+      "id": "id_h4viipd3l_75323",
+      "createdAt": "2026-05-24T18:39:35.323Z",
+      "updatedAt": "2026-05-24T18:39:43.630Z",
+      "roomCode": "9PRQ4Z",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_fjbl4196v_83621"
+    },
+    {
+      "id": "id_73ljdtghe_98347",
+      "createdAt": "2026-05-24T19:03:18.347Z",
+      "updatedAt": "2026-05-24T19:03:24.571Z",
+      "roomCode": "F6LDTP",
+      "gameId": 1,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_gjie3z6al_04563"
+    },
+    {
+      "id": "id_b5fh61vz2_97748",
+      "createdAt": "2026-05-24T19:16:37.748Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "T77MWA",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_nyfx6tebt_98406",
+      "createdAt": "2026-05-24T19:16:38.406Z",
+      "updatedAt": "2026-05-24T19:16:43.842Z",
+      "roomCode": "6YJPQQ",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "matchId": "id_z8evav3qp_03830"
+    },
+    {
+      "id": "id_agwc26gz6_88190",
+      "createdAt": "2026-05-24T19:19:48.190Z",
+      "updatedAt": "2026-05-24T19:20:02.380Z",
+      "roomCode": "NNGRG3",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_liyjzyfly_02366"
+    },
+    {
+      "id": "id_3cynnejvv_89588",
+      "createdAt": "2026-05-24T19:19:49.588Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "9XVBBG",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_ergb5misu_70477",
+      "createdAt": "2026-05-24T19:41:10.477Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "XW2HLX",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp"
+    },
+    {
+      "id": "id_08sqsoj7o_29541",
+      "createdAt": "2026-05-24T19:42:09.541Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "3LP32P",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1"
+    },
+    {
+      "id": "id_4uzn5gi5n_10461",
+      "createdAt": "2026-05-24T19:43:30.461Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "GE4HF5",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp"
+    },
+    {
+      "id": "id_d1eddmc6t_86690",
+      "createdAt": "2026-05-24T19:49:46.690Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "YULZ2W",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp"
+    },
+    {
+      "id": "id_umlike2w4_41448",
+      "createdAt": "2026-05-24T19:50:41.448Z",
+      "updatedAt": "2026-05-24T19:50:51.223Z",
+      "roomCode": "LC2WEX",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_zyka0f1mb_51207"
+    },
+    {
+      "id": "id_uc0u4h4o9_93078",
+      "createdAt": "2026-05-24T19:54:53.078Z",
+      "updatedAt": "2026-05-24T19:55:02.977Z",
+      "roomCode": "RUDH6M",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_qh71jxvbe_02963"
+    },
+    {
+      "id": "id_90qdjpvj0_39596",
+      "createdAt": "2026-05-24T19:55:39.596Z",
+      "updatedAt": "2026-05-24T19:55:46.894Z",
+      "roomCode": "C3WALQ",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_0zrxqel9y_46877"
+    },
+    {
+      "id": "id_ujp1mtwzo_30590",
+      "createdAt": "2026-05-24T20:08:50.590Z",
+      "updatedAt": "2026-05-24T20:08:56.543Z",
+      "roomCode": "JHKFCF",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_w1ci3imib_36534"
+    },
+    {
+      "id": "id_5t6zdj8wi_10283",
+      "createdAt": "2026-05-24T20:18:30.283Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "23WAVJ",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp"
+    },
+    {
+      "id": "id_10bpqeqgl_46983",
+      "createdAt": "2026-05-24T20:19:06.983Z",
+      "updatedAt": "2026-05-25T17:16:57.026Z",
+      "roomCode": "VBY449",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1"
+    },
+    {
+      "id": "id_cbrorp7dz_97251",
+      "createdAt": "2026-05-24T20:21:37.251Z",
+      "updatedAt": "2026-05-24T20:21:43.089Z",
+      "roomCode": "LWL6SX",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_rentvjnyr_03077"
+    },
+    {
+      "id": "id_tigoeat2w_75679",
+      "createdAt": "2026-05-24T20:26:15.679Z",
+      "updatedAt": "2026-05-24T20:26:23.218Z",
+      "roomCode": "YSWLZZ",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_ow61x9k9j_83208"
+    },
+    {
+      "id": "id_o98vofuul_78390",
+      "createdAt": "2026-05-24T20:37:58.390Z",
+      "updatedAt": "2026-05-24T20:38:05.813Z",
+      "roomCode": "PG496P",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_fefjkcbym_85803"
+    },
+    {
+      "id": "id_00levlvly_04750",
+      "createdAt": "2026-05-24T21:03:24.750Z",
+      "updatedAt": "2026-05-24T21:03:31.439Z",
+      "roomCode": "D92R32",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "matchId": "id_rtm3or784_11430"
+    },
+    {
+      "id": "id_gx4gpkckh_86437",
+      "createdAt": "2026-05-24T21:18:06.437Z",
+      "updatedAt": "2026-05-24T21:18:42.728Z",
+      "roomCode": "NSFUMT",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "PLAYING",
+      "guestId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "matchId": "id_sdyua8x3y_22717"
+    },
+    {
+      "id": "id_4j1589uxd_91784",
+      "createdAt": "2026-05-25T16:56:31.784Z",
+      "updatedAt": "2026-05-25T17:21:09.099Z",
+      "roomCode": "SXSRUF",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_m46ai6bco_98636"
+    },
+    {
+      "id": "id_lppjn4h0s_32506",
+      "createdAt": "2026-05-25T16:58:52.506Z",
+      "updatedAt": "2026-05-25T17:21:09.099Z",
+      "roomCode": "UM6ZQC",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "matchId": "id_0fex8sopx_38978"
+    },
+    {
+      "id": "id_chpzg1scr_62929",
+      "createdAt": "2026-05-25T17:37:42.929Z",
+      "updatedAt": "2026-05-25T17:38:23.790Z",
+      "roomCode": "858GZZ",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp"
+    },
+    {
+      "id": "id_nkrm7vnf4_05402",
+      "createdAt": "2026-05-25T17:38:25.402Z",
+      "updatedAt": "2026-05-25T17:38:37.576Z",
+      "roomCode": "DK5M2W",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": "did:privy:cmpe50wnm000a0cjinr3ev8wp"
+    },
+    {
+      "id": "id_odov1otc5_71415",
+      "createdAt": "2026-05-25T18:04:31.415Z",
+      "updatedAt": "2026-05-25T18:06:20.872Z",
+      "roomCode": "Y8RBDG",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_qsij370d4_84976"
+    },
+    {
+      "id": "id_dj9upi31s_66132",
+      "createdAt": "2026-05-25T18:31:06.132Z",
+      "updatedAt": "2026-05-25T18:35:20.161Z",
+      "roomCode": "TSUZS5",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_ixop36sl5_74752"
+    },
+    {
+      "id": "id_96av4fhkp_15876",
+      "createdAt": "2026-05-25T18:48:35.876Z",
+      "updatedAt": "2026-05-25T19:08:59.435Z",
+      "roomCode": "MCWLH8",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED",
+      "guestId": null
+    },
+    {
+      "id": "id_a9qfhb0dv_88674",
+      "createdAt": "2026-05-25T18:49:48.674Z",
+      "updatedAt": "2026-05-25T19:08:50.821Z",
+      "roomCode": "L93RGM",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_sqqwkrlrm_30080",
+      "createdAt": "2026-05-25T18:55:30.080Z",
+      "updatedAt": "2026-05-25T19:15:52.723Z",
+      "roomCode": "PHRZL4",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_hsu2n0oa8_45852",
+      "createdAt": "2026-05-25T19:15:45.852Z",
+      "updatedAt": "2026-05-25T19:17:26.198Z",
+      "roomCode": "USQPRT",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_lqj78dq6j_45866",
+      "createdAt": "2026-05-25T19:15:45.866Z",
+      "updatedAt": "2026-05-26T17:28:00.335Z",
+      "roomCode": "LSY35X",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_4n3c7nu8t_45872",
+      "createdAt": "2026-05-25T19:15:45.873Z",
+      "updatedAt": "2026-05-26T17:28:00.335Z",
+      "roomCode": "7K5TRT",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_f5amwkxxh_45886",
+      "createdAt": "2026-05-25T19:15:45.886Z",
+      "updatedAt": "2026-05-26T17:28:00.335Z",
+      "roomCode": "35ZYKA",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_2fi156z93_49679",
+      "createdAt": "2026-05-25T19:15:49.679Z",
+      "updatedAt": "2026-05-26T17:28:00.335Z",
+      "roomCode": "L2BSBF",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_hi4jszpza_88426",
+      "createdAt": "2026-05-25T19:31:28.426Z",
+      "updatedAt": "2026-05-26T17:28:00.335Z",
+      "roomCode": "TAGZSL",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_cc0q6gn7o_25862",
+      "createdAt": "2026-05-26T17:28:45.862Z",
+      "updatedAt": "2026-05-26T17:31:32.217Z",
+      "roomCode": "X6RHJW",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_6qec3c5b4_35864"
+    },
+    {
+      "id": "id_p8ks181e6_95896",
+      "createdAt": "2026-05-26T17:49:55.896Z",
+      "updatedAt": "2026-05-26T17:50:23.433Z",
+      "roomCode": "MB2XRR",
+      "gameId": 5,
+      "creatorId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_mqnp4yc2x_03224"
+    },
+    {
+      "id": "id_cp060i1pu_95365",
+      "createdAt": "2026-05-26T17:58:15.365Z",
+      "updatedAt": "2026-05-26T18:05:58.566Z",
+      "roomCode": "XH3BP3",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_s2iuj2vz1_44857"
+    },
+    {
+      "id": "id_ams0nhwql_85976",
+      "createdAt": "2026-05-26T18:13:05.976Z",
+      "updatedAt": "2026-05-26T18:13:41.016Z",
+      "roomCode": "L48FD9",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_785hdfcb9_98886"
+    },
+    {
+      "id": "id_beg85w4xx_57930",
+      "createdAt": "2026-05-26T18:17:37.930Z",
+      "updatedAt": "2026-05-26T18:47:39.602Z",
+      "roomCode": "7USR6K",
+      "gameId": 5,
+      "creatorId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_8ei53dhnq_56239"
+    },
+    {
+      "id": "id_kzf182iiq_81441",
+      "createdAt": "2026-05-26T20:46:21.441Z",
+      "updatedAt": "2026-05-26T20:48:11.263Z",
+      "roomCode": "K9WCBU",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_00n3oxptm_71946"
+    },
+    {
+      "id": "id_ksta5j1f0_59503",
+      "createdAt": "2026-05-27T14:52:39.503Z",
+      "updatedAt": "2026-05-27T18:08:21.819Z",
+      "roomCode": "9Y8Y8U",
+      "gameId": 5,
+      "creatorId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    },
+    {
+      "id": "id_waviveanx_96798",
+      "createdAt": "2026-05-27T18:08:16.798Z",
+      "updatedAt": "2026-05-27T18:11:54.636Z",
+      "roomCode": "6VHAR3",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "matchId": "id_huzzi5zqv_89949"
+    },
+    {
+      "id": "id_wqep3ih47_52342",
+      "createdAt": "2026-05-27T18:12:32.342Z",
+      "updatedAt": "2026-05-27T18:12:55.650Z",
+      "roomCode": "GPZKUU",
+      "gameId": 6,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "CANCELLED"
+    }
+  ],
+  "arenaMatch": [
+    {
+      "id": "id_pdho4t1nd_01641",
+      "createdAt": "2026-05-23T20:20:01.641Z",
+      "updatedAt": "2026-05-25T17:35:41.777Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "7N6PUD",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_84qwsw4d7_01644",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-25T17:21:03.487Z"
+    },
+    {
+      "id": "id_qtcpncyee_25743",
+      "createdAt": "2026-05-23T20:20:25.743Z",
+      "updatedAt": "2026-05-25T17:35:41.777Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "8LNNVZ",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_xz38jo4ty_25745"
+    },
+    {
+      "id": "id_xaj902u64_26471",
+      "createdAt": "2026-05-23T20:25:26.471Z",
+      "updatedAt": "2026-05-25T17:35:41.777Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "7KYYWN",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_fadeyjb1x_26475"
+    },
+    {
+      "id": "id_ux2n99z4l_02783",
+      "createdAt": "2026-05-24T10:20:02.783Z",
+      "updatedAt": "2026-05-25T17:35:41.777Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "HD7BFY",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_q273h3b3e_02786"
+    },
+    {
+      "id": "id_h1l9xng25_03587",
+      "createdAt": "2026-05-24T10:20:03.587Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "HD7BFY",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_7bxuo9x2c_03591"
+    },
+    {
+      "id": "id_nf10y92k6_43224",
+      "createdAt": "2026-05-24T10:20:43.224Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "WQRKQ2",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_hcsvc8avg_43227"
+    },
+    {
+      "id": "id_x1mmoxlgz_71696",
+      "createdAt": "2026-05-24T10:29:31.696Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_c4zmvvhhd_71700"
+    },
+    {
+      "id": "id_9lhaysww3_79804",
+      "createdAt": "2026-05-24T10:29:39.804Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_trl3zzwx8_79808"
+    },
+    {
+      "id": "id_kpc5ex8vt_80013",
+      "createdAt": "2026-05-24T10:29:40.013Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_lpb3qvvy2_80017"
+    },
+    {
+      "id": "id_pb5cxeppa_80164",
+      "createdAt": "2026-05-24T10:29:40.164Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_1fy431e4z_80167"
+    },
+    {
+      "id": "id_1fjbifzi3_80317",
+      "createdAt": "2026-05-24T10:29:40.317Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_thu7ui4bi_80321"
+    },
+    {
+      "id": "id_hyp29faf8_80467",
+      "createdAt": "2026-05-24T10:29:40.467Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_4e1jwmrvo_80470"
+    },
+    {
+      "id": "id_rvbpyvx7h_80656",
+      "createdAt": "2026-05-24T10:29:40.656Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_wcej06zsg_80660"
+    },
+    {
+      "id": "id_etsls1nlx_84591",
+      "createdAt": "2026-05-24T10:29:44.591Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_8hkvf9hii_84593"
+    },
+    {
+      "id": "id_cb1izetlo_88086",
+      "createdAt": "2026-05-24T10:29:48.086Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_zai8kkx4b_88090"
+    },
+    {
+      "id": "id_61q5hvszr_88414",
+      "createdAt": "2026-05-24T10:29:48.414Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "N4NA3Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_ajzhgsxny_88418"
+    },
+    {
+      "id": "id_qlh5wzbsf_12423",
+      "createdAt": "2026-05-24T10:30:12.423Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "43SPZ9",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_xgtdlf12e_12425"
+    },
+    {
+      "id": "id_vbp3bunkr_14545",
+      "createdAt": "2026-05-24T10:30:14.545Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "43SPZ9",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_ls9lb7dw0_14548"
+    },
+    {
+      "id": "id_bfhkrhz8q_14717",
+      "createdAt": "2026-05-24T10:30:14.717Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "43SPZ9",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_jqrh6m73u_14721"
+    },
+    {
+      "id": "id_mwly2erzt_14885",
+      "createdAt": "2026-05-24T10:30:14.885Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "43SPZ9",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_mo50k2k69_14888"
+    },
+    {
+      "id": "id_q1lx2esay_15058",
+      "createdAt": "2026-05-24T10:30:15.058Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "43SPZ9",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_dnlvpmsi8_15063"
+    },
+    {
+      "id": "id_6uw3tdfxw_15234",
+      "createdAt": "2026-05-24T10:30:15.234Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "43SPZ9",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_xwurfu3hu_15237"
+    },
+    {
+      "id": "id_lkonqoo66_15399",
+      "createdAt": "2026-05-24T10:30:15.399Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "43SPZ9",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_ccrknddxd_15403"
+    },
+    {
+      "id": "id_m8yovssp4_41389",
+      "createdAt": "2026-05-24T10:35:41.389Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "DCRVB7",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_plutjfm68_41393"
+    },
+    {
+      "id": "id_qhywzz7f7_88215",
+      "createdAt": "2026-05-24T10:46:28.215Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "ZRU583",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_4av6giqnn_88220"
+    },
+    {
+      "id": "id_ftwte5y38_99216",
+      "createdAt": "2026-05-24T11:01:39.216Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "3XRX65",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_ic4esvagr_99223"
+    },
+    {
+      "id": "id_7y0pwix0a_75844",
+      "createdAt": "2026-05-24T11:24:35.844Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "YCBQLH",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_wjvjhyxzd_75849"
+    },
+    {
+      "id": "id_ahjgltqal_29828",
+      "createdAt": "2026-05-24T11:25:29.828Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "RMPQTP",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_74zu197ou_29832"
+    },
+    {
+      "id": "id_1sinri7ar_20938",
+      "createdAt": "2026-05-24T11:28:40.938Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "R4FW7R",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_m6joduyes_20942"
+    },
+    {
+      "id": "id_ghsj4up97_48718",
+      "createdAt": "2026-05-24T11:32:28.718Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "L7N2KQ",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_qg100pn9b_48725"
+    },
+    {
+      "id": "id_1mw4422ek_91775",
+      "createdAt": "2026-05-24T11:46:31.775Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "34DWC2",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_zfe8wlw2v_91780"
+    },
+    {
+      "id": "id_0frpjhync_52241",
+      "createdAt": "2026-05-24T17:39:12.241Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "VDGFQH",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_6h5kh38k3_52246"
+    },
+    {
+      "id": "id_fjbl4196v_83621",
+      "createdAt": "2026-05-24T18:39:43.621Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "9PRQ4Z",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_2eaaj561c_83625"
+    },
+    {
+      "id": "id_gjie3z6al_04563",
+      "createdAt": "2026-05-24T19:03:24.563Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 1,
+      "mode": "CUSTOM",
+      "roomCode": "F6LDTP",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_yp4vmvj82_04567"
+    },
+    {
+      "id": "id_z8evav3qp_03830",
+      "createdAt": "2026-05-24T19:16:43.830Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "6YJPQQ",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_r33c8ena3_03836"
+    },
+    {
+      "id": "id_v7xrabpeb_96506",
+      "createdAt": "2026-05-24T19:19:56.506Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "NNGRG3",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_bij8ut388_96511"
+    },
+    {
+      "id": "id_liyjzyfly_02366",
+      "createdAt": "2026-05-24T19:20:02.366Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "NNGRG3",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_bce0o8rig_02373"
+    },
+    {
+      "id": "id_zyka0f1mb_51207",
+      "createdAt": "2026-05-24T19:50:51.207Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "LC2WEX",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_2v45wzfj0_51215"
+    },
+    {
+      "id": "id_qh71jxvbe_02963",
+      "createdAt": "2026-05-24T19:55:02.963Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "RUDH6M",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_9725jwhr9_02969"
+    },
+    {
+      "id": "id_0zrxqel9y_46877",
+      "createdAt": "2026-05-24T19:55:46.877Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "C3WALQ",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_rwnku0gji_46886"
+    },
+    {
+      "id": "id_w1ci3imib_36534",
+      "createdAt": "2026-05-24T20:08:56.534Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "JHKFCF",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_nfdp45n7z_36538"
+    },
+    {
+      "id": "id_rentvjnyr_03077",
+      "createdAt": "2026-05-24T20:21:43.077Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "LWL6SX",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_uryseov4f_03083"
+    },
+    {
+      "id": "id_ow61x9k9j_83208",
+      "createdAt": "2026-05-24T20:26:23.208Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "YSWLZZ",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_o23w69ng6_83213"
+    },
+    {
+      "id": "id_fefjkcbym_85803",
+      "createdAt": "2026-05-24T20:38:05.803Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "PG496P",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_ridmnzlth_85807"
+    },
+    {
+      "id": "id_rtm3or784_11430",
+      "createdAt": "2026-05-24T21:03:31.430Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "D92R32",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_olypisz12_11434"
+    },
+    {
+      "id": "id_sdyua8x3y_22717",
+      "createdAt": "2026-05-24T21:18:42.717Z",
+      "updatedAt": "2026-05-25T17:35:41.778Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "NSFUMT",
+      "status": "CANCELLED",
+      "player1Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_8ngxe6ymr_22722"
+    },
+    {
+      "id": "id_m46ai6bco_98636",
+      "createdAt": "2026-05-25T16:56:38.636Z",
+      "updatedAt": "2026-05-25T17:21:09.096Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "SXSRUF",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_k103jsxm3_98642",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-05-25T17:21:09.094Z"
+    },
+    {
+      "id": "id_0fex8sopx_38978",
+      "createdAt": "2026-05-25T16:58:58.978Z",
+      "updatedAt": "2026-05-25T17:21:09.096Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "UM6ZQC",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_u5l5w9q6n_38983",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-05-25T17:21:07.105Z",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-05-25T17:21:09.094Z"
+    },
+    {
+      "id": "id_xukw1psmj_69124",
+      "createdAt": "2026-05-25T17:37:49.124Z",
+      "updatedAt": "2026-05-25T17:40:11.422Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "858GZZ",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-25T17:40:08.138Z",
+      "winnerId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "resolvedAt": "2026-05-25T17:40:11.418Z"
+    },
+    {
+      "id": "id_2mbdvo2m9_91089",
+      "createdAt": "2026-05-25T17:38:11.089Z",
+      "updatedAt": "2026-05-25T17:40:43.579Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "858GZZ",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-25T17:40:41.618Z",
+      "winnerId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "resolvedAt": "2026-05-25T17:40:43.577Z"
+    },
+    {
+      "id": "id_nzu7ri0y9_91309",
+      "createdAt": "2026-05-25T17:38:11.309Z",
+      "updatedAt": "2026-05-25T17:40:56.899Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "858GZZ",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "winnerId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "resolvedAt": "2026-05-25T17:40:56.885Z"
+    },
+    {
+      "id": "id_bk07so8eg_91462",
+      "createdAt": "2026-05-25T17:38:11.462Z",
+      "updatedAt": "2026-05-25T17:43:34.333Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "858GZZ",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-25T17:43:32.368Z",
+      "winnerId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "resolvedAt": "2026-05-25T17:43:34.330Z"
+    },
+    {
+      "id": "id_eh5879utg_99883",
+      "createdAt": "2026-05-25T17:38:19.883Z",
+      "updatedAt": "2026-05-25T17:43:55.159Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "858GZZ",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-05-25T17:43:55.157Z"
+    },
+    {
+      "id": "id_2ifno3xei_01612",
+      "createdAt": "2026-05-25T17:38:21.612Z",
+      "updatedAt": "2026-05-25T17:46:05.125Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "858GZZ",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-25T17:46:03.182Z",
+      "winnerId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "resolvedAt": "2026-05-25T17:46:05.124Z"
+    },
+    {
+      "id": "id_aw6n4imzf_13854",
+      "createdAt": "2026-05-25T17:38:33.854Z",
+      "updatedAt": "2026-05-25T17:46:06.685Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "DK5M2W",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "winnerId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "resolvedAt": "2026-05-25T17:46:06.683Z"
+    },
+    {
+      "id": "id_bcxdd5dd8_16373",
+      "createdAt": "2026-05-25T17:38:36.373Z",
+      "updatedAt": "2026-05-25T17:46:11.067Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "DK5M2W",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "winnerId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "resolvedAt": "2026-05-25T17:46:11.065Z"
+    },
+    {
+      "id": "id_qsij370d4_84976",
+      "createdAt": "2026-05-25T18:04:44.976Z",
+      "updatedAt": "2026-05-25T18:06:20.865Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "Y8RBDG",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_7chxut9a6_84982",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-05-25T18:06:09.441Z",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-05-25T18:06:20.861Z"
+    },
+    {
+      "id": "id_ixop36sl5_74752",
+      "createdAt": "2026-05-25T18:31:14.752Z",
+      "updatedAt": "2026-05-25T18:35:21.522Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "TSUZS5",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_ttt1nja44_74759",
+      "winnerId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "resolvedAt": "2026-05-25T18:35:20.151Z",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-05-25T18:35:21.521Z"
+    },
+    {
+      "id": "id_6qec3c5b4_35864",
+      "createdAt": "2026-05-26T17:28:55.864Z",
+      "updatedAt": "2026-05-26T17:31:32.799Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "X6RHJW",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_zc6p3cdfz_35870",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T17:31:32.209Z",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-26T17:31:32.796Z"
+    },
+    {
+      "id": "id_mqnp4yc2x_03224",
+      "createdAt": "2026-05-26T17:50:03.224Z",
+      "updatedAt": "2026-05-26T17:50:23.928Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "MB2XRR",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_6ikqqfaa2_03231",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T17:50:23.424Z",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-05-26T17:50:23.927Z"
+    },
+    {
+      "id": "id_c2k3k2m9r_03856",
+      "createdAt": "2026-05-26T17:58:23.856Z",
+      "updatedAt": "2026-05-26T17:58:46.156Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "XH3BP3",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_w8sykbbph_03862",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-05-26T17:58:45.375Z",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-05-26T17:58:46.154Z"
+    },
+    {
+      "id": "id_l59x0d16v_59314",
+      "createdAt": "2026-05-26T17:59:19.314Z",
+      "updatedAt": "2026-05-26T17:59:32.589Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "XH3BP3",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T17:59:32.578Z"
+    },
+    {
+      "id": "id_pumdgzewk_83918",
+      "createdAt": "2026-05-26T17:59:43.918Z",
+      "updatedAt": "2026-05-26T17:59:54.928Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "XH3BP3",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T17:59:54.926Z"
+    },
+    {
+      "id": "id_72b17w0cc_10848",
+      "createdAt": "2026-05-26T18:00:10.848Z",
+      "updatedAt": "2026-05-26T18:00:43.605Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "XH3BP3",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T18:00:42.603Z",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-26T18:00:43.604Z"
+    },
+    {
+      "id": "id_s2iuj2vz1_44857",
+      "createdAt": "2026-05-26T18:05:44.857Z",
+      "updatedAt": "2026-05-26T18:05:58.562Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "XH3BP3",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_rgyw822qf_44890",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T18:05:58.556Z"
+    },
+    {
+      "id": "id_785hdfcb9_98886",
+      "createdAt": "2026-05-26T18:13:18.886Z",
+      "updatedAt": "2026-05-26T18:13:41.711Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "L48FD9",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_v4ov2ouww_98895",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T18:13:41.008Z",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-26T18:13:41.709Z"
+    },
+    {
+      "id": "id_nzu18g3fg_64871",
+      "createdAt": "2026-05-26T18:17:44.871Z",
+      "updatedAt": "2026-05-26T18:18:06.538Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "7USR6K",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_uc0x2uisj_64878",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T18:18:05.876Z",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-05-26T18:18:06.537Z"
+    },
+    {
+      "id": "id_qyjufqxk7_14774",
+      "createdAt": "2026-05-26T18:18:34.774Z",
+      "updatedAt": "2026-05-26T18:19:01.334Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "7USR6K",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_c8tpos9yu_14779",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T18:19:01.211Z",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-05-26T18:19:01.333Z"
+    },
+    {
+      "id": "id_9wiy74gfa_31350",
+      "createdAt": "2026-05-26T18:22:11.350Z",
+      "updatedAt": "2026-05-26T18:22:34.430Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "7USR6K",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_bx3dkl0y3_31359",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T18:22:34.427Z"
+    },
+    {
+      "id": "id_5f9a1i40w_95429",
+      "createdAt": "2026-05-26T18:23:15.429Z",
+      "updatedAt": "2026-05-26T18:23:38.292Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "7USR6K",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_c92wouorv_95438",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-05-26T18:23:38.287Z"
+    },
+    {
+      "id": "id_ryibn97k6_10536",
+      "createdAt": "2026-05-26T18:25:10.536Z",
+      "updatedAt": "2026-05-26T18:25:45.722Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "7USR6K",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_jsj2y895g_10550",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T18:25:45.719Z"
+    },
+    {
+      "id": "id_f78bp17iz_90639",
+      "createdAt": "2026-05-26T18:28:10.639Z",
+      "updatedAt": "2026-05-26T18:29:05.137Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "7USR6K",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_mfaotxykh_90650",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T18:29:05.133Z"
+    },
+    {
+      "id": "id_ov1q9en14_93077",
+      "createdAt": "2026-05-26T18:29:53.077Z",
+      "updatedAt": "2026-05-26T18:31:02.869Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "7USR6K",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_xqb9wd6y0_93089",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-05-26T18:31:02.862Z"
+    },
+    {
+      "id": "id_coxmlj6ih_20766",
+      "createdAt": "2026-05-26T18:37:00.766Z",
+      "updatedAt": "2026-05-26T18:38:06.317Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "7USR6K",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_vf2gs6j2h_20776",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-05-26T18:38:06.312Z"
+    },
+    {
+      "id": "id_8ei53dhnq_56239",
+      "createdAt": "2026-05-26T18:45:56.239Z",
+      "updatedAt": "2026-05-26T18:47:39.596Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "7USR6K",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_okpmmbex4_56251",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T18:47:39.592Z"
+    },
+    {
+      "id": "id_8lcf0wkih_03230",
+      "createdAt": "2026-05-26T20:46:43.230Z",
+      "updatedAt": "2026-05-26T20:47:09.758Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "K9WCBU",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_wkcyc0sm9_03237",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-26T20:47:08.222Z",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-26T20:47:09.756Z"
+    },
+    {
+      "id": "id_00n3oxptm_71946",
+      "createdAt": "2026-05-26T20:47:51.946Z",
+      "updatedAt": "2026-05-26T20:48:11.479Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "K9WCBU",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_95k0vqg41_71953",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-05-26T20:48:11.254Z",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-05-26T20:48:11.477Z"
+    },
+    {
+      "id": "id_tzfdtswpp_05567",
+      "createdAt": "2026-05-27T18:08:25.567Z",
+      "updatedAt": "2026-05-27T18:08:51.455Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "6VHAR3",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_eucjbmyn9_05574",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-27T18:08:50.640Z",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-27T18:08:51.454Z"
+    },
+    {
+      "id": "id_f8uaq0hi1_56058",
+      "createdAt": "2026-05-27T18:09:16.058Z",
+      "updatedAt": "2026-05-27T18:09:58.312Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "6VHAR3",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_iz2masuj3_56064",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-27T18:09:57.768Z",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-27T18:09:58.311Z"
+    },
+    {
+      "id": "id_huzzi5zqv_89949",
+      "createdAt": "2026-05-27T18:11:29.949Z",
+      "updatedAt": "2026-05-27T18:11:55.080Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "6VHAR3",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_hlxyq8a63_89962",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-05-27T18:11:54.627Z",
+      "player1Score": 0,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-27T18:11:55.079Z"
+    },
+    {
+      "id": "id_gm6zo4p7n_01142",
+      "createdAt": "2026-05-27T18:33:21.142Z",
+      "updatedAt": "2026-05-27T18:33:56.368Z",
+      "gameId": 5,
+      "mode": "CASUAL",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "ghost:system-bot",
+      "winnerId": "ghost:system-bot",
+      "resolvedAt": "2026-05-27T18:33:55.063Z",
+      "player1Score": 50,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-27T18:33:56.366Z"
+    },
+    {
+      "id": "id_n1t7nqeej_04700",
+      "createdAt": "2026-05-27T18:33:24.700Z",
+      "updatedAt": "2026-05-27T18:34:13.516Z",
+      "gameId": 5,
+      "mode": "CASUAL",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "ghost:system-bot",
+      "winnerId": "ghost:system-bot",
+      "resolvedAt": "2026-05-27T18:34:13.115Z",
+      "player1Score": 3915,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-05-27T18:34:13.513Z"
+    }
+  ],
+  "escrowState": [
+    {
+      "id": "id_84qwsw4d7_01644",
+      "createdAt": "2026-05-23T20:20:01.644Z",
+      "updatedAt": "2026-05-25T16:56:10.655Z",
+      "matchId": "id_pdho4t1nd_01641",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_xz38jo4ty_25745",
+      "createdAt": "2026-05-23T20:20:25.745Z",
+      "updatedAt": "2026-05-23T20:20:25.745Z",
+      "matchId": "id_qtcpncyee_25743",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_fadeyjb1x_26475",
+      "createdAt": "2026-05-23T20:25:26.475Z",
+      "updatedAt": "2026-05-23T20:25:26.475Z",
+      "matchId": "id_xaj902u64_26471",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_q273h3b3e_02786",
+      "createdAt": "2026-05-24T10:20:02.786Z",
+      "updatedAt": "2026-05-24T10:20:02.786Z",
+      "matchId": "id_ux2n99z4l_02783",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_7bxuo9x2c_03591",
+      "createdAt": "2026-05-24T10:20:03.591Z",
+      "updatedAt": "2026-05-24T10:20:03.591Z",
+      "matchId": "id_h1l9xng25_03587",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_hcsvc8avg_43227",
+      "createdAt": "2026-05-24T10:20:43.227Z",
+      "updatedAt": "2026-05-24T10:20:43.227Z",
+      "matchId": "id_nf10y92k6_43224",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_c4zmvvhhd_71700",
+      "createdAt": "2026-05-24T10:29:31.700Z",
+      "updatedAt": "2026-05-24T10:29:31.700Z",
+      "matchId": "id_x1mmoxlgz_71696",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_trl3zzwx8_79808",
+      "createdAt": "2026-05-24T10:29:39.808Z",
+      "updatedAt": "2026-05-24T10:29:39.808Z",
+      "matchId": "id_9lhaysww3_79804",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_lpb3qvvy2_80017",
+      "createdAt": "2026-05-24T10:29:40.017Z",
+      "updatedAt": "2026-05-24T10:29:40.017Z",
+      "matchId": "id_kpc5ex8vt_80013",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_1fy431e4z_80167",
+      "createdAt": "2026-05-24T10:29:40.167Z",
+      "updatedAt": "2026-05-24T10:29:40.167Z",
+      "matchId": "id_pb5cxeppa_80164",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_thu7ui4bi_80321",
+      "createdAt": "2026-05-24T10:29:40.321Z",
+      "updatedAt": "2026-05-24T10:29:40.321Z",
+      "matchId": "id_1fjbifzi3_80317",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_4e1jwmrvo_80470",
+      "createdAt": "2026-05-24T10:29:40.470Z",
+      "updatedAt": "2026-05-24T10:29:40.470Z",
+      "matchId": "id_hyp29faf8_80467",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_wcej06zsg_80660",
+      "createdAt": "2026-05-24T10:29:40.660Z",
+      "updatedAt": "2026-05-24T10:29:40.660Z",
+      "matchId": "id_rvbpyvx7h_80656",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_8hkvf9hii_84593",
+      "createdAt": "2026-05-24T10:29:44.593Z",
+      "updatedAt": "2026-05-24T10:29:44.593Z",
+      "matchId": "id_etsls1nlx_84591",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_zai8kkx4b_88090",
+      "createdAt": "2026-05-24T10:29:48.090Z",
+      "updatedAt": "2026-05-24T10:29:48.090Z",
+      "matchId": "id_cb1izetlo_88086",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_ajzhgsxny_88418",
+      "createdAt": "2026-05-24T10:29:48.418Z",
+      "updatedAt": "2026-05-24T10:29:48.418Z",
+      "matchId": "id_61q5hvszr_88414",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_xgtdlf12e_12425",
+      "createdAt": "2026-05-24T10:30:12.425Z",
+      "updatedAt": "2026-05-24T10:30:12.425Z",
+      "matchId": "id_qlh5wzbsf_12423",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_ls9lb7dw0_14548",
+      "createdAt": "2026-05-24T10:30:14.548Z",
+      "updatedAt": "2026-05-24T10:30:14.548Z",
+      "matchId": "id_vbp3bunkr_14545",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_jqrh6m73u_14721",
+      "createdAt": "2026-05-24T10:30:14.721Z",
+      "updatedAt": "2026-05-24T10:30:14.721Z",
+      "matchId": "id_bfhkrhz8q_14717",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_mo50k2k69_14888",
+      "createdAt": "2026-05-24T10:30:14.888Z",
+      "updatedAt": "2026-05-24T10:30:14.888Z",
+      "matchId": "id_mwly2erzt_14885",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_dnlvpmsi8_15063",
+      "createdAt": "2026-05-24T10:30:15.063Z",
+      "updatedAt": "2026-05-24T10:30:15.063Z",
+      "matchId": "id_q1lx2esay_15058",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_xwurfu3hu_15237",
+      "createdAt": "2026-05-24T10:30:15.237Z",
+      "updatedAt": "2026-05-24T10:30:15.237Z",
+      "matchId": "id_6uw3tdfxw_15234",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_ccrknddxd_15403",
+      "createdAt": "2026-05-24T10:30:15.403Z",
+      "updatedAt": "2026-05-24T10:30:15.403Z",
+      "matchId": "id_lkonqoo66_15399",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_plutjfm68_41393",
+      "createdAt": "2026-05-24T10:35:41.393Z",
+      "updatedAt": "2026-05-24T10:35:41.393Z",
+      "matchId": "id_m8yovssp4_41389",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_4av6giqnn_88220",
+      "createdAt": "2026-05-24T10:46:28.220Z",
+      "updatedAt": "2026-05-24T10:46:28.220Z",
+      "matchId": "id_qhywzz7f7_88215",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_ic4esvagr_99223",
+      "createdAt": "2026-05-24T11:01:39.223Z",
+      "updatedAt": "2026-05-24T11:01:39.223Z",
+      "matchId": "id_ftwte5y38_99216",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_wjvjhyxzd_75849",
+      "createdAt": "2026-05-24T11:24:35.849Z",
+      "updatedAt": "2026-05-24T11:24:35.849Z",
+      "matchId": "id_7y0pwix0a_75844",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_74zu197ou_29832",
+      "createdAt": "2026-05-24T11:25:29.832Z",
+      "updatedAt": "2026-05-24T11:25:29.832Z",
+      "matchId": "id_ahjgltqal_29828",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_m6joduyes_20942",
+      "createdAt": "2026-05-24T11:28:40.942Z",
+      "updatedAt": "2026-05-24T11:28:40.942Z",
+      "matchId": "id_1sinri7ar_20938",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_qg100pn9b_48725",
+      "createdAt": "2026-05-24T11:32:28.725Z",
+      "updatedAt": "2026-05-24T11:32:28.725Z",
+      "matchId": "id_ghsj4up97_48718",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_zfe8wlw2v_91780",
+      "createdAt": "2026-05-24T11:46:31.780Z",
+      "updatedAt": "2026-05-24T11:46:31.780Z",
+      "matchId": "id_1mw4422ek_91775",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_6h5kh38k3_52246",
+      "createdAt": "2026-05-24T17:39:12.246Z",
+      "updatedAt": "2026-05-24T17:39:12.246Z",
+      "matchId": "id_0frpjhync_52241",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_2eaaj561c_83625",
+      "createdAt": "2026-05-24T18:39:43.625Z",
+      "updatedAt": "2026-05-24T18:39:43.625Z",
+      "matchId": "id_fjbl4196v_83621",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_yp4vmvj82_04567",
+      "createdAt": "2026-05-24T19:03:24.567Z",
+      "updatedAt": "2026-05-24T19:03:24.567Z",
+      "matchId": "id_gjie3z6al_04563",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_r33c8ena3_03836",
+      "createdAt": "2026-05-24T19:16:43.836Z",
+      "updatedAt": "2026-05-24T19:16:43.836Z",
+      "matchId": "id_z8evav3qp_03830",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_bij8ut388_96511",
+      "createdAt": "2026-05-24T19:19:56.511Z",
+      "updatedAt": "2026-05-24T19:19:56.511Z",
+      "matchId": "id_v7xrabpeb_96506",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_bce0o8rig_02373",
+      "createdAt": "2026-05-24T19:20:02.373Z",
+      "updatedAt": "2026-05-24T19:20:02.373Z",
+      "matchId": "id_liyjzyfly_02366",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_2v45wzfj0_51215",
+      "createdAt": "2026-05-24T19:50:51.215Z",
+      "updatedAt": "2026-05-24T19:50:51.215Z",
+      "matchId": "id_zyka0f1mb_51207",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_9725jwhr9_02969",
+      "createdAt": "2026-05-24T19:55:02.969Z",
+      "updatedAt": "2026-05-24T19:55:02.969Z",
+      "matchId": "id_qh71jxvbe_02963",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_rwnku0gji_46886",
+      "createdAt": "2026-05-24T19:55:46.886Z",
+      "updatedAt": "2026-05-24T19:55:46.886Z",
+      "matchId": "id_0zrxqel9y_46877",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_nfdp45n7z_36538",
+      "createdAt": "2026-05-24T20:08:56.538Z",
+      "updatedAt": "2026-05-24T20:08:56.538Z",
+      "matchId": "id_w1ci3imib_36534",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_uryseov4f_03083",
+      "createdAt": "2026-05-24T20:21:43.083Z",
+      "updatedAt": "2026-05-24T20:21:43.083Z",
+      "matchId": "id_rentvjnyr_03077",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_o23w69ng6_83213",
+      "createdAt": "2026-05-24T20:26:23.213Z",
+      "updatedAt": "2026-05-24T20:26:23.213Z",
+      "matchId": "id_ow61x9k9j_83208",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_ridmnzlth_85807",
+      "createdAt": "2026-05-24T20:38:05.807Z",
+      "updatedAt": "2026-05-24T20:38:05.807Z",
+      "matchId": "id_fefjkcbym_85803",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_olypisz12_11434",
+      "createdAt": "2026-05-24T21:03:31.434Z",
+      "updatedAt": "2026-05-24T21:03:31.434Z",
+      "matchId": "id_rtm3or784_11430",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_8ngxe6ymr_22722",
+      "createdAt": "2026-05-24T21:18:42.722Z",
+      "updatedAt": "2026-05-24T21:18:42.722Z",
+      "matchId": "id_sdyua8x3y_22717",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_k103jsxm3_98642",
+      "createdAt": "2026-05-25T16:56:38.642Z",
+      "updatedAt": "2026-05-25T16:56:38.642Z",
+      "matchId": "id_m46ai6bco_98636",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "HELD",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_u5l5w9q6n_38983",
+      "createdAt": "2026-05-25T16:58:58.983Z",
+      "updatedAt": "2026-05-25T17:21:09.083Z",
+      "matchId": "id_0fex8sopx_38978",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_7chxut9a6_84982",
+      "createdAt": "2026-05-25T18:04:44.982Z",
+      "updatedAt": "2026-05-25T18:06:20.835Z",
+      "matchId": "id_qsij370d4_84976",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_ttt1nja44_74759",
+      "createdAt": "2026-05-25T18:31:14.759Z",
+      "updatedAt": "2026-05-25T18:35:20.130Z",
+      "matchId": "id_ixop36sl5_74752",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_zc6p3cdfz_35870",
+      "createdAt": "2026-05-26T17:28:55.870Z",
+      "updatedAt": "2026-05-26T17:31:32.192Z",
+      "matchId": "id_6qec3c5b4_35864",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_6ikqqfaa2_03231",
+      "createdAt": "2026-05-26T17:50:03.231Z",
+      "updatedAt": "2026-05-26T17:50:23.410Z",
+      "matchId": "id_mqnp4yc2x_03224",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_w8sykbbph_03862",
+      "createdAt": "2026-05-26T17:58:23.862Z",
+      "updatedAt": "2026-05-26T17:58:45.360Z",
+      "matchId": "id_c2k3k2m9r_03856",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_rgyw822qf_44890",
+      "createdAt": "2026-05-26T18:05:44.890Z",
+      "updatedAt": "2026-05-26T18:05:58.536Z",
+      "matchId": "id_s2iuj2vz1_44857",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_v4ov2ouww_98895",
+      "createdAt": "2026-05-26T18:13:18.895Z",
+      "updatedAt": "2026-05-26T18:13:40.990Z",
+      "matchId": "id_785hdfcb9_98886",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_uc0x2uisj_64878",
+      "createdAt": "2026-05-26T18:17:44.878Z",
+      "updatedAt": "2026-05-26T18:18:05.862Z",
+      "matchId": "id_nzu18g3fg_64871",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_c8tpos9yu_14779",
+      "createdAt": "2026-05-26T18:18:34.779Z",
+      "updatedAt": "2026-05-26T18:19:01.200Z",
+      "matchId": "id_qyjufqxk7_14774",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_bx3dkl0y3_31359",
+      "createdAt": "2026-05-26T18:22:11.359Z",
+      "updatedAt": "2026-05-26T18:22:34.409Z",
+      "matchId": "id_9wiy74gfa_31350",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_c92wouorv_95438",
+      "createdAt": "2026-05-26T18:23:15.438Z",
+      "updatedAt": "2026-05-26T18:23:37.388Z",
+      "matchId": "id_5f9a1i40w_95429",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_jsj2y895g_10550",
+      "createdAt": "2026-05-26T18:25:10.550Z",
+      "updatedAt": "2026-05-26T18:25:43.047Z",
+      "matchId": "id_ryibn97k6_10536",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_mfaotxykh_90650",
+      "createdAt": "2026-05-26T18:28:10.650Z",
+      "updatedAt": "2026-05-26T18:28:51.071Z",
+      "matchId": "id_f78bp17iz_90639",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_xqb9wd6y0_93089",
+      "createdAt": "2026-05-26T18:29:53.089Z",
+      "updatedAt": "2026-05-26T18:30:54.990Z",
+      "matchId": "id_ov1q9en14_93077",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_vf2gs6j2h_20776",
+      "createdAt": "2026-05-26T18:37:00.776Z",
+      "updatedAt": "2026-05-26T18:38:00.155Z",
+      "matchId": "id_coxmlj6ih_20766",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_okpmmbex4_56251",
+      "createdAt": "2026-05-26T18:45:56.252Z",
+      "updatedAt": "2026-05-26T18:47:16.061Z",
+      "matchId": "id_8ei53dhnq_56239",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_wkcyc0sm9_03237",
+      "createdAt": "2026-05-26T20:46:43.237Z",
+      "updatedAt": "2026-05-26T20:47:08.035Z",
+      "matchId": "id_8lcf0wkih_03230",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_95k0vqg41_71953",
+      "createdAt": "2026-05-26T20:47:51.953Z",
+      "updatedAt": "2026-05-26T20:48:11.233Z",
+      "matchId": "id_00n3oxptm_71946",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_eucjbmyn9_05574",
+      "createdAt": "2026-05-27T18:08:25.574Z",
+      "updatedAt": "2026-05-27T18:08:50.621Z",
+      "matchId": "id_tzfdtswpp_05567",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_iz2masuj3_56064",
+      "createdAt": "2026-05-27T18:09:16.064Z",
+      "updatedAt": "2026-05-27T18:09:57.749Z",
+      "matchId": "id_f8uaq0hi1_56058",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_hlxyq8a63_89962",
+      "createdAt": "2026-05-27T18:11:29.962Z",
+      "updatedAt": "2026-05-27T18:11:54.607Z",
+      "matchId": "id_huzzi5zqv_89949",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    }
+  ],
+  "wagerTransaction": [
+    {
+      "id": "id_y2ogwjkfx_70659",
+      "createdAt": "2026-05-25T16:56:10.659Z",
+      "updatedAt": "2026-05-25T16:56:10.659Z",
+      "escrowId": "id_84qwsw4d7_01644",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_acfe1n5ff_70663",
+      "createdAt": "2026-05-25T16:56:10.663Z",
+      "updatedAt": "2026-05-25T16:56:10.663Z",
+      "escrowId": "id_84qwsw4d7_01644",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_fjxzu7w56_69086",
+      "createdAt": "2026-05-25T17:21:09.086Z",
+      "updatedAt": "2026-05-25T17:21:09.086Z",
+      "escrowId": "id_u5l5w9q6n_38983",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_hlfxx43yb_69089",
+      "createdAt": "2026-05-25T17:21:09.089Z",
+      "updatedAt": "2026-05-25T17:21:09.089Z",
+      "escrowId": "id_u5l5w9q6n_38983",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_gfrnpdj3f_80839",
+      "createdAt": "2026-05-25T18:06:20.839Z",
+      "updatedAt": "2026-05-25T18:06:20.839Z",
+      "escrowId": "id_7chxut9a6_84982",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_871dtysky_80852",
+      "createdAt": "2026-05-25T18:06:20.852Z",
+      "updatedAt": "2026-05-25T18:06:20.852Z",
+      "escrowId": "id_7chxut9a6_84982",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_bt0u6t0lt_20135",
+      "createdAt": "2026-05-25T18:35:20.135Z",
+      "updatedAt": "2026-05-25T18:35:20.135Z",
+      "escrowId": "id_ttt1nja44_74759",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_g9zq0cxhd_20139",
+      "createdAt": "2026-05-25T18:35:20.139Z",
+      "updatedAt": "2026-05-25T18:35:20.139Z",
+      "escrowId": "id_ttt1nja44_74759",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_halz6dlkl_92197",
+      "createdAt": "2026-05-26T17:31:32.197Z",
+      "updatedAt": "2026-05-26T17:31:32.197Z",
+      "escrowId": "id_zc6p3cdfz_35870",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_tnpz7bdky_92201",
+      "createdAt": "2026-05-26T17:31:32.201Z",
+      "updatedAt": "2026-05-26T17:31:32.201Z",
+      "escrowId": "id_zc6p3cdfz_35870",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_dnzej6emv_23413",
+      "createdAt": "2026-05-26T17:50:23.413Z",
+      "updatedAt": "2026-05-26T17:50:23.413Z",
+      "escrowId": "id_6ikqqfaa2_03231",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_9t5nmm42k_23416",
+      "createdAt": "2026-05-26T17:50:23.416Z",
+      "updatedAt": "2026-05-26T17:50:23.416Z",
+      "escrowId": "id_6ikqqfaa2_03231",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_5wh4i22n7_25364",
+      "createdAt": "2026-05-26T17:58:45.364Z",
+      "updatedAt": "2026-05-26T17:58:45.364Z",
+      "escrowId": "id_w8sykbbph_03862",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_ihlpskcpz_25368",
+      "createdAt": "2026-05-26T17:58:45.368Z",
+      "updatedAt": "2026-05-26T17:58:45.368Z",
+      "escrowId": "id_w8sykbbph_03862",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_pbxved35o_58541",
+      "createdAt": "2026-05-26T18:05:58.541Z",
+      "updatedAt": "2026-05-26T18:05:58.541Z",
+      "escrowId": "id_rgyw822qf_44890",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_fu835gpr8_58547",
+      "createdAt": "2026-05-26T18:05:58.547Z",
+      "updatedAt": "2026-05-26T18:05:58.547Z",
+      "escrowId": "id_rgyw822qf_44890",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_3akwbs4sh_20994",
+      "createdAt": "2026-05-26T18:13:40.994Z",
+      "updatedAt": "2026-05-26T18:13:40.994Z",
+      "escrowId": "id_v4ov2ouww_98895",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_kv6l3kh9s_20998",
+      "createdAt": "2026-05-26T18:13:40.998Z",
+      "updatedAt": "2026-05-26T18:13:40.998Z",
+      "escrowId": "id_v4ov2ouww_98895",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_tnjm74net_85865",
+      "createdAt": "2026-05-26T18:18:05.865Z",
+      "updatedAt": "2026-05-26T18:18:05.865Z",
+      "escrowId": "id_uc0x2uisj_64878",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_x5auvasgx_85869",
+      "createdAt": "2026-05-26T18:18:05.869Z",
+      "updatedAt": "2026-05-26T18:18:05.869Z",
+      "escrowId": "id_uc0x2uisj_64878",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_rxq4mu6nu_41203",
+      "createdAt": "2026-05-26T18:19:01.203Z",
+      "updatedAt": "2026-05-26T18:19:01.203Z",
+      "escrowId": "id_c8tpos9yu_14779",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_12sghgzyy_41206",
+      "createdAt": "2026-05-26T18:19:01.206Z",
+      "updatedAt": "2026-05-26T18:19:01.206Z",
+      "escrowId": "id_c8tpos9yu_14779",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_ocw1pza41_54413",
+      "createdAt": "2026-05-26T18:22:34.413Z",
+      "updatedAt": "2026-05-26T18:22:34.413Z",
+      "escrowId": "id_bx3dkl0y3_31359",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_j70xnhbfz_54417",
+      "createdAt": "2026-05-26T18:22:34.417Z",
+      "updatedAt": "2026-05-26T18:22:34.418Z",
+      "escrowId": "id_bx3dkl0y3_31359",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_2xe80sz3h_17393",
+      "createdAt": "2026-05-26T18:23:37.393Z",
+      "updatedAt": "2026-05-26T18:23:37.393Z",
+      "escrowId": "id_c92wouorv_95438",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_v80kwtg9f_17398",
+      "createdAt": "2026-05-26T18:23:37.398Z",
+      "updatedAt": "2026-05-26T18:23:37.398Z",
+      "escrowId": "id_c92wouorv_95438",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_87zk5xtu2_43050",
+      "createdAt": "2026-05-26T18:25:43.050Z",
+      "updatedAt": "2026-05-26T18:25:43.050Z",
+      "escrowId": "id_jsj2y895g_10550",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_rgfnmcvbw_43054",
+      "createdAt": "2026-05-26T18:25:43.054Z",
+      "updatedAt": "2026-05-26T18:25:43.054Z",
+      "escrowId": "id_jsj2y895g_10550",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_97fl055p6_31076",
+      "createdAt": "2026-05-26T18:28:51.076Z",
+      "updatedAt": "2026-05-26T18:28:51.076Z",
+      "escrowId": "id_mfaotxykh_90650",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_2mtuz3evz_31082",
+      "createdAt": "2026-05-26T18:28:51.082Z",
+      "updatedAt": "2026-05-26T18:28:51.082Z",
+      "escrowId": "id_mfaotxykh_90650",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_hto9dnooi_54995",
+      "createdAt": "2026-05-26T18:30:54.995Z",
+      "updatedAt": "2026-05-26T18:30:54.995Z",
+      "escrowId": "id_xqb9wd6y0_93089",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_685yf0c8e_54999",
+      "createdAt": "2026-05-26T18:30:54.999Z",
+      "updatedAt": "2026-05-26T18:30:54.999Z",
+      "escrowId": "id_xqb9wd6y0_93089",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_4pes5satc_80160",
+      "createdAt": "2026-05-26T18:38:00.160Z",
+      "updatedAt": "2026-05-26T18:38:00.160Z",
+      "escrowId": "id_vf2gs6j2h_20776",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_clvmz8ax3_80163",
+      "createdAt": "2026-05-26T18:38:00.163Z",
+      "updatedAt": "2026-05-26T18:38:00.163Z",
+      "escrowId": "id_vf2gs6j2h_20776",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_w0966cb6l_36065",
+      "createdAt": "2026-05-26T18:47:16.065Z",
+      "updatedAt": "2026-05-26T18:47:16.065Z",
+      "escrowId": "id_okpmmbex4_56251",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_ij7iu88xg_36070",
+      "createdAt": "2026-05-26T18:47:16.070Z",
+      "updatedAt": "2026-05-26T18:47:16.070Z",
+      "escrowId": "id_okpmmbex4_56251",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_3sv7lf4xb_28040",
+      "createdAt": "2026-05-26T20:47:08.040Z",
+      "updatedAt": "2026-05-26T20:47:08.040Z",
+      "escrowId": "id_wkcyc0sm9_03237",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_x31lh37y3_28044",
+      "createdAt": "2026-05-26T20:47:08.044Z",
+      "updatedAt": "2026-05-26T20:47:08.044Z",
+      "escrowId": "id_wkcyc0sm9_03237",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_jb5lhgmmd_91237",
+      "createdAt": "2026-05-26T20:48:11.237Z",
+      "updatedAt": "2026-05-26T20:48:11.237Z",
+      "escrowId": "id_95k0vqg41_71953",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_lsu5vutjq_91243",
+      "createdAt": "2026-05-26T20:48:11.243Z",
+      "updatedAt": "2026-05-26T20:48:11.243Z",
+      "escrowId": "id_95k0vqg41_71953",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_jx2dm2b3r_30626",
+      "createdAt": "2026-05-27T18:08:50.626Z",
+      "updatedAt": "2026-05-27T18:08:50.626Z",
+      "escrowId": "id_eucjbmyn9_05574",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_p8ybbzm9j_30631",
+      "createdAt": "2026-05-27T18:08:50.631Z",
+      "updatedAt": "2026-05-27T18:08:50.631Z",
+      "escrowId": "id_eucjbmyn9_05574",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_7x5lzgq3b_97753",
+      "createdAt": "2026-05-27T18:09:57.753Z",
+      "updatedAt": "2026-05-27T18:09:57.753Z",
+      "escrowId": "id_iz2masuj3_56064",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_zejiw06rf_97758",
+      "createdAt": "2026-05-27T18:09:57.758Z",
+      "updatedAt": "2026-05-27T18:09:57.758Z",
+      "escrowId": "id_iz2masuj3_56064",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_x4n2hzdc0_14611",
+      "createdAt": "2026-05-27T18:11:54.611Z",
+      "updatedAt": "2026-05-27T18:11:54.611Z",
+      "escrowId": "id_hlxyq8a63_89962",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_uorjbql9s_14617",
+      "createdAt": "2026-05-27T18:11:54.617Z",
+      "updatedAt": "2026-05-27T18:11:54.617Z",
+      "escrowId": "id_hlxyq8a63_89962",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    }
+  ],
+  "matchReplay": [
+    {
+      "id": "id_rzr6bszuf_63484",
+      "createdAt": "2026-05-25T17:21:03.484Z",
+      "updatedAt": "2026-05-25T17:21:03.484Z",
+      "matchId": "id_pdho4t1nd_01641",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":100,\"e\":\"forfeit\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "3c5404055691e2b0b97ac2547d873f5ed814626a802ab2b55518fad04f89237b"
+    },
+    {
+      "id": "id_xedkd303v_67103",
+      "createdAt": "2026-05-25T17:21:07.103Z",
+      "updatedAt": "2026-05-25T17:21:07.103Z",
+      "matchId": "id_0fex8sopx_38978",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "replayData": "{\"events\":[{\"t\":100,\"e\":\"forfeit\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "76423520143ee55fb02ff1f1cd77821f9d355a36c0ab45411a647b8efebaece4"
+    },
+    {
+      "id": "id_c02neukkr_08135",
+      "createdAt": "2026-05-25T17:40:08.135Z",
+      "updatedAt": "2026-05-25T17:40:08.135Z",
+      "matchId": "id_xukw1psmj_69124",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "292c8a606a83cb6dde1732e86388a3d1257e228bc5ed20d123d551706e9b26e2"
+    },
+    {
+      "id": "id_uzk09062v_41615",
+      "createdAt": "2026-05-25T17:40:41.615Z",
+      "updatedAt": "2026-05-25T17:40:41.615Z",
+      "matchId": "id_2mbdvo2m9_91089",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "d055f9d342922a0945d3d18f8ae3c9f688444004eb87bcbc2ebaaf12dc425275"
+    },
+    {
+      "id": "id_kh5wncswj_12365",
+      "createdAt": "2026-05-25T17:43:32.365Z",
+      "updatedAt": "2026-05-25T17:43:32.365Z",
+      "matchId": "id_bk07so8eg_91462",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "d3f1eeee7a3921b5c19575db1955c42ad60eac1accb7bc57549587bfc0c8eba3"
+    },
+    {
+      "id": "id_uhgifla9d_60748",
+      "createdAt": "2026-05-25T17:46:00.748Z",
+      "updatedAt": "2026-05-25T17:46:00.748Z",
+      "matchId": "id_2ifno3xei_01612",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":100,\"e\":\"forfeit\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "2aeb78c9ef591a88b6ee469b96afb29cb8064985976493674b3c80dfca686182"
+    },
+    {
+      "id": "id_3kd122clk_63179",
+      "createdAt": "2026-05-25T17:46:03.179Z",
+      "updatedAt": "2026-05-25T17:46:03.179Z",
+      "matchId": "id_2ifno3xei_01612",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":100,\"e\":\"forfeit\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "2aeb78c9ef591a88b6ee469b96afb29cb8064985976493674b3c80dfca686182"
+    },
+    {
+      "id": "id_lp18lzg8z_69439",
+      "createdAt": "2026-05-25T18:06:09.439Z",
+      "updatedAt": "2026-05-25T18:06:09.439Z",
+      "matchId": "id_qsij370d4_84976",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "replayData": "{\"events\":[]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "af0c628f1b3599a225fdb65397e7db4b1454cee10396e073bbba543cf39ee17f"
+    },
+    {
+      "id": "id_gzupfhgls_21518",
+      "createdAt": "2026-05-25T18:35:21.518Z",
+      "updatedAt": "2026-05-25T18:35:21.518Z",
+      "matchId": "id_ixop36sl5_74752",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":100,\"e\":\"forfeit\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "8cb0ed98056776381d20c0d36b24c89470f457ec1078c4c81a687d4784a6804c"
+    },
+    {
+      "id": "id_kly9x1vmb_92794",
+      "createdAt": "2026-05-26T17:31:32.794Z",
+      "updatedAt": "2026-05-26T17:31:32.794Z",
+      "matchId": "id_6qec3c5b4_35864",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":100,\"e\":\"forfeit\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "f6b793e834dc8e8e67974624655a88b212d368de1e9f7840c29004d96f2c6395"
+    },
+    {
+      "id": "id_jpl0m2w23_23923",
+      "createdAt": "2026-05-26T17:50:23.923Z",
+      "updatedAt": "2026-05-26T17:50:23.923Z",
+      "matchId": "id_mqnp4yc2x_03224",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":4828,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":5126,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":5689,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6439,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7439,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7891,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7988,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8377,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8405,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8607,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9093,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9572,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10205,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10510,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10677,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11441,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11991,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12623,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12943,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13560,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14172,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14394,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14394,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14457,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14457,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 14457,
+      "seed": "system-seed-v1",
+      "checksum": "6a28bf4d44ee47fe962414c1d58afa8f083fb39e88b6552c8813476f4403277a"
+    },
+    {
+      "id": "id_tj92lnnjb_26151",
+      "createdAt": "2026-05-26T17:58:46.151Z",
+      "updatedAt": "2026-05-26T17:58:46.151Z",
+      "matchId": "id_c2k3k2m9r_03856",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":1,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":6090,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6673,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6853,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6937,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7569,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7785,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8201,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8452,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8653,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9000,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9272,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9640,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9751,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9938,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10523,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10668,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11050,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11119,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11668,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11703,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12440,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13767,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13767,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 13767,
+      "seed": "system-seed-v1",
+      "checksum": "8757ff4770ecc12528d9daec99f8670734d2d610acb594852f7c9dc40f8cc4b8"
+    },
+    {
+      "id": "id_8skbbrigy_43600",
+      "createdAt": "2026-05-26T18:00:43.600Z",
+      "updatedAt": "2026-05-26T18:00:43.600Z",
+      "matchId": "id_72b17w0cc_10848",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":5074,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":5741,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6324,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6942,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6956,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7491,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8061,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8144,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8255,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9172,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9840,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10361,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10409,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10993,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11222,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11945,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12028,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12111,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12473,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13341,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13710,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13890,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13994,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14592,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15245,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16044,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16044,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 16044,
+      "seed": "system-seed-v1",
+      "checksum": "330196bd50a98e767c2751ce0cfd98b78a3c62bc768ee93d5dd122f69b7055ae"
+    },
+    {
+      "id": "id_9w8r8kkce_21706",
+      "createdAt": "2026-05-26T18:13:41.706Z",
+      "updatedAt": "2026-05-26T18:13:41.706Z",
+      "matchId": "id_785hdfcb9_98886",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":5794,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7808,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8391,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8975,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9843,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10476,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11094,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11205,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11677,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12289,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12289,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12428,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12858,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13776,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14359,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14992,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15075,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15624,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15693,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15860,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16257,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16312,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16465,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17146,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17229,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16328,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 16328,
+      "seed": "system-seed-v1",
+      "checksum": "913a9bf9fc89e1ae096fce5cc7b56e647d748e13af31d0f12b7c9caf7045c50d"
+    },
+    {
+      "id": "id_4z4zolmhv_86536",
+      "createdAt": "2026-05-26T18:18:06.536Z",
+      "updatedAt": "2026-05-26T18:18:06.536Z",
+      "matchId": "id_nzu18g3fg_64871",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":6594,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7629,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8149,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8296,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10449,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10894,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10894,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11165,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11200,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11811,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12527,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13013,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13180,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13381,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13444,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13517,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13763,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14347,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14812,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14834,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15347,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15347,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 15347,
+      "seed": "system-seed-v1",
+      "checksum": "fb15f349c972d0a21acd72fdbdafb216a1f28b3e8ff1454ded935a8da640955d"
+    },
+    {
+      "id": "id_himcq2y14_41330",
+      "createdAt": "2026-05-26T18:19:01.330Z",
+      "updatedAt": "2026-05-26T18:19:01.330Z",
+      "matchId": "id_qyjufqxk7_14774",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":100,\"e\":\"forfeit\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "5515cbd4026425f3ee1e691178b78837cf9fc73b63f1f2d3a63d7f311246994c"
+    },
+    {
+      "id": "id_4c9u5epko_29751",
+      "createdAt": "2026-05-26T20:47:09.751Z",
+      "updatedAt": "2026-05-26T20:47:09.751Z",
+      "matchId": "id_8lcf0wkih_03230",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":6101,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6803,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7268,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7268,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7532,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7581,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7831,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7998,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8185,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8200,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8498,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8616,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9283,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9498,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9832,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10485,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10582,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11132,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11300,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11500,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11833,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11883,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12669,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12871,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13134,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13134,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 13134,
+      "seed": "system-seed-v1",
+      "checksum": "04dd2db9d5a89b1677d5b9a5400fb88dbe2cdc4ac91ab25b311be912c8626c0d"
+    },
+    {
+      "id": "id_m1kwozbs5_91472",
+      "createdAt": "2026-05-26T20:48:11.472Z",
+      "updatedAt": "2026-05-26T20:48:11.472Z",
+      "matchId": "id_00n3oxptm_71946",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "replayData": "{\"events\":[{\"t\":100,\"e\":\"forfeit\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 100,
+      "seed": "system-seed-v1",
+      "checksum": "fd0e369f571acfb6103e3f93b06b7d8af1c40ef2237e4ed07bd828b7274517cd"
+    },
+    {
+      "id": "id_f09kqpa5z_31451",
+      "createdAt": "2026-05-27T18:08:51.451Z",
+      "updatedAt": "2026-05-27T18:08:51.451Z",
+      "matchId": "id_tzfdtswpp_05567",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":4569,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9021,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9021,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9202,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9619,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10237,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10522,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10786,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11203,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11633,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11752,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13370,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14017,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14586,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14739,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15218,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15337,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15483,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16018,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16052,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17171,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17518,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17519,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 17519,
+      "seed": "system-seed-v1",
+      "checksum": "c0fd10addda07c232d69532038dc5f6ccade6e3dfb7cb0151577a533235ea417"
+    },
+    {
+      "id": "id_4upu8nz63_98306",
+      "createdAt": "2026-05-27T18:09:58.306Z",
+      "updatedAt": "2026-05-27T18:09:58.306Z",
+      "matchId": "id_f8uaq0hi1_56058",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":5234,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":5970,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6518,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6949,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7185,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8471,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10499,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10701,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11166,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11236,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11771,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11785,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12403,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12438,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13036,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13966,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13987,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15002,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15683,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16252,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16836,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17003,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17004,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 17004,
+      "seed": "system-seed-v1",
+      "checksum": "6ba9f4fae850a3fe78cecacd551f7cc4ba264c70355b1eac64a724f1e847ffd9"
+    },
+    {
+      "id": "id_ds1sxrhs3_15075",
+      "createdAt": "2026-05-27T18:11:55.075Z",
+      "updatedAt": "2026-05-27T18:11:55.075Z",
+      "matchId": "id_huzzi5zqv_89949",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":5210,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7211,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7211,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7308,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7940,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8461,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9142,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9441,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9761,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10045,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10407,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10546,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10643,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10657,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11011,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11095,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11657,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11658,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11956,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12241,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12811,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14409,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14410,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14478,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14479,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 14479,
+      "seed": "system-seed-v1",
+      "checksum": "8b3a76e4e684a61a415572d492c69b1f5009f570d3155f63bed7a39886481b72"
+    },
+    {
+      "id": "id_nwbfy6vrn_36363",
+      "createdAt": "2026-05-27T18:33:56.363Z",
+      "updatedAt": "2026-05-27T18:33:56.363Z",
+      "matchId": "id_gm6zo4p7n_01142",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":3483,\"e\":\"fire\",\"x\":100,\"y\":300},{\"t\":3636,\"e\":\"fire\",\"x\":100,\"y\":300},{\"t\":3691,\"e\":\"dir_change\",\"x\":100,\"y\":289,\"val\":\"0,-1\"},{\"t\":3788,\"e\":\"fire\",\"x\":100,\"y\":260},{\"t\":3941,\"e\":\"dir_change\",\"x\":100,\"y\":204,\"val\":\"0,-1\"},{\"t\":3941,\"e\":\"fire\",\"x\":100,\"y\":204},{\"t\":4094,\"e\":\"fire\",\"x\":100,\"y\":153},{\"t\":4186,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":4186,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":50},{\"t\":4186,\"e\":\"kill\",\"x\":620,\"y\":295},{\"t\":4193,\"e\":\"dir_change\",\"x\":100,\"y\":119,\"val\":\"0,-1\"},{\"t\":4247,\"e\":\"fire\",\"x\":100,\"y\":102},{\"t\":4400,\"e\":\"fire\",\"x\":100,\"y\":102},{\"t\":4441,\"e\":\"dir_change\",\"x\":100,\"y\":102,\"val\":\"0,0\"},{\"t\":4553,\"e\":\"fire\",\"x\":100,\"y\":102},{\"t\":4692,\"e\":\"dir_change\",\"x\":100,\"y\":124,\"val\":\"0,1\"},{\"t\":4706,\"e\":\"fire\",\"x\":100,\"y\":130},{\"t\":4858,\"e\":\"fire\",\"x\":100,\"y\":181},{\"t\":4942,\"e\":\"dir_change\",\"x\":100,\"y\":209,\"val\":\"0,1\"},{\"t\":5011,\"e\":\"fire\",\"x\":100,\"y\":232},{\"t\":5164,\"e\":\"fire\",\"x\":100,\"y\":283},{\"t\":5192,\"e\":\"dir_change\",\"x\":100,\"y\":294,\"val\":\"0,1\"},{\"t\":5317,\"e\":\"fire\",\"x\":100,\"y\":334},{\"t\":5442,\"e\":\"dir_change\",\"x\":100,\"y\":379,\"val\":\"0,1\"},{\"t\":5470,\"e\":\"fire\",\"x\":100,\"y\":385},{\"t\":5692,\"e\":\"dir_change\",\"x\":100,\"y\":436,\"val\":\"0,0\"},{\"t\":6206,\"e\":\"dir_change\",\"x\":100,\"y\":425,\"val\":\"0,-1\"},{\"t\":6456,\"e\":\"dir_change\",\"x\":100,\"y\":340,\"val\":\"0,-1\"},{\"t\":6547,\"e\":\"fire\",\"x\":100,\"y\":311},{\"t\":6699,\"e\":\"fire\",\"x\":100,\"y\":260},{\"t\":6706,\"e\":\"dir_change\",\"x\":100,\"y\":255,\"val\":\"0,-1\"},{\"t\":6852,\"e\":\"fire\",\"x\":100,\"y\":209},{\"t\":6957,\"e\":\"dir_change\",\"x\":100,\"y\":170,\"val\":\"0,-1\"},{\"t\":7005,\"e\":\"fire\",\"x\":100,\"y\":158},{\"t\":7207,\"e\":\"dir_change\",\"x\":100,\"y\":85,\"val\":\"0,-1\"},{\"t\":7464,\"e\":\"dir_change\",\"x\":100,\"y\":12,\"val\":\"0,-1\"},{\"t\":11299,\"e\":\"damage\",\"x\":100,\"y\":12},{\"t\":12119,\"e\":\"damage\",\"x\":100,\"y\":12},{\"t\":13099,\"e\":\"damage\",\"x\":100,\"y\":12},{\"t\":13933,\"e\":\"damage\",\"x\":100,\"y\":12},{\"t\":14155,\"e\":\"damage\",\"x\":100,\"y\":12},{\"t\":14231,\"e\":\"dir_change\",\"x\":100,\"y\":23,\"val\":\"0,1\"},{\"t\":14481,\"e\":\"dir_change\",\"x\":100,\"y\":108,\"val\":\"0,1\"},{\"t\":14731,\"e\":\"dir_change\",\"x\":100,\"y\":193,\"val\":\"0,1\"},{\"t\":14981,\"e\":\"dir_change\",\"x\":43,\"y\":233,\"val\":\"-1,0\"},{\"t\":15232,\"e\":\"dir_change\",\"x\":15,\"y\":233,\"val\":\"0,0\"},{\"t\":15530,\"e\":\"dir_change\",\"x\":15,\"y\":244,\"val\":\"0,1\"},{\"t\":15783,\"e\":\"dir_change\",\"x\":15,\"y\":329,\"val\":\"0,0\"},{\"t\":17406,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":17636,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":18790,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":19387,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":19790,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":19790,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":19873,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":19907,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":19907,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":20053,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":20255,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":20623,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":20686,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":21353,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":21888,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":22770,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":23020,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":23340,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":23958,\"e\":\"damage\",\"x\":15,\"y\":329},{\"t\":23959,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 50,
+      "duration": 23959,
+      "seed": "system-seed-v1",
+      "checksum": "079c9990fd65b7931e16c58f5919963eaf1729ce7040580d60efa0f53bb51616"
+    },
+    {
+      "id": "id_qqn4jwn7h_53510",
+      "createdAt": "2026-05-27T18:34:13.510Z",
+      "updatedAt": "2026-05-27T18:34:13.510Z",
+      "matchId": "id_n1t7nqeej_04700",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":929,\"e\":\"dir_change\",\"x\":100,\"y\":311,\"val\":\"0,1\"},{\"t\":1179,\"e\":\"dir_change\",\"x\":100,\"y\":396,\"val\":\"0,1\"},{\"t\":1429,\"e\":\"dir_change\",\"x\":100,\"y\":436,\"val\":\"0,0\"},{\"t\":2124,\"e\":\"dir_change\",\"x\":89,\"y\":436,\"val\":\"-1,0\"},{\"t\":2374,\"e\":\"dir_change\",\"x\":72,\"y\":464,\"val\":\"0,1\"},{\"t\":2631,\"e\":\"dir_change\",\"x\":72,\"y\":549,\"val\":\"0,1\"},{\"t\":2882,\"e\":\"dir_change\",\"x\":72,\"y\":561,\"val\":\"0,0\"},{\"t\":3479,\"e\":\"dir_change\",\"x\":72,\"y\":572,\"val\":\"0,1\"},{\"t\":3729,\"e\":\"dir_change\",\"x\":72,\"y\":588,\"val\":\"0,0\"},{\"t\":4959,\"e\":\"dir_change\",\"x\":72,\"y\":577,\"val\":\"0,-1\"},{\"t\":5209,\"e\":\"dir_change\",\"x\":72,\"y\":492,\"val\":\"0,-1\"},{\"t\":5459,\"e\":\"dir_change\",\"x\":72,\"y\":407,\"val\":\"0,-1\"},{\"t\":5709,\"e\":\"dir_change\",\"x\":72,\"y\":350,\"val\":\"0,0\"},{\"t\":7156,\"e\":\"damage\",\"x\":72,\"y\":350},{\"t\":7919,\"e\":\"dir_change\",\"x\":72,\"y\":339,\"val\":\"0,-1\"},{\"t\":8009,\"e\":\"damage\",\"x\":72,\"y\":310},{\"t\":8058,\"e\":\"damage\",\"x\":72,\"y\":293},{\"t\":8169,\"e\":\"dir_change\",\"x\":72,\"y\":254,\"val\":\"0,-1\"},{\"t\":8211,\"e\":\"fire\",\"x\":72,\"y\":242},{\"t\":8364,\"e\":\"fire\",\"x\":72,\"y\":186},{\"t\":8419,\"e\":\"dir_change\",\"x\":72,\"y\":169,\"val\":\"0,-1\"},{\"t\":8516,\"e\":\"fire\",\"x\":72,\"y\":135},{\"t\":8669,\"e\":\"dir_change\",\"x\":72,\"y\":101,\"val\":\"0,1\"},{\"t\":8669,\"e\":\"fire\",\"x\":72,\"y\":101},{\"t\":8822,\"e\":\"fire\",\"x\":72,\"y\":152},{\"t\":8919,\"e\":\"dir_change\",\"x\":72,\"y\":186,\"val\":\"0,1\"},{\"t\":8975,\"e\":\"fire\",\"x\":72,\"y\":203},{\"t\":9128,\"e\":\"fire\",\"x\":72,\"y\":254},{\"t\":9169,\"e\":\"dir_change\",\"x\":72,\"y\":271,\"val\":\"0,1\"},{\"t\":9281,\"e\":\"fire\",\"x\":72,\"y\":310},{\"t\":9427,\"e\":\"dir_change\",\"x\":72,\"y\":356,\"val\":\"0,1\"},{\"t\":9434,\"e\":\"fire\",\"x\":72,\"y\":361},{\"t\":9586,\"e\":\"fire\",\"x\":72,\"y\":412},{\"t\":9677,\"e\":\"dir_change\",\"x\":72,\"y\":441,\"val\":\"0,1\"},{\"t\":9711,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":9712,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":50},{\"t\":9712,\"e\":\"kill\",\"x\":177,\"y\":424},{\"t\":9739,\"e\":\"fire\",\"x\":72,\"y\":463},{\"t\":9892,\"e\":\"fire\",\"x\":72,\"y\":458},{\"t\":9969,\"e\":\"dir_change\",\"x\":72,\"y\":429,\"val\":\"0,-1\"},{\"t\":9990,\"e\":\"damage\",\"x\":72,\"y\":424},{\"t\":10045,\"e\":\"fire\",\"x\":72,\"y\":407},{\"t\":10198,\"e\":\"fire\",\"x\":100,\"y\":350},{\"t\":10219,\"e\":\"dir_change\",\"x\":106,\"y\":344,\"val\":\"1,-1\"},{\"t\":10351,\"e\":\"fire\",\"x\":151,\"y\":333},{\"t\":10469,\"e\":\"dir_change\",\"x\":191,\"y\":333,\"val\":\"1,0\"},{\"t\":10504,\"e\":\"fire\",\"x\":202,\"y\":333},{\"t\":10657,\"e\":\"fire\",\"x\":219,\"y\":333},{\"t\":10719,\"e\":\"dir_change\",\"x\":219,\"y\":333,\"val\":\"0,0\"},{\"t\":10809,\"e\":\"fire\",\"x\":242,\"y\":333},{\"t\":10962,\"e\":\"fire\",\"x\":293,\"y\":333},{\"t\":10969,\"e\":\"dir_change\",\"x\":298,\"y\":333,\"val\":\"1,0\"},{\"t\":11115,\"e\":\"fire\",\"x\":310,\"y\":288},{\"t\":11219,\"e\":\"dir_change\",\"x\":310,\"y\":254,\"val\":\"0,-1\"},{\"t\":11268,\"e\":\"fire\",\"x\":310,\"y\":237},{\"t\":11421,\"e\":\"fire\",\"x\":304,\"y\":186},{\"t\":11469,\"e\":\"dir_change\",\"x\":287,\"y\":169,\"val\":\"-1,-1\"},{\"t\":11574,\"e\":\"fire\",\"x\":253,\"y\":135},{\"t\":11719,\"e\":\"dir_change\",\"x\":202,\"y\":84,\"val\":\"-1,-1\"},{\"t\":11726,\"e\":\"fire\",\"x\":202,\"y\":84},{\"t\":11879,\"e\":\"fire\",\"x\":151,\"y\":33},{\"t\":11976,\"e\":\"dir_change\",\"x\":117,\"y\":12,\"val\":\"-1,-1\"},{\"t\":12032,\"e\":\"fire\",\"x\":94,\"y\":12},{\"t\":12185,\"e\":\"fire\",\"x\":123,\"y\":18},{\"t\":12193,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1.3141250000000098},{\"t\":12193,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":115},{\"t\":12193,\"e\":\"kill\",\"x\":716,\"y\":134},{\"t\":12227,\"e\":\"dir_change\",\"x\":123,\"y\":29,\"val\":\"0,1\"},{\"t\":12241,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":2.489457571428574},{\"t\":12241,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":239},{\"t\":12241,\"e\":\"kill\",\"x\":600,\"y\":71},{\"t\":12338,\"e\":\"fire\",\"x\":123,\"y\":69},{\"t\":12477,\"e\":\"dir_change\",\"x\":123,\"y\":114,\"val\":\"0,1\"},{\"t\":12491,\"e\":\"fire\",\"x\":123,\"y\":120},{\"t\":12644,\"e\":\"fire\",\"x\":123,\"y\":171},{\"t\":12734,\"e\":\"dir_change\",\"x\":123,\"y\":205,\"val\":\"0,1\"},{\"t\":12797,\"e\":\"fire\",\"x\":123,\"y\":227},{\"t\":12901,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":2.389415071428575},{\"t\":12949,\"e\":\"fire\",\"x\":123,\"y\":278},{\"t\":12984,\"e\":\"dir_change\",\"x\":123,\"y\":290,\"val\":\"0,1\"},{\"t\":13060,\"e\":\"damage\",\"x\":123,\"y\":312},{\"t\":13102,\"e\":\"fire\",\"x\":123,\"y\":329},{\"t\":13234,\"e\":\"dir_change\",\"x\":123,\"y\":375,\"val\":\"0,1\"},{\"t\":13255,\"e\":\"fire\",\"x\":123,\"y\":380},{\"t\":13408,\"e\":\"fire\",\"x\":123,\"y\":431},{\"t\":13484,\"e\":\"dir_change\",\"x\":123,\"y\":460,\"val\":\"0,1\"},{\"t\":13561,\"e\":\"fire\",\"x\":123,\"y\":482},{\"t\":13568,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":2.2893575714285683},{\"t\":13714,\"e\":\"fire\",\"x\":162,\"y\":482},{\"t\":13734,\"e\":\"dir_change\",\"x\":168,\"y\":482,\"val\":\"1,0\"},{\"t\":13867,\"e\":\"fire\",\"x\":202,\"y\":471},{\"t\":13875,\"e\":\"damage\",\"x\":202,\"y\":471},{\"t\":13985,\"e\":\"dir_change\",\"x\":202,\"y\":431,\"val\":\"0,-1\"},{\"t\":14020,\"e\":\"fire\",\"x\":202,\"y\":420},{\"t\":14041,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":2.7768539999999935},{\"t\":14041,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":377},{\"t\":14041,\"e\":\"kill\",\"x\":258,\"y\":419},{\"t\":14172,\"e\":\"fire\",\"x\":202,\"y\":369},{\"t\":14241,\"e\":\"dir_change\",\"x\":202,\"y\":346,\"val\":\"0,-1\"},{\"t\":14326,\"e\":\"fire\",\"x\":202,\"y\":318},{\"t\":14478,\"e\":\"fire\",\"x\":202,\"y\":267},{\"t\":14492,\"e\":\"dir_change\",\"x\":208,\"y\":267,\"val\":\"1,0\"},{\"t\":14631,\"e\":\"fire\",\"x\":259,\"y\":267},{\"t\":14700,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":2.676802499999989},{\"t\":14742,\"e\":\"dir_change\",\"x\":281,\"y\":284,\"val\":\"0,1\"},{\"t\":14784,\"e\":\"fire\",\"x\":281,\"y\":301},{\"t\":14936,\"e\":\"fire\",\"x\":281,\"y\":352},{\"t\":14992,\"e\":\"dir_change\",\"x\":281,\"y\":369,\"val\":\"0,1\"},{\"t\":15089,\"e\":\"fire\",\"x\":270,\"y\":403},{\"t\":15242,\"e\":\"fire\",\"x\":219,\"y\":454},{\"t\":15249,\"e\":\"dir_change\",\"x\":213,\"y\":460,\"val\":\"-1,0\"},{\"t\":15367,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":2.576755499999989},{\"t\":15395,\"e\":\"fire\",\"x\":168,\"y\":460},{\"t\":15499,\"e\":\"dir_change\",\"x\":128,\"y\":460,\"val\":\"-1,0\"},{\"t\":15548,\"e\":\"fire\",\"x\":111,\"y\":460},{\"t\":15701,\"e\":\"fire\",\"x\":60,\"y\":443},{\"t\":15749,\"e\":\"dir_change\",\"x\":43,\"y\":426,\"val\":\"-1,-1\"},{\"t\":15854,\"e\":\"fire\",\"x\":12,\"y\":392},{\"t\":15999,\"e\":\"dir_change\",\"x\":12,\"y\":341,\"val\":\"-1,-1\"},{\"t\":16007,\"e\":\"fire\",\"x\":12,\"y\":341},{\"t\":16034,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":2.4767084999999853},{\"t\":16159,\"e\":\"fire\",\"x\":46,\"y\":335},{\"t\":16249,\"e\":\"dir_change\",\"x\":80,\"y\":335,\"val\":\"1,0\"},{\"t\":16312,\"e\":\"fire\",\"x\":97,\"y\":335},{\"t\":16466,\"e\":\"fire\",\"x\":154,\"y\":346},{\"t\":16500,\"e\":\"dir_change\",\"x\":154,\"y\":358,\"val\":\"0,1\"},{\"t\":16618,\"e\":\"fire\",\"x\":165,\"y\":386},{\"t\":16701,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":2.3766554999999836},{\"t\":16750,\"e\":\"dir_change\",\"x\":210,\"y\":386,\"val\":\"1,0\"},{\"t\":16771,\"e\":\"fire\",\"x\":216,\"y\":386},{\"t\":16778,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":2.5885656428571293},{\"t\":16778,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":687},{\"t\":16778,\"e\":\"kill\",\"x\":314,\"y\":378},{\"t\":16924,\"e\":\"fire\",\"x\":216,\"y\":335},{\"t\":17000,\"e\":\"dir_change\",\"x\":216,\"y\":307,\"val\":\"0,-1\"},{\"t\":17076,\"e\":\"fire\",\"x\":210,\"y\":284},{\"t\":17229,\"e\":\"fire\",\"x\":159,\"y\":233},{\"t\":17250,\"e\":\"dir_change\",\"x\":148,\"y\":222,\"val\":\"-1,-1\"},{\"t\":17278,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":3.5348623571428246},{\"t\":17278,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":1111},{\"t\":17278,\"e\":\"kill\",\"x\":500,\"y\":346},{\"t\":17382,\"e\":\"fire\",\"x\":159,\"y\":182},{\"t\":17500,\"e\":\"dir_change\",\"x\":199,\"y\":182,\"val\":\"1,0\"},{\"t\":17535,\"e\":\"fire\",\"x\":210,\"y\":182},{\"t\":17688,\"e\":\"fire\",\"x\":261,\"y\":182},{\"t\":17750,\"e\":\"dir_change\",\"x\":284,\"y\":182,\"val\":\"1,0\"},{\"t\":17841,\"e\":\"fire\",\"x\":307,\"y\":159},{\"t\":17938,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":3.434807857142823},{\"t\":17993,\"e\":\"fire\",\"x\":307,\"y\":108},{\"t\":18000,\"e\":\"dir_change\",\"x\":307,\"y\":103,\"val\":\"0,-1\"},{\"t\":18146,\"e\":\"fire\",\"x\":273,\"y\":57},{\"t\":18251,\"e\":\"dir_change\",\"x\":233,\"y\":18,\"val\":\"-1,-1\"},{\"t\":18300,\"e\":\"fire\",\"x\":216,\"y\":12},{\"t\":18452,\"e\":\"fire\",\"x\":171,\"y\":12},{\"t\":18500,\"e\":\"dir_change\",\"x\":188,\"y\":12,\"val\":\"1,0\"},{\"t\":18605,\"e\":\"fire\",\"x\":222,\"y\":12},{\"t\":18605,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":3.3347623571428215},{\"t\":18757,\"e\":\"dir_change\",\"x\":256,\"y\":46,\"val\":\"0,1\"},{\"t\":18758,\"e\":\"fire\",\"x\":256,\"y\":46},{\"t\":18911,\"e\":\"fire\",\"x\":256,\"y\":97},{\"t\":19008,\"e\":\"dir_change\",\"x\":256,\"y\":131,\"val\":\"0,1\"},{\"t\":19064,\"e\":\"fire\",\"x\":256,\"y\":154},{\"t\":19217,\"e\":\"fire\",\"x\":250,\"y\":205},{\"t\":19258,\"e\":\"dir_change\",\"x\":239,\"y\":216,\"val\":\"-1,1\"},{\"t\":19272,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":3.2347123571428256},{\"t\":19369,\"e\":\"fire\",\"x\":199,\"y\":256},{\"t\":19377,\"e\":\"damage\",\"x\":199,\"y\":256},{\"t\":19508,\"e\":\"dir_change\",\"x\":154,\"y\":301,\"val\":\"-1,1\"},{\"t\":19522,\"e\":\"fire\",\"x\":148,\"y\":307},{\"t\":19675,\"e\":\"fire\",\"x\":97,\"y\":358},{\"t\":19758,\"e\":\"dir_change\",\"x\":69,\"y\":386,\"val\":\"-1,1\"},{\"t\":19827,\"e\":\"fire\",\"x\":46,\"y\":409},{\"t\":19938,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":3.13465935714282},{\"t\":19980,\"e\":\"fire\",\"x\":57,\"y\":426},{\"t\":20008,\"e\":\"dir_change\",\"x\":63,\"y\":426,\"val\":\"1,0\"},{\"t\":20126,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":3.290194928571403},{\"t\":20126,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":1275},{\"t\":20126,\"e\":\"kill\",\"x\":621,\"y\":304},{\"t\":20134,\"e\":\"fire\",\"x\":108,\"y\":426},{\"t\":20258,\"e\":\"dir_change\",\"x\":148,\"y\":420,\"val\":\"1,-1\"},{\"t\":20286,\"e\":\"fire\",\"x\":159,\"y\":409},{\"t\":20439,\"e\":\"fire\",\"x\":165,\"y\":358},{\"t\":20508,\"e\":\"dir_change\",\"x\":165,\"y\":335,\"val\":\"0,-1\"},{\"t\":20529,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":4.285826499999983},{\"t\":20529,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":1489},{\"t\":20529,\"e\":\"kill\",\"x\":569,\"y\":418},{\"t\":20592,\"e\":\"fire\",\"x\":165,\"y\":307},{\"t\":20745,\"e\":\"fire\",\"x\":165,\"y\":256},{\"t\":20758,\"e\":\"dir_change\",\"x\":165,\"y\":250,\"val\":\"0,-1\"},{\"t\":20897,\"e\":\"fire\",\"x\":171,\"y\":227},{\"t\":21008,\"e\":\"dir_change\",\"x\":205,\"y\":227,\"val\":\"1,0\"},{\"t\":21050,\"e\":\"fire\",\"x\":222,\"y\":227},{\"t\":21189,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":4.185776499999995},{\"t\":21203,\"e\":\"fire\",\"x\":273,\"y\":227},{\"t\":21258,\"e\":\"dir_change\",\"x\":290,\"y\":227,\"val\":\"1,0\"},{\"t\":21356,\"e\":\"fire\",\"x\":324,\"y\":227},{\"t\":21509,\"e\":\"dir_change\",\"x\":375,\"y\":244,\"val\":\"1,1\"},{\"t\":21509,\"e\":\"fire\",\"x\":375,\"y\":244},{\"t\":21662,\"e\":\"fire\",\"x\":386,\"y\":295},{\"t\":21759,\"e\":\"dir_change\",\"x\":386,\"y\":329,\"val\":\"0,1\"},{\"t\":21814,\"e\":\"fire\",\"x\":386,\"y\":352},{\"t\":21856,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":4.085732500000004},{\"t\":21912,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":4.784645714285716},{\"t\":21912,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":2063},{\"t\":21912,\"e\":\"kill\",\"x\":593,\"y\":282},{\"t\":21967,\"e\":\"fire\",\"x\":386,\"y\":403},{\"t\":22009,\"e\":\"dir_change\",\"x\":375,\"y\":414,\"val\":\"-1,1\"},{\"t\":22120,\"e\":\"fire\",\"x\":335,\"y\":454},{\"t\":22266,\"e\":\"dir_change\",\"x\":284,\"y\":471,\"val\":\"-1,0\"},{\"t\":22273,\"e\":\"fire\",\"x\":284,\"y\":471},{\"t\":22426,\"e\":\"fire\",\"x\":233,\"y\":471},{\"t\":22516,\"e\":\"dir_change\",\"x\":199,\"y\":471,\"val\":\"-1,0\"},{\"t\":22572,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":4.684592714285734},{\"t\":22579,\"e\":\"fire\",\"x\":182,\"y\":465},{\"t\":22732,\"e\":\"fire\",\"x\":159,\"y\":409},{\"t\":22767,\"e\":\"dir_change\",\"x\":159,\"y\":397,\"val\":\"0,-1\"},{\"t\":22885,\"e\":\"fire\",\"x\":159,\"y\":358},{\"t\":22961,\"e\":\"damage\",\"x\":159,\"y\":335},{\"t\":23023,\"e\":\"dir_change\",\"x\":159,\"y\":312,\"val\":\"0,-1\"},{\"t\":23037,\"e\":\"fire\",\"x\":159,\"y\":307},{\"t\":23190,\"e\":\"fire\",\"x\":188,\"y\":278},{\"t\":23239,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":4.584542714285745},{\"t\":23274,\"e\":\"dir_change\",\"x\":216,\"y\":278,\"val\":\"1,0\"},{\"t\":23295,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":5.283449714285736},{\"t\":23295,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":2327},{\"t\":23295,\"e\":\"kill\",\"x\":718,\"y\":460},{\"t\":23343,\"e\":\"fire\",\"x\":239,\"y\":278},{\"t\":23496,\"e\":\"fire\",\"x\":290,\"y\":278},{\"t\":23524,\"e\":\"dir_change\",\"x\":301,\"y\":278,\"val\":\"1,0\"},{\"t\":23649,\"e\":\"fire\",\"x\":307,\"y\":312},{\"t\":23774,\"e\":\"dir_change\",\"x\":307,\"y\":352,\"val\":\"0,1\"},{\"t\":23802,\"e\":\"fire\",\"x\":307,\"y\":363},{\"t\":23954,\"e\":\"fire\",\"x\":307,\"y\":414},{\"t\":23955,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":5.18339821428575},{\"t\":24024,\"e\":\"dir_change\",\"x\":284,\"y\":437,\"val\":\"-1,1\"},{\"t\":24073,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":6.0887962142857575},{\"t\":24073,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":2631},{\"t\":24073,\"e\":\"kill\",\"x\":841,\"y\":274},{\"t\":24107,\"e\":\"fire\",\"x\":256,\"y\":465},{\"t\":24128,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.260588928571476},{\"t\":24128,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":3502},{\"t\":24128,\"e\":\"kill\",\"x\":574,\"y\":353},{\"t\":24260,\"e\":\"fire\",\"x\":205,\"y\":516},{\"t\":24274,\"e\":\"dir_change\",\"x\":199,\"y\":516,\"val\":\"-1,0\"},{\"t\":24413,\"e\":\"fire\",\"x\":148,\"y\":516},{\"t\":24511,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":8.266804571428631},{\"t\":24511,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":3915},{\"t\":24511,\"e\":\"kill\",\"x\":736,\"y\":412},{\"t\":24524,\"e\":\"dir_change\",\"x\":114,\"y\":516,\"val\":\"-1,0\"},{\"t\":24566,\"e\":\"fire\",\"x\":97,\"y\":516},{\"t\":24719,\"e\":\"fire\",\"x\":46,\"y\":516},{\"t\":24774,\"e\":\"dir_change\",\"x\":29,\"y\":516,\"val\":\"-1,0\"},{\"t\":24872,\"e\":\"fire\",\"x\":12,\"y\":516},{\"t\":25024,\"e\":\"fire\",\"x\":12,\"y\":494},{\"t\":25031,\"e\":\"dir_change\",\"x\":12,\"y\":488,\"val\":\"0,-1\"},{\"t\":25170,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":8.166754571428589},{\"t\":25178,\"e\":\"fire\",\"x\":12,\"y\":443},{\"t\":25281,\"e\":\"dir_change\",\"x\":12,\"y\":403,\"val\":\"0,-1\"},{\"t\":25330,\"e\":\"fire\",\"x\":12,\"y\":386},{\"t\":25483,\"e\":\"fire\",\"x\":12,\"y\":335},{\"t\":25538,\"e\":\"dir_change\",\"x\":12,\"y\":318,\"val\":\"0,-1\"},{\"t\":25636,\"e\":\"fire\",\"x\":12,\"y\":284},{\"t\":25788,\"e\":\"dir_change\",\"x\":12,\"y\":273,\"val\":\"0,0\"},{\"t\":25837,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":8.066710571428539},{\"t\":26310,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":26506,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.966654571428512},{\"t\":27172,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.866604571428523},{\"t\":27838,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.766566571428529},{\"t\":28505,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.666509071428545},{\"t\":29172,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.566460571428556},{\"t\":29540,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":29839,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.466410571428569},{\"t\":30194,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":30312,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":30506,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.366363571428577},{\"t\":30944,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":31173,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.266307571428594},{\"t\":31541,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":31840,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.166257571428596},{\"t\":32174,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":32507,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":7.0662075714286},{\"t\":33174,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":6.966153071428612},{\"t\":33661,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":33841,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":6.866109071428628},{\"t\":34411,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":34508,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":6.76605157142863},{\"t\":34640,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":34960,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":34974,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":35175,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":6.666006071428642},{\"t\":35308,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":35578,\"e\":\"damage\",\"x\":12,\"y\":273},{\"t\":35579,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 3915,
+      "duration": 35579,
+      "seed": "system-seed-v1",
+      "checksum": "d166903580c1099ad883aad0200473812d9fcba28d752093a423a74a0ab8d84c"
+    }
+  ],
+  "leaderboardEntry": [
+    {
+      "id": "id_icl48484x_53150",
+      "createdAt": "2026-05-27T18:34:13.150Z",
+      "updatedAt": "2026-05-27T18:34:13.150Z",
+      "gameId": 5,
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "seasonId": null,
+      "rank": 1,
+      "trophies": 100
+    },
+    {
+      "id": "id_nixwixnxk_53158",
+      "createdAt": "2026-05-27T18:34:13.158Z",
+      "updatedAt": "2026-05-27T18:34:13.158Z",
+      "gameId": 5,
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "seasonId": null,
+      "rank": 2,
+      "trophies": 100
+    },
+    {
+      "id": "id_071gipjxo_53166",
+      "createdAt": "2026-05-27T18:34:13.166Z",
+      "updatedAt": "2026-05-27T18:34:13.166Z",
+      "gameId": 5,
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "seasonId": null,
+      "rank": 3,
+      "trophies": 100
+    },
+    {
+      "id": "id_lh4zyuer4_53174",
+      "createdAt": "2026-05-27T18:34:13.174Z",
+      "updatedAt": "2026-05-27T18:34:13.174Z",
+      "gameId": 5,
+      "userId": "ghost:system-bot",
+      "seasonId": null,
+      "rank": 4,
+      "trophies": 100
+    }
+  ],
+  "antiFraudFlag": [
+    {
+      "id": "id_vguygevpo_63477",
+      "createdAt": "2026-05-25T17:21:03.477Z",
+      "updatedAt": "2026-05-25T17:21:03.477Z",
+      "matchId": "id_pdho4t1nd_01641",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_938ddgvw0_67100",
+      "createdAt": "2026-05-25T17:21:07.100Z",
+      "updatedAt": "2026-05-25T17:21:07.100Z",
+      "matchId": "id_0fex8sopx_38978",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_14okdhnh5_08131",
+      "createdAt": "2026-05-25T17:40:08.131Z",
+      "updatedAt": "2026-05-25T17:40:08.131Z",
+      "matchId": "id_xukw1psmj_69124",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_l4mzd2lsr_41611",
+      "createdAt": "2026-05-25T17:40:41.611Z",
+      "updatedAt": "2026-05-25T17:40:41.611Z",
+      "matchId": "id_2mbdvo2m9_91089",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_qd4pjv8qk_12361",
+      "createdAt": "2026-05-25T17:43:32.361Z",
+      "updatedAt": "2026-05-25T17:43:32.361Z",
+      "matchId": "id_bk07so8eg_91462",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_gevg6s30z_60744",
+      "createdAt": "2026-05-25T17:46:00.744Z",
+      "updatedAt": "2026-05-25T17:46:00.744Z",
+      "matchId": "id_2ifno3xei_01612",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_vydpltrrk_63175",
+      "createdAt": "2026-05-25T17:46:03.175Z",
+      "updatedAt": "2026-05-25T17:46:03.175Z",
+      "matchId": "id_2ifno3xei_01612",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_fl6uhhxc5_69437",
+      "createdAt": "2026-05-25T18:06:09.437Z",
+      "updatedAt": "2026-05-25T18:06:09.437Z",
+      "matchId": "id_qsij370d4_84976",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_ool5azlps_21514",
+      "createdAt": "2026-05-25T18:35:21.514Z",
+      "updatedAt": "2026-05-25T18:35:21.514Z",
+      "matchId": "id_ixop36sl5_74752",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_lgvo2liwv_92782",
+      "createdAt": "2026-05-26T17:31:32.782Z",
+      "updatedAt": "2026-05-26T17:31:32.782Z",
+      "matchId": "id_6qec3c5b4_35864",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_40zp99z9d_26147",
+      "createdAt": "2026-05-26T17:58:46.147Z",
+      "updatedAt": "2026-05-26T17:58:46.147Z",
+      "matchId": "id_c2k3k2m9r_03856",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmoq3tljt00rx0cl1apvl8pw1 consecutively 3 times."
+    },
+    {
+      "id": "id_s79x14f2h_43596",
+      "createdAt": "2026-05-26T18:00:43.596Z",
+      "updatedAt": "2026-05-26T18:00:43.596Z",
+      "matchId": "id_72b17w0cc_10848",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 6 times."
+    },
+    {
+      "id": "id_ocvbrtm96_21701",
+      "createdAt": "2026-05-26T18:13:41.701Z",
+      "updatedAt": "2026-05-26T18:13:41.701Z",
+      "matchId": "id_785hdfcb9_98886",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 8 times."
+    },
+    {
+      "id": "id_d157uokr0_86533",
+      "createdAt": "2026-05-26T18:18:06.533Z",
+      "updatedAt": "2026-05-26T18:18:06.533Z",
+      "matchId": "id_nzu18g3fg_64871",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 9 times."
+    },
+    {
+      "id": "id_h7mfkjum4_41326",
+      "createdAt": "2026-05-26T18:19:01.326Z",
+      "updatedAt": "2026-05-26T18:19:01.326Z",
+      "matchId": "id_qyjufqxk7_14774",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_cskbuh40b_29746",
+      "createdAt": "2026-05-26T20:47:09.746Z",
+      "updatedAt": "2026-05-26T20:47:09.746Z",
+      "matchId": "id_8lcf0wkih_03230",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 24 times."
+    },
+    {
+      "id": "id_ikvcdww98_91467",
+      "createdAt": "2026-05-26T20:48:11.467Z",
+      "updatedAt": "2026-05-26T20:48:11.467Z",
+      "matchId": "id_00n3oxptm_71946",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "flagType": "REPEATED_INSTANT_LOSS",
+      "severity": "HIGH",
+      "details": "Immediate round exit in 100ms with 0 score."
+    },
+    {
+      "id": "id_kckrxu1cw_31445",
+      "createdAt": "2026-05-27T18:08:51.445Z",
+      "updatedAt": "2026-05-27T18:08:51.445Z",
+      "matchId": "id_tzfdtswpp_05567",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 26 times."
+    },
+    {
+      "id": "id_0l8wjpkvz_98303",
+      "createdAt": "2026-05-27T18:09:58.303Z",
+      "updatedAt": "2026-05-27T18:09:58.303Z",
+      "matchId": "id_f8uaq0hi1_56058",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 27 times."
+    },
+    {
+      "id": "id_srg0n2rzl_15071",
+      "createdAt": "2026-05-27T18:11:55.071Z",
+      "updatedAt": "2026-05-27T18:11:55.071Z",
+      "matchId": "id_huzzi5zqv_89949",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 28 times."
+    }
+  ]
+}
