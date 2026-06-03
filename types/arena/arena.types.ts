@@ -21,6 +21,8 @@ export interface MatchPlayerDto {
   score: number | null;
   status: string;
   submittedAt: string | null;
+  combo?: number;
+  duration?: number;
 }
 
 export interface MatchDto {
