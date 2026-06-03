@@ -25,7 +25,7 @@ export function useArenaMatch(
   // --- Matchmaking & Room States ---
   const [queueTimeElapsed, setQueueTimeElapsed] = useState<number>(0);
   const [queueActivity, setQueueActivity] = useState<{ activeQueuers: number; activeMatches: number }>({ activeQueuers: 0, activeMatches: 0 });
-  const [customRoom, setCustomRoom] = useState<{ id: string; roomCode: string; wagerAmount: string | null; guestId?: string; status?: string; creatorId?: string } | null>(null);
+  const [customRoom, setCustomRoom] = useState<{ id: string; roomCode: string; wagerAmount: string | null; guestId?: string | null; status?: string; creatorId?: string } | null>(null);
 
   // --- Recovery / Connection States ---
   const [recoveryError, setRecoveryError] = useState<string | null>(null);

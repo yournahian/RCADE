@@ -33,7 +33,7 @@ export class SudokuGameOverScene extends Scene {
             fontFamily: 'monospace',
             fontSize: '38px',
             color: '#ef4444',
-            fontWeight: '900',
+            fontStyle: '900',
             stroke: '#000',
             strokeThickness: 6
         }).setOrigin(0.5).setShadow(0, 0, 'rgba(239,68,68,0.8)', 15, true, true);
@@ -50,7 +50,7 @@ export class SudokuGameOverScene extends Scene {
             fontFamily: 'monospace',
             fontSize: '18px',
             color: '#fbbf24',
-            fontWeight: 'bold'
+            fontStyle: 'bold'
         }).setOrigin(0.5);
 
         // Buttons

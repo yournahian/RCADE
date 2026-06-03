@@ -192,7 +192,7 @@ async function fetchChunkLogs(fromBlock: bigint, toBlock: bigint): Promise<any[]
                 ]],
                 fromBlock,
                 toBlock
-            });
+            } as any);
             return logs;
         } catch (err: any) {
             retries++;

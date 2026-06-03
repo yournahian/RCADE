@@ -451,11 +451,12 @@ export class SpaceImpactScene extends Scene {
         // ============================================================
         // C. CAPITAL BOSS FIGHT ARCHITECTURE
         // ============================================================
-        if (this.isBossSpawned && this.boss && this.boss.active) {
+        if (this.isBossSpawned && this.boss && this.boss.active && this.boss.body) {
+            const bossBody = this.boss.body as Phaser.Physics.Arcade.Body;
             // Boss Movement patterns
             if (this.bossPhase === 1) {
                 // Smooth up/down patrol slide
-                this.boss.body.setVelocityY(this.bossDirection * 100);
+                bossBody.setVelocityY(this.bossDirection * 100);
                 if (this.boss.y < 120) this.bossDirection = 1;
                 if (this.boss.y > 480) this.bossDirection = -1;
 
@@ -469,7 +470,7 @@ export class SpaceImpactScene extends Scene {
                 }
             } else {
                 // Phase 2: Hyper aggression. Faster movement & Crimson tint
-                this.boss.body.setVelocityY(this.bossDirection * 180);
+                bossBody.setVelocityY(this.bossDirection * 180);
                 if (this.boss.y < 120) this.bossDirection = 1;
                 if (this.boss.y > 480) this.bossDirection = -1;
 
@@ -712,7 +713,7 @@ export class SpaceImpactScene extends Scene {
 
         // Capital boss Shield mechanics check (Absorbs lasers from the front)
         const isBoss = enemy.getData('isBoss') === true;
-        if (this.isBossSpawned && isBoss) {
+        if (this.isBossSpawned && isBoss && this.boss) {
             if (this.bossPhase === 1) {
                 // front shield coordinates detection
                 if (laser.x < enemy.x - 30) {
@@ -1228,7 +1229,9 @@ export class SpaceImpactScene extends Scene {
                 this.bossLastBeamTime = this.time.now;
                 
                 // Set custom large physics bounds
-                this.boss.body.setSize(80, 80);
+                if (this.boss && this.boss.body) {
+                    (this.boss.body as Phaser.Physics.Arcade.Body).setSize(80, 80);
+                }
                 
                 // Active frontal overlay trigger bindings
                 this.physics.add.overlap(this.playerLasers, this.boss, this.handleLaserHit, undefined, this);

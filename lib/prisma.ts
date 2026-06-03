@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+import fs from 'fs';
+import path from 'path';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -15,15 +17,9 @@ const realPrisma = globalForPrisma.prisma ?? rawPrisma;
 // ==========================================
 // HIGH-FIDELITY SANDBOX FILE DATABASE
 // ==========================================
-let dbPath = '';
-let nodeFs: any = null;
-let nodePath: any = null;
-
-if (typeof window === 'undefined') {
-  nodeFs = require('fs');
-  nodePath = require('path');
-  dbPath = nodePath.join(process.cwd(), 'scripts', 'arena-sandbox-db.json');
-}
+const dbPath = typeof window === 'undefined'
+  ? path.join(process.cwd(), 'scripts', 'arena-sandbox-db.json')
+  : '';
 
 let clientInMemoryDb: any = {
   seasonData: [],
@@ -45,15 +41,15 @@ function readDb() {
     return clientInMemoryDb;
   }
 
-  if (!nodeFs.existsSync(dbPath)) {
-    nodeFs.mkdirSync(nodePath.dirname(dbPath), { recursive: true });
-    nodeFs.writeFileSync(
+  if (!fs.existsSync(dbPath)) {
+    fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+    fs.writeFileSync(
       dbPath,
       JSON.stringify(clientInMemoryDb, null, 2)
     );
   }
   try {
-    return JSON.parse(nodeFs.readFileSync(dbPath, 'utf-8'));
+    return JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
   } catch {
     return {};
   }
@@ -64,7 +60,7 @@ function writeDb(data: any) {
     clientInMemoryDb = data;
     return;
   }
-  nodeFs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 }
 
 function matchFilter(item: any, where: any): boolean {

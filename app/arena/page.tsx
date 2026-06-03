@@ -8,7 +8,7 @@ import { BronzeArenaPanel } from '@/components/arena/BronzeArenaPanel';
 import { Loader2, ShieldAlert, Cpu, Zap, Swords, Grid, Gamepad2, ArrowRight } from 'lucide-react';
 import { GAMES } from '@/lib/games';
 
-export default function ArenaHubPage() {
+function ArenaHubContent() {
   const { ready, authenticated, login, getAccessToken, user } = usePrivy();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -235,5 +235,17 @@ export default function ArenaHubPage() {
         customRoom={customRoom}
       />
     </div>
+  );
+}
+
+export default function ArenaHubPage() {
+  return (
+    <React.Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-black font-mono">
+        <Loader2 className="w-8 h-8 text-neon-cyan animate-spin" />
+      </div>
+    }>
+      <ArenaHubContent />
+    </React.Suspense>
   );
 }

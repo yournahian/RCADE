@@ -30,7 +30,7 @@ export class SudokuLevelCompleteScene extends Scene {
             fontFamily: 'monospace',
             fontSize: '44px',
             color: '#fbbf24',
-            fontWeight: '900',
+            fontStyle: '900',
             stroke: '#000',
             strokeThickness: 6
         }).setOrigin(0.5).setShadow(0, 0, 'rgba(251,191,36,0.8)', 15, true, true);
@@ -47,7 +47,7 @@ export class SudokuLevelCompleteScene extends Scene {
             fontFamily: 'monospace',
             fontSize: '16px',
             color: '#fff',
-            fontWeight: 'bold'
+            fontStyle: 'bold'
         }).setOrigin(0.5);
 
         this.add.text(width / 2, height / 2 + 35, `PEAK COMBO MULTIPLIER: x${this.combo.toFixed(1)}`, {

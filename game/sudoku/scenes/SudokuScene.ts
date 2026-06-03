@@ -1,6 +1,6 @@
 import Phaser, { Scene } from 'phaser';
 import { EventBus } from '../../EventBus';
-import { SudokuGenerator } from '../../../services/verifier-strategies/SudokuStrategy';
+import { SudokuGenerator } from '../../../services/verifier-strategies/SudokuGenerator';
 
 interface Particle {
   x: number;
@@ -127,7 +127,7 @@ export class SudokuScene extends Scene {
         const txt = this.add.text(cx, cy, initialVal === 0 ? '' : initialVal.toString(), {
           fontFamily: 'monospace',
           fontSize: '22px',
-          fontWeight: isClue ? '900' : 'normal',
+          fontStyle: isClue ? '900' : 'normal',
           color: isClue ? '#10b981' : '#fbbf24' // Green clues, Amber user input
         }).setOrigin(0.5);
 

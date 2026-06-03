@@ -57,7 +57,7 @@ export class ArenaClientApi {
     region: string,
     ping: number,
     getAccessToken: () => Promise<string | null>
-  ): Promise<{ matchId: string | null; status: 'PENDING' | 'ACTIVE' }> {
+  ): Promise<{ matchId: string | null; status: 'PENDING' | 'ACTIVE' | 'QUEUING' | 'MATCHED' }> {
     const res = await ApiService.fetchWithAuth('/api/arena/matchmake', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -98,7 +98,7 @@ export class ArenaClientApi {
   static async joinRoom(
     roomCode: string,
     getAccessToken: () => Promise<string | null>
-  ): Promise<{ id: string; roomCode: string; creatorId: string; guestId: string }> {
+  ): Promise<{ id: string; roomCode: string; creatorId: string; guestId: string | null; wagerAmount: string | null }> {
     const res = await ApiService.fetchWithAuth('/api/arena/room', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

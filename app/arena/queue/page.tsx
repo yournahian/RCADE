@@ -7,7 +7,7 @@ import { useArenaMatch } from '@/hooks/arena/useArenaMatch';
 import { MatchmakingQueue } from '@/components/arena/MatchmakingQueue';
 import { Loader2 } from 'lucide-react';
 
-export default function ArenaQueuePage() {
+function ArenaQueueContent() {
   const { ready, authenticated, getAccessToken } = usePrivy();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -64,5 +64,18 @@ export default function ArenaQueuePage() {
         onCancel={leaveQueue}
       />
     </div>
+  );
+}
+
+export default function ArenaQueuePage() {
+  return (
+    <React.Suspense fallback={
+      <div className="flex-grow flex flex-col items-center justify-center min-h-[500px] font-mono text-xs text-zinc-500 gap-3">
+        <Loader2 className="w-6 h-6 animate-spin text-neon-cyan" />
+        <span className="uppercase tracking-[0.2em]">INITIALIZING MATCHMAKING PORTS...</span>
+      </div>
+    }>
+      <ArenaQueueContent />
+    </React.Suspense>
   );
 }
