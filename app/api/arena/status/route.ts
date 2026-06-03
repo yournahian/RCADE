@@ -103,9 +103,9 @@ export async function GET(req: Request) {
         mode: activeQueue.mode,
         gameId: activeQueue.gameId,
         wagerAmount: activeQueue.wagerAmount,
-        joinedAt: activeQueue.joinedAt 
-          ? (activeQueue.joinedAt instanceof Date ? activeQueue.joinedAt.toISOString() : new Date(activeQueue.joinedAt).toISOString()) 
-          : new Date(activeQueue.createdAt || Date.now()).toISOString()
+        joinedAt: activeQueue.joinedAt instanceof Date 
+          ? activeQueue.joinedAt.toISOString() 
+          : new Date(activeQueue.joinedAt).toISOString()
       } : null,
       rank
     });
