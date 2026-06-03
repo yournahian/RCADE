@@ -301,6 +301,14 @@ class MockCollection {
 export const prisma = new Proxy(realPrisma, {
   get(target, prop) {
     const propStr = prop.toString();
+
+    // Bypass local sandbox file-database in production/Vercel or if sandbox is disabled
+    const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
+    const disableSandbox = process.env.DISABLE_SANDBOX === 'true';
+    if (isProduction || disableSandbox) {
+      return (target as any)[prop];
+    }
+
     const newTables = [
       'seasonData',
       'playerArenaStats',
