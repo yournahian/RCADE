@@ -239,10 +239,10 @@ export class SpaceImpactScene extends Scene {
         });
 
         // Collision logic
-        this.physics.add.overlap(this.playerLasers, this.alienEnemies, this.handleLaserHit, null, this);
-        this.physics.add.overlap(this.player, this.alienEnemies, this.handlePlayerCollision, null, this);
-        this.physics.add.overlap(this.player, this.powerups, this.handlePowerupCollect, null, this);
-        this.physics.add.overlap(this.player, this.enemyProjectiles, this.handleProjectileCollision, null, this);
+        this.physics.add.overlap(this.playerLasers, this.alienEnemies, this.handleLaserHit, undefined, this);
+        this.physics.add.overlap(this.player, this.alienEnemies, this.handlePlayerCollision, undefined, this);
+        this.physics.add.overlap(this.player, this.powerups, this.handlePowerupCollect, undefined, this);
+        this.physics.add.overlap(this.player, this.enemyProjectiles, this.handleProjectileCollision, undefined, this);
 
         // Keyboard bindings
         if (this.input.keyboard) {
@@ -1231,8 +1231,8 @@ export class SpaceImpactScene extends Scene {
                 this.boss.body.setSize(80, 80);
                 
                 // Active frontal overlay trigger bindings
-                this.physics.add.overlap(this.playerLasers, this.boss, this.handleLaserHit, null, this);
-                this.physics.add.overlap(this.player, this.boss, () => this.takeDamage(0.6), null, this); // Fast grinding contact damage
+                this.physics.add.overlap(this.playerLasers, this.boss, this.handleLaserHit, undefined, this);
+                this.physics.add.overlap(this.player, this.boss, () => this.takeDamage(0.6), undefined, this); // Fast grinding contact damage
 
                 // Slide in boss from the right bounds
                 this.tweens.add({
