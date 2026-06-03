@@ -2,9 +2,15 @@ import { PrismaClient } from '@prisma/client';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
+  rawPrisma: PrismaClient | undefined;
 };
 
-const realPrisma = globalForPrisma.prisma ?? new PrismaClient();
+const rawPrisma = globalForPrisma.rawPrisma ?? new PrismaClient();
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.rawPrisma = rawPrisma;
+}
+
+const realPrisma = globalForPrisma.prisma ?? rawPrisma;
 
 // ==========================================
 // HIGH-FIDELITY SANDBOX FILE DATABASE
@@ -319,7 +325,25 @@ export const prisma = new Proxy(realPrisma, {
     }
 
     if (prop === '$transaction') {
-      return async (actions: Promise<any>[]) => {
+      return async (actions: any, options?: any) => {
+        if (typeof actions === 'function') {
+          // Interactive transaction: execute on raw Prisma client to avoid proxy recursion,
+          // but wrap the transaction client in a proxy to support mocked sandbox tables.
+          return await rawPrisma.$transaction(async (realTx) => {
+            const txProxy = new Proxy(realTx, {
+              get(target, txProp) {
+                const txPropStr = txProp.toString();
+                if (newTables.includes(txPropStr)) {
+                  return new MockCollection(txPropStr);
+                }
+                return (target as any)[txProp];
+              }
+            });
+            return await actions(txProxy);
+          }, options);
+        }
+
+        // Array of promises
         const results = [];
         for (const action of actions) {
           results.push(await action);
