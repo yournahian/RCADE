@@ -47,16 +47,18 @@ export const PhaserGame = forwardRef<IRefPhaserGame, { startLevel?: number; game
     }, [ref, startLevel, gameSlug, arenaMode]);
 
     useEffect(() => {
-        EventBus.on('current-scene-ready', (scene: Phaser.Scene) => {
+        const handleSceneReady = (scene: Phaser.Scene) => {
             if (typeof ref === 'function') {
                 ref({ game: game.current, scene });
             } else if (ref) {
                 ref.current = { game: game.current, scene };
             }
-        });
+        };
+
+        EventBus.on('current-scene-ready', handleSceneReady);
 
         return () => {
-            EventBus.removeListener('current-scene-ready');
+            EventBus.removeListener('current-scene-ready', handleSceneReady);
         };
     }, [ref]);
 
