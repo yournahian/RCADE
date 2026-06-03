@@ -113,6 +113,10 @@ export async function POST(req: Request) {
     if (action === 'accept') {
       console.log(`[Rematch][Accept] User ${userId} accepted rematch for match ${matchId}. Creating new match...`);
 
+      if (!match.roomCode) {
+        return NextResponse.json({ error: 'No room code associated with this match' }, { status: 400 });
+      }
+
       const room = await prisma.arenaRoom.findUnique({
         where: { roomCode: match.roomCode }
       });
