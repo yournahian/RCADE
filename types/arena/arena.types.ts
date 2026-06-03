@@ -10,6 +10,9 @@ export interface PlayerRankData {
   matchesLost: number;
   winStreak: number;
   updatedAt: string;
+  mmr?: number;
+  isPlaced?: boolean;
+  placementMatchesRemaining?: number;
 }
 
 export interface MatchPlayerDto {
