@@ -42,7 +42,7 @@ export default function RootLayout({
         <PrivyProviderWrapper>
           <Navbar />
           <Toaster />
-          <main className="flex-grow flex flex-col relative z-0">
+          <main className="flex-grow flex flex-col relative z-0 pt-[60px]">
             {children}
           </main>
           <Footer />

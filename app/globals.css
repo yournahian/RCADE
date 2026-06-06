@@ -88,7 +88,7 @@
   --color-text-secondary: var(--text-secondary);
   --color-text-muted:     var(--text-muted);
 
-  --font-sans:    var(--font-inter), system-ui, sans-serif;
+  --font-sans:    var(--font-orbitron), system-ui, sans-serif;
   --font-heading: var(--font-orbitron), system-ui, sans-serif;
 
   --animate-float:      float 6s ease-in-out infinite;
