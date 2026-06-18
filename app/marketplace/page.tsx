@@ -1036,7 +1036,7 @@ function Marketplace() {
       {/* ── FAR-LEFT MINI NAVIGATION STRIP ── */}
       <div className="hidden md:flex flex-col items-center justify-start py-6 w-16 bg-[#040404] border-r border-[#161616] flex-shrink-0 self-stretch">
         {/* Top Section */}
-        <div className="flex flex-col items-center space-y-6 w-full">
+        <div className="flex flex-col items-center space-y-6 w-full pt-[112px]">
           <button 
             onClick={() => setActiveTab('buy')}
             className={`p-3 w-full flex justify-center transition-colors cursor-pointer relative ${activeTab === 'buy' ? 'text-[#a9ddd3] border-r-2 border-[#a9ddd3] bg-[#a9ddd3]/5' : 'text-text-muted hover:text-white'}`}
@@ -1059,29 +1059,6 @@ function Marketplace() {
             title="My Trades & Stats"
           >
             <TrendingUp className="w-4 h-4" />
-          </button>
-
-          <div className="w-8 h-[1px] bg-zinc-800" />
-          
-          <button className="p-3 text-text-muted hover:text-[#a9ddd3] transition-colors cursor-pointer relative" title="Notifications">
-            <Bell className="w-4 h-4" />
-            <div className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full" />
-          </button>
-          
-          <button className="p-3 text-text-muted hover:text-[#a9ddd3] transition-colors cursor-pointer" title="Wallet">
-            <Wallet className="w-4 h-4" />
-          </button>
-          
-          <button 
-            onClick={() => { setActiveTab('dashboard'); setDashboardSubTab('progression'); setShowDevPanel(!showDevPanel); }}
-            className={`p-3 w-full flex justify-center transition-colors cursor-pointer ${showDevPanel ? 'text-[#a9ddd3]' : 'text-text-muted hover:text-[#a9ddd3]'}`}
-            title="Developer Diagnostics"
-          >
-            <Settings className="w-4 h-4" />
-          </button>
-          
-          <button className="p-3 text-text-muted hover:text-[#a9ddd3] transition-colors cursor-pointer" title="Help & Documentation">
-            <HelpCircle className="w-4 h-4" />
           </button>
         </div>
       </div>

@@ -39,6 +39,9 @@ export function BronzeArenaPanel({
   const [wagerStakes, setWagerStakes] = useState<string>('50');
   const [joinCode, setJoinCode] = useState<string>('');
   const [region, setRegion] = useState<string>('us-east');
+  const [wagerSubMode, setWagerSubMode] = useState<'PVP' | 'PVH' | 'SPECTATOR'>('PVP');
+  const [pvhDifficulty, setPvhDifficulty] = useState<'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM'>('BRONZE');
+  const [pvhObjective, setPvhObjective] = useState<string>('defeat-boss-lvl-5');
 
   const trophies = rank?.trophies ?? 100;
   const peakTrophies = rank?.peakTrophies ?? 100;
@@ -291,36 +294,240 @@ export function BronzeArenaPanel({
           )}
 
           {selectedMode === 'WAGER' && (
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
-                  <h3 className="text-white text-xs font-bold uppercase tracking-wider">WAGER ESCROW DEPOSIT</h3>
-                  <p className="text-zinc-500 text-[10px] mt-1 uppercase">PRIZE POOL AWARDED SERVER-AUTHORITATIVELY MINUS 5% PLATFORM FEE.</p>
-                </div>
-                <div className="flex gap-2 w-full sm:w-auto">
-                  {['10', '50', '100', '250'].map(stake => (
-                    <button
-                      key={stake}
-                      onClick={() => setWagerStakes(stake)}
-                      className={`px-4 py-2 border rounded text-xs cursor-pointer transition-all ${
-                        wagerStakes === stake
-                          ? 'border-neon-magenta text-neon-magenta bg-neon-magenta/5 font-black'
-                          : 'border-zinc-800 text-zinc-500 hover:border-zinc-700'
-                      }`}
-                    >
-                      {stake} RCADE
-                    </button>
-                  ))}
+            <div className="flex flex-col gap-6">
+              {/* Wager Sub-Modes (Avenues) Grid */}
+              <div>
+                <h3 className="text-zinc-500 text-[10px] uppercase font-bold tracking-widest mb-3">Wagering Avenues</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {/* PvP Wager */}
+                  <button
+                    onClick={() => setWagerSubMode('PVP')}
+                    className={`p-4 rounded-xl border text-left cursor-pointer transition-all flex flex-col justify-between min-h-[110px] ${
+                      wagerSubMode === 'PVP'
+                        ? 'border-neon-magenta bg-neon-magenta/5 shadow-[0_0_12px_rgba(255,0,230,0.15)] font-black'
+                        : 'border-zinc-900 bg-zinc-950/20 hover:border-zinc-800'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <Sword className={`w-3.5 h-3.5 ${wagerSubMode === 'PVP' ? 'text-neon-magenta animate-pulse' : 'text-zinc-500'}`} />
+                        <span className="text-white font-heading font-black text-xs uppercase tracking-wider">PvP Wagers</span>
+                      </div>
+                      <p className="text-zinc-500 text-[9px] uppercase leading-relaxed font-bold">
+                        Two players enter a match, place stakes, and the winner takes the pot.
+                      </p>
+                    </div>
+                  </button>
+
+                  {/* PvH Wager */}
+                  <button
+                    onClick={() => setWagerSubMode('PVH')}
+                    className={`p-4 rounded-xl border text-left cursor-pointer transition-all flex flex-col justify-between min-h-[110px] ${
+                      wagerSubMode === 'PVH'
+                        ? 'border-neon-magenta bg-neon-magenta/5 shadow-[0_0_12px_rgba(255,0,230,0.15)] font-black'
+                        : 'border-zinc-900 bg-zinc-950/20 hover:border-zinc-800'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <Shield className={`w-3.5 h-3.5 ${wagerSubMode === 'PVH' ? 'text-neon-magenta animate-pulse' : 'text-zinc-500'}`} />
+                        <span className="text-white font-heading font-black text-xs uppercase tracking-wider">PvH Wagers</span>
+                      </div>
+                      <p className="text-zinc-500 text-[9px] uppercase leading-relaxed font-bold">
+                        Wager against game-controlled objectives or difficulty tiers. Fail and the house wins.
+                      </p>
+                    </div>
+                  </button>
+
+                  {/* Spectator Betting */}
+                  <button
+                    onClick={() => setWagerSubMode('SPECTATOR')}
+                    className={`p-4 rounded-xl border text-left cursor-pointer transition-all flex flex-col justify-between min-h-[110px] ${
+                      wagerSubMode === 'SPECTATOR'
+                        ? 'border-neon-magenta bg-neon-magenta/5 shadow-[0_0_12px_rgba(255,0,230,0.15)] font-black'
+                        : 'border-zinc-900 bg-zinc-950/20 hover:border-zinc-800'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <Compass className={`w-3.5 h-3.5 ${wagerSubMode === 'SPECTATOR' ? 'text-neon-magenta animate-pulse' : 'text-zinc-500'}`} />
+                        <span className="text-white font-heading font-black text-xs uppercase tracking-wider">Spectator Betting</span>
+                      </div>
+                      <p className="text-zinc-500 text-[9px] uppercase leading-relaxed font-bold">
+                        Predict outcomes of live active matches and earn rewards based on prediction accuracy.
+                      </p>
+                    </div>
+                  </button>
                 </div>
               </div>
-              <div className="flex justify-end">
-                <button
-                  onClick={() => onEnterQueue('WAGER', wagerStakes, region)}
-                  className="w-full sm:w-auto px-8 py-3.5 bg-neon-magenta text-black font-heading font-black text-xs tracking-[0.2em] rounded-lg hover:brightness-110 transition-all cursor-pointer shadow-[0_0_15px_rgba(255,0,230,0.3)] uppercase flex items-center justify-center gap-2"
-                >
-                  <Lock className="w-3.5 h-3.5" />
-                  INITIATE SECURE WAGER
-                </button>
+
+              {/* Sub-mode Action Panel */}
+              <div className="p-5 border border-zinc-900/65 rounded-xl bg-zinc-950/40">
+                {wagerSubMode === 'PVP' && (
+                  <div className="flex flex-col gap-5">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                      <div>
+                        <h3 className="text-white text-xs font-bold uppercase tracking-wider">PvP Dueling Matrix</h3>
+                        <p className="text-zinc-500 text-[10px] mt-1 uppercase">Stakes are locked in escrow. Winner takes the pot minus 5% platform fee.</p>
+                      </div>
+                      <div className="flex gap-2 w-full sm:w-auto">
+                        {['10', '50', '100', '250'].map(stake => (
+                          <button
+                            key={stake}
+                            onClick={() => setWagerStakes(stake)}
+                            className={`px-4 py-2 border rounded text-xs cursor-pointer transition-all ${
+                              wagerStakes === stake
+                                ? 'border-neon-magenta text-neon-magenta bg-neon-magenta/5 font-black'
+                                : 'border-zinc-800 text-zinc-500 hover:border-zinc-700'
+                            }`}
+                          >
+                            {stake} RCADE
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() => onEnterQueue('WAGER', wagerStakes, region)}
+                        className="w-full sm:w-auto px-8 py-3.5 bg-neon-magenta text-black font-heading font-black text-xs tracking-[0.2em] rounded-lg hover:brightness-110 transition-all cursor-pointer shadow-[0_0_15px_rgba(255,0,230,0.3)] uppercase flex items-center justify-center gap-2"
+                      >
+                        <Lock className="w-3.5 h-3.5" />
+                        INITIATE PVP WAGER
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {wagerSubMode === 'PVH' && (
+                  <div className="flex flex-col gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Left Side: Parameters */}
+                      <div className="space-y-4">
+                        <div>
+                          <label className="text-[9px] text-zinc-500 uppercase font-bold tracking-widest block mb-2">Select Challenge Stake</label>
+                          <div className="flex gap-2">
+                            {['10', '50', '100', '250'].map(stake => (
+                              <button
+                                key={stake}
+                                onClick={() => setWagerStakes(stake)}
+                                className={`px-4 py-2 border rounded text-xs cursor-pointer transition-all ${
+                                  wagerStakes === stake
+                                    ? 'border-neon-magenta text-neon-magenta bg-neon-magenta/5 font-black'
+                                    : 'border-zinc-800 text-zinc-500 hover:border-zinc-700'
+                                }`}
+                              >
+                                {stake} RCADE
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="text-[9px] text-zinc-500 uppercase font-bold tracking-widest block mb-2">House Difficulty Tier</label>
+                          <div className="grid grid-cols-2 gap-2">
+                            {[
+                              { id: 'BRONZE', label: 'BRONZE CADET (1.5x payout)' },
+                              { id: 'SILVER', label: 'SILVER GLIDER (2.0x payout)' },
+                              { id: 'GOLD', label: 'GOLD STAR (3.0x payout)' },
+                              { id: 'PLATINUM', label: 'GRANDMASTER (5.0x payout)' }
+                            ].map(tier => (
+                              <button
+                                key={tier.id}
+                                onClick={() => setPvhDifficulty(tier.id as any)}
+                                className={`p-2.5 border rounded text-[9px] font-bold text-left cursor-pointer transition-all ${
+                                  pvhDifficulty === tier.id
+                                    ? 'border-neon-magenta text-neon-magenta bg-neon-magenta/5'
+                                    : 'border-zinc-850 text-zinc-400 hover:border-zinc-700'
+                                }`}
+                              >
+                                {tier.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right Side: Objective & Actions */}
+                      <div className="p-4 border border-zinc-900 bg-zinc-950/20 rounded-xl flex flex-col justify-between">
+                        <div>
+                          <h4 className="text-white text-[10px] font-black uppercase tracking-wider mb-2">House Objectives</h4>
+                          <select
+                            value={pvhObjective}
+                            onChange={e => setPvhObjective(e.target.value)}
+                            className="w-full px-3 py-2 bg-zinc-950 border border-zinc-850 text-xs text-zinc-300 font-bold rounded-lg focus:outline-none focus:border-neon-magenta mb-4"
+                          >
+                            <option value="defeat-boss-lvl-5">Defeat Boss: Level 5 Solo (No checkpoints)</option>
+                            <option value="defeat-boss-lvl-10">Defeat Boss: Level 10 Solo (Grandmaster Core)</option>
+                            <option value="score-10k">Earn 10,000 Points in under 3 minutes</option>
+                            <option value="collect-all-credits">Collect all level credits in under 120s</option>
+                          </select>
+
+                          <div className="p-3 bg-zinc-950 border border-zinc-900 rounded-lg text-[9px] leading-relaxed">
+                            <span className="text-neon-magenta font-black">CONTRACT MEMO:</span> Wager is deposited. If you achieve the selected objective under the ruleset, the contract pays out your stake multiplied by the difficulty tier coefficient. If you fail or die, the stake is transferred to the house vault.
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => {
+                            // Initiates Wager Mode matching or custom house run
+                            onEnterQueue('WAGER', wagerStakes, region);
+                          }}
+                          className="mt-4 w-full py-3 bg-neon-magenta text-black font-heading font-black text-xs tracking-[0.2em] rounded-lg hover:brightness-110 transition-all uppercase flex items-center justify-center gap-2 shadow-[0_0_12px_rgba(255,0,230,0.2)]"
+                        >
+                          <Lock className="w-3.5 h-3.5" />
+                          CHALLENGE THE HOUSE
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {wagerSubMode === 'SPECTATOR' && (
+                  <div className="flex flex-col gap-5">
+                    <div>
+                      <h3 className="text-white text-xs font-bold uppercase tracking-wider mb-1">Live Arena Feed Matrix</h3>
+                      <p className="text-zinc-500 text-[10px] uppercase">Predict outcome variables of ongoing live smart contract matches.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {[
+                        { id: 'match_1', p1: 'did:privy:cmoq...pw1', p2: 'did:privy:cmp4...4p1', game: 'Cyber Runner', p1Odds: '1.75x', p2Odds: '2.15x' },
+                        { id: 'match_2', p1: 'did:privy:cms8...9x2', p2: 'did:privy:cna3...1d3', game: 'Space Impact', p1Odds: '1.90x', p2Odds: '1.90x' }
+                      ].map(match => (
+                        <div key={match.id} className="p-4 border border-zinc-900 bg-zinc-950/20 rounded-xl flex flex-col justify-between gap-3">
+                          <div className="flex justify-between items-center text-[9px] font-bold">
+                            <span className="text-neon-magenta font-black">{match.game.toUpperCase()} MATCH</span>
+                            <span className="text-green-400 flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping" />
+                              LIVE IN PLAY
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-2 my-1">
+                            <button className="p-3 border border-zinc-800 hover:border-neon-magenta text-left rounded-lg transition-all cursor-pointer">
+                              <div className="text-[8px] text-zinc-500 font-bold uppercase">Player 1</div>
+                              <div className="text-[10px] text-zinc-200 font-black tracking-wider truncate mb-1">{match.p1}</div>
+                              <div className="text-[9px] text-neon-magenta font-black">Odds: {match.p1Odds}</div>
+                            </button>
+                            <button className="p-3 border border-zinc-800 hover:border-neon-magenta text-left rounded-lg transition-all cursor-pointer">
+                              <div className="text-[8px] text-zinc-500 font-bold uppercase">Player 2</div>
+                              <div className="text-[10px] text-zinc-200 font-black tracking-wider truncate mb-1">{match.p2}</div>
+                              <div className="text-[9px] text-neon-magenta font-black">Odds: {match.p2Odds}</div>
+                            </button>
+                          </div>
+
+                          <button className="w-full py-2 bg-zinc-900 border border-zinc-800 text-zinc-400 font-heading font-black text-[9px] tracking-widest rounded uppercase cursor-pointer hover:border-neon-magenta hover:text-white transition-all">
+                            PLACE PREDICTION WAGER
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="p-3.5 bg-zinc-950 border border-zinc-900 rounded-lg text-[9px] leading-relaxed text-zinc-500 text-center uppercase tracking-wide">
+                      🔒 PREDICTIONS CLOSE 30 SECONDS AFTER MATCH LAUNCH. VERIFICATION VIA DECENTRALIZED LEADERBOARD EVENT LOGS.
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
