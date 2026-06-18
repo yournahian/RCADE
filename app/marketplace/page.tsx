@@ -3,12 +3,13 @@
 import { usePrivy, useWallets } from '@privy-io/react-auth';
 import { useEffect, useState, useMemo } from 'react';
 import { 
-  ShoppingBag, Tag, Trash2, ShieldAlert, ExternalLink, Loader2,
+  ShoppingBag, Tag, Trash2, ShieldAlert, ExternalLink, Loader2, Wallet,
   Calendar, Layers, Coins, BadgeAlert, UserCheck, TrendingUp,
   History, AlertTriangle, RefreshCw, X, CheckCircle2, Info, Zap,
-  Cpu, Trophy, Gamepad2, Swords, Grid
+  Cpu, Trophy, Gamepad2, Swords, Grid, Search, ChevronDown, ChevronUp,
+  Heart, Settings, Bell, HelpCircle, ArrowLeft, ArrowRight, Filter,
+  SlidersHorizontal
 } from 'lucide-react';
-import Link from 'next/link';
 import { baseSepolia } from 'viem/chains';
 import { formatEther, parseEther } from 'viem';
 import { ApiService } from '@/services/api';
@@ -44,6 +45,39 @@ const RARITY_BORDER: Record<string, string> = {
   Rare: 'rgba(251,146,60,0.4)', Common: 'rgba(107,107,107,0.3)',
 };
 
+const FALLBACK_FEATURED: any[] = [
+  {
+    id: 'fallback-1',
+    gameName: 'Void Arena',
+    tokenId: '0x0000000000000000000000000000000000000000000000000000000000000001',
+    rarity: 'Legendary',
+    gameIcon: 'Zap',
+    price: '1.25',
+    gameSlug: 'void-arena',
+    isFallback: true
+  },
+  {
+    id: 'fallback-2',
+    gameName: 'Cyber Runner',
+    tokenId: '0x0000000000000000000000000000000000000000000000000000000000000002',
+    rarity: 'Legendary',
+    gameIcon: 'Cpu',
+    price: '0.85',
+    gameSlug: 'cyber-runner',
+    isFallback: true
+  },
+  {
+    id: 'fallback-3',
+    gameName: 'Neon Snake',
+    tokenId: '0x0000000000000000000000000000000000000000000000000000000000000003',
+    rarity: 'Legendary',
+    gameIcon: 'Layers',
+    price: '2.10',
+    gameSlug: 'neon-snake',
+    isFallback: true
+  }
+];
+
 function Marketplace() {
   const { ready, authenticated, user, login, getAccessToken } = usePrivy();
   const { wallets } = useWallets();
@@ -72,6 +106,33 @@ function Marketplace() {
 
   // Per-listing or action transaction states
   const [listingTxStates, setListingTxStates] = useState<Record<string, TxState>>({});
+
+  // New layout and filter states
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [minPrice, setMinPrice] = useState<string>('0');
+  const [maxPrice, setMaxPrice] = useState<string>('10');
+  const [selectedRarities, setSelectedRarities] = useState<string[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<string[]>(['Buy Now']);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
+  const [activeHeroIndex, setActiveHeroIndex] = useState<number>(0);
+  const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+  const [expandedFilters, setExpandedFilters] = useState<Record<string, boolean>>({
+    games: true,
+    categories: true,
+    priceRange: true,
+    rarity: true,
+    status: true,
+  });
+
+  const toggleFilterSection = (section: string) => {
+    setExpandedFilters(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  const toggleFavorite = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setFavorites(prev => ({ ...prev, [id]: !prev[id] }));
+  };
 
   const activeWalletAddress = user?.wallet?.address;
   const activeWallet = useMemo(() => wallets.find(w => w.address?.toLowerCase() === activeWalletAddress?.toLowerCase()), [wallets, activeWalletAddress]);
@@ -330,9 +391,60 @@ function Marketplace() {
         l.seller.toLowerCase() !== activeWalletAddress?.toLowerCase();
       if (!matchesStatusAndSeller) return false;
       if (selectedGameFilter !== 'ALL' && l.gameSlug !== selectedGameFilter) return false;
+      
+      // Search text filter
+      if (searchTerm) {
+        const query = searchTerm.toLowerCase();
+        const matchesName = l.gameName.toLowerCase().includes(query);
+        const matchesRarity = l.rarity.toLowerCase().includes(query);
+        const matchesLevel = `level ${l.level}`.includes(query) || `lvl ${l.level}`.includes(query);
+        if (!matchesName && !matchesRarity && !matchesLevel) return false;
+      }
+      
+      // Price filters
+      const priceVal = parseFloat(l.price);
+      if (minPrice && priceVal < parseFloat(minPrice)) return false;
+      if (maxPrice && priceVal > parseFloat(maxPrice)) return false;
+      
+      // Rarity filters
+      if (selectedRarities.length > 0 && !selectedRarities.includes(l.rarity)) return false;
+
+      // Status filters
+      if (selectedStatus.length > 0) {
+        const matchesBuyNow = selectedStatus.includes('Buy Now');
+        // All active on-chain listing offers are considered "Buy Now"
+        if (!matchesBuyNow) return false;
+      }
+
       return true;
     });
-  }, [listings, activeWalletAddress, selectedGameFilter]);
+  }, [listings, activeWalletAddress, selectedGameFilter, searchTerm, minPrice, maxPrice, selectedRarities, selectedStatus]);
+
+  const featuredPool = useMemo(() => {
+    if (buyableListings.length === 0) return FALLBACK_FEATURED;
+    const legendary = buyableListings.filter(l => l.rarity === 'Legendary');
+    return legendary.length > 0 ? legendary : buyableListings;
+  }, [buyableListings]);
+
+  const featuredListing = useMemo(() => {
+    if (featuredPool.length === 0) return null;
+    const index = Math.abs(activeHeroIndex) % featuredPool.length;
+    return featuredPool[index];
+  }, [featuredPool, activeHeroIndex]);
+
+  // Auto-scroll featured carousel
+  useEffect(() => {
+    if (activeTab !== 'buy' || featuredPool.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveHeroIndex(prev => (prev + 1) % featuredPool.length);
+    }, 6000); // cycle every 6 seconds
+    return () => clearInterval(interval);
+  }, [activeTab, featuredPool.length]);
+
+  // Reset activeHeroIndex when pool changes
+  useEffect(() => {
+    setActiveHeroIndex(0);
+  }, [featuredPool.length]);
 
   const traderActiveListings = useMemo(() => {
     return listings.filter(l => 
@@ -914,1002 +1026,1376 @@ function Marketplace() {
     );
   }
 
-  /* ══════════════════════════════════════════════════════════
+  /* ══════════════════════════════════════════════════════
      RENDER
-  ══════════════════════════════════════════════════════════ */
+  ══════════════════════════════════════════════════════ */
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 w-full relative">
+    <div className="w-full min-h-[calc(100vh-60px)] flex flex-col md:flex-row relative pb-16 md:pb-0">
 
-      {/* ── BANNERS ─────────────────────────────────────────── */}
-      {isWalletAccountMismatch && (
-        <div className="mb-6 p-4 flex items-start gap-3" style={{ background: 'rgba(169,221,211,0.05)', border: '1px solid rgba(169,221,211,0.3)', borderLeft: '3px solid #a9ddd3' }}>
-          <ShieldAlert className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: '#a9ddd3' }} />
-          <div>
-            <h4 className="font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-white mb-1">Wallet Mismatch Detected</h4>
-            <p className="text-[9px] font-mono" style={{ color: '#888' }}>Extension shows <strong className="text-white">{wallets[0]?.address ? `${wallets[0].address.slice(0, 6)}...${wallets[0].address.slice(-4)}` : 'Unknown'}</strong>, please reconnect the authenticated wallet <strong style={{ color: '#a9ddd3' }}>{activeWalletAddress?.slice(0, 6)}...{activeWalletAddress?.slice(-4)}</strong>.</p>
-          </div>
-        </div>
-      )}
-      {isNetworkMismatch && (
-        <div className="mb-6 p-4 flex items-center justify-between gap-4" style={{ background: 'rgba(239,68,68,0.05)', border: '1px solid rgba(239,68,68,0.35)', borderLeft: '3px solid #ef4444' }}>
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
-            <div>
-              <h4 className="font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-red-400 mb-1">Wrong network. Please switch to Base Sepolia.</h4>
-              <p className="text-[9px] font-mono text-text-secondary">Switch to Base Sepolia (Chain ID: 84532) to unlock marketplace operations.</p>
-            </div>
-          </div>
-          <button onClick={() => ensureCorrectChain(activeWallet)} className="px-4 py-2 text-[9px] font-heading font-bold uppercase tracking-wider text-black flex-shrink-0 cursor-pointer" style={{ background: '#ef4444' }}>Switch Network</button>
-        </div>
-      )}
-
-      {/* ── PAGE HEADER ─────────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6 pb-6" style={{ borderBottom: '1px solid #1f1f1f' }}>
-        <div>
-          <p className="text-[10px] font-heading tracking-[0.25em] mb-2 uppercase" style={{ color: '#a9ddd3' }}>EIP-712 · ERC-1155 · Base Sepolia</p>
-          <h1 className="font-heading font-black text-3xl md:text-4xl text-white uppercase tracking-tight">NFT Marketplace</h1>
-        </div>
-        {authenticated && (
-          <div className="flex items-center gap-3 px-4 py-3" style={{ background: '#0d0d0d', border: '1px solid #1f1f1f' }}>
-            <div>
-              <span className="text-[9px] font-heading tracking-[0.2em] text-text-muted uppercase block">Wallet</span>
-              <span className="text-xs font-mono text-white">{activeWalletAddress?.slice(0, 6)}...{activeWalletAddress?.slice(-4)}</span>
-            </div>
-            <div style={{ borderLeft: '1px solid #1f1f1f', paddingLeft: '12px' }}>
-              <span className="text-[9px] font-heading tracking-[0.2em] text-text-muted uppercase block">Balance</span>
-              <span className="text-xs font-heading font-bold flex items-center gap-1" style={{ color: '#a9ddd3' }}><Coins className="w-3 h-3" />{ethBalance} ETH</span>
-            </div>
-            <button onClick={() => forceSynchronizedRefresh(false)} disabled={isSyncing || isAnyTxActive} className="p-2 transition-colors border border-border hover:border-orange ml-1 cursor-pointer disabled:opacity-30" style={{ color: isSyncing ? '#a9ddd3' : '#444' }} title="Sync">
-              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* ── TAB NAV (Optimized for Mobile scroll & layout alignment) ── */}
-      <div className="flex flex-row flex-nowrap mb-8 overflow-x-auto scrollbar-none pb-1" style={{ borderBottom: '1px solid #1f1f1f', WebkitOverflowScrolling: 'touch' }}>
-        {([
-          { id: 'buy',       label: `Buy  (${buyableListings.length})` },
-          { id: 'sell',      label: 'Sell Assets',      auth: true },
-          { id: 'dashboard', label: 'My Trades',        auth: true },
-        ] as const).map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => { 
-              if ((tab as any).auth && !authenticated) { 
-                login(); 
-                return; 
-              } 
-              setActiveTab(tab.id); 
-            }}
-            disabled={isAnyTxActive}
-            className="px-6 py-3.5 text-[10px] font-heading font-bold tracking-[0.15em] uppercase transition-all whitespace-nowrap cursor-pointer disabled:opacity-40"
-            style={{
-              color: activeTab === tab.id ? '#a9ddd3' : '#444',
-              borderBottom: activeTab === tab.id ? '2px solid #a9ddd3' : '2px solid transparent',
-              marginBottom: '-1px',
-            }}
+      {/* ── FAR-LEFT MINI NAVIGATION STRIP ── */}
+      <div className="hidden md:flex flex-col items-center justify-between py-6 w-16 bg-[#040404] border-r border-[#161616] flex-shrink-0 self-stretch">
+        {/* Top Section */}
+        <div className="flex flex-col items-center space-y-6 w-full">
+          <button 
+            onClick={() => setActiveTab('buy')}
+            className={`p-3 w-full flex justify-center transition-colors cursor-pointer relative ${activeTab === 'buy' ? 'text-[#a9ddd3] border-r-2 border-[#a9ddd3] bg-[#a9ddd3]/5' : 'text-text-muted hover:text-white'}`}
+            title="Marketplace"
           >
-            {tab.label}
+            <Grid className="w-4 h-4" />
           </button>
-        ))}
+
+          <button 
+            onClick={() => { if (!authenticated) { login(); return; } setActiveTab('sell'); }}
+            className={`p-3 w-full flex justify-center transition-colors cursor-pointer relative ${activeTab === 'sell' ? 'text-[#a9ddd3] border-r-2 border-[#a9ddd3] bg-[#a9ddd3]/5' : 'text-text-muted hover:text-white'}`}
+            title="List Assets"
+          >
+            <Tag className="w-4 h-4" />
+          </button>
+          
+          <button 
+            onClick={() => { if (!authenticated) { login(); return; } setActiveTab('dashboard'); }}
+            className={`p-3 w-full flex justify-center transition-colors cursor-pointer relative ${activeTab === 'dashboard' ? 'text-[#a9ddd3] border-r-2 border-[#a9ddd3] bg-[#a9ddd3]/5' : 'text-text-muted hover:text-white'}`}
+            title="My Trades & Stats"
+          >
+            <TrendingUp className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="flex flex-col items-center space-y-4 w-full">
+          <div className="w-8 h-[1px] bg-zinc-800" />
+          
+          <button className="p-3 text-text-muted hover:text-[#a9ddd3] transition-colors cursor-pointer relative" title="Notifications">
+            <Bell className="w-4 h-4" />
+            <div className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full" />
+          </button>
+          
+          <button className="p-3 text-text-muted hover:text-[#a9ddd3] transition-colors cursor-pointer" title="Wallet">
+            <Wallet className="w-4 h-4" />
+          </button>
+          
+          <button 
+            onClick={() => { setActiveTab('dashboard'); setDashboardSubTab('progression'); setShowDevPanel(!showDevPanel); }}
+            className={`p-3 w-full flex justify-center transition-colors cursor-pointer ${showDevPanel ? 'text-[#a9ddd3]' : 'text-text-muted hover:text-[#a9ddd3]'}`}
+            title="Developer Diagnostics"
+          >
+            <Settings className="w-4 h-4" />
+          </button>
+          
+          <button className="p-3 text-text-muted hover:text-[#a9ddd3] transition-colors cursor-pointer" title="Help & Documentation">
+            <HelpCircle className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
-      {/* ══════════════════════════════════════════════════════
-          BUY TAB
-      ══════════════════════════════════════════════════════ */}
-      {activeTab === 'buy' && (
-        <div className="min-h-[450px]">
-          {/* Game Filters sub-navigation */}
-          <div className="flex flex-row flex-wrap items-center gap-2 mb-6 pb-3" style={{ borderBottom: '1px solid #141414' }}>
-            {([
-              { id: 'ALL',          label: 'All Games',    icon: Gamepad2, color: '#a9ddd3' },
-              { id: 'neon-snake',   label: 'Neon Snake',   icon: Zap,      color: '#a9ddd3' },
-              { id: 'cyber-runner', label: 'Cyber Runner', icon: Cpu,      color: '#22d3ee' },
-              { id: 'void-arena',   label: 'Void Arena',   icon: Layers,   color: '#a855f7' },
-              { id: 'pixel-heist',  label: 'Pixel Heist',  icon: Trophy,   color: '#22c55e' },
-              { id: 'space-impact', label: 'Space Impact', icon: Swords,   color: '#ec4899' },
-              { id: 'sudoku',       label: 'Sudoku Matrix', icon: Grid,     color: '#fbbf24' }
-            ] as const).map(filter => {
-              const Icon = filter.icon;
-              const isSelected = selectedGameFilter === filter.id;
-              return (
-                <button
-                  key={filter.id}
-                  onClick={() => setSelectedGameFilter(filter.id)}
-                  disabled={isAnyTxActive}
-                  className="px-4 py-2 text-[9px] font-heading font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-40"
-                  style={{
-                    background: isSelected ? `rgba(${filter.id === 'cyber-runner' ? '34,211,238' : filter.id === 'void-arena' ? '168,85,247' : filter.id === 'pixel-heist' ? '34,197,94' : filter.id === 'space-impact' ? '236,72,153' : filter.id === 'sudoku' ? '251,191,36' : '169,221,211'}, 0.08)` : '#0c0c0c',
-                    border: isSelected ? `1px solid ${filter.color}` : '1px solid #1f1f1f',
-                    color: isSelected ? filter.color : '#888',
-                    boxShadow: isSelected ? `0 0 10px rgba(${filter.id === 'cyber-runner' ? '34,211,238' : filter.id === 'void-arena' ? '168,85,247' : filter.id === 'pixel-heist' ? '34,197,94' : filter.id === 'space-impact' ? '236,72,153' : filter.id === 'sudoku' ? '251,191,36' : '169,221,211'}, 0.15)` : 'none'
-                  }}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  {filter.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {isListingsLoading ? (
-            /* Premium Retro Shimmer Loading Skeletons */
-            <div style={{ border: '1px solid #1f1f1f' }} className="divide-y divide-zinc-900">
-              <div className="grid grid-cols-12 px-4 py-3" style={{ background: '#0d0d0d', borderBottom: '1px solid #1f1f1f' }}>
-                {['Asset', 'Rarity', 'Level', 'Qty', 'Price', 'Expires', 'Seller', ''].map(h => (
-                  <div key={h} className={`font-heading text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted ${h === '' ? 'col-span-2 text-right' : h === 'Asset' ? 'col-span-2' : 'col-span-1'}`}>{h}</div>
-                ))}
-              </div>
-              {[1, 2, 3, 4].map(idx => (
-                <div key={idx} className="grid grid-cols-12 items-center px-4 py-4"
-                  style={{
-                    background: 'linear-gradient(90deg, #0d0d0d 25%, #141414 50%, #0d0d0d 75%)',
-                    backgroundSize: '200% 100%',
-                    animation: 'shimmer 2.5s linear infinite'
-                  }}
-                >
-                  <div className="col-span-2 flex items-center gap-2">
-                    <div className="w-8 h-8 bg-zinc-950 border border-zinc-900 flex-shrink-0 animate-pulse" />
-                    <div className="w-16 h-3 bg-zinc-900 animate-pulse" />
-                  </div>
-                  <div className="col-span-1"><div className="w-12 h-3 bg-zinc-900 animate-pulse" /></div>
-                  <div className="col-span-1"><div className="w-6 h-3 bg-zinc-900 animate-pulse" /></div>
-                  <div className="col-span-1"><div className="w-6 h-3 bg-zinc-900 animate-pulse" /></div>
-                  <div className="col-span-2"><div className="w-16 h-3 bg-zinc-900 animate-pulse" /></div>
-                  <div className="col-span-2"><div className="w-16 h-3 bg-zinc-900 animate-pulse" /></div>
-                  <div className="col-span-1"><div className="w-10 h-3 bg-zinc-900 animate-pulse" /></div>
-                  <div className="col-span-2 flex justify-end"><div className="w-16 h-7 bg-zinc-900 animate-pulse" /></div>
-                </div>
-              ))}
-            </div>
-          ) : buyableListings.length === 0 ? (
-            <div className="py-24 text-center" style={{ border: '1px dashed #1f1f1f' }}>
-              <ShoppingBag className="w-10 h-10 mx-auto mb-4 text-text-muted" />
-              <p className="font-heading text-xs text-text-muted uppercase tracking-widest mb-1">No active listings</p>
-              <p className="text-[9px] font-heading tracking-widest text-text-muted uppercase">Awaiting off-chain transmissions</p>
-            </div>
-          ) : (
-            /* ── Listing table view ── */
-            <div style={{ border: '1px solid #1f1f1f' }} className="overflow-x-auto scrollbar-none">
-              <div className="min-w-[800px]">
-                {/* Table header */}
-                <div className="grid grid-cols-12 px-4 py-3" style={{ background: '#0d0d0d', borderBottom: '1px solid #1f1f1f' }}>
-                  {['Asset', 'Rarity', 'Level', 'Qty', 'Price', 'Expires', 'Seller', ''].map(h => (
-                    <div key={h} className={`font-heading text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted ${h === '' ? 'col-span-2 text-right' : h === 'Asset' ? 'col-span-2' : 'col-span-1'}`}>{h}</div>
-                  ))}
-                </div>
-                {/* Rows with custom Framer Motion transitions */}
-                <AnimatePresence>
-                  {buyableListings.map((listing, i) => {
-                    const isPending = listingTxStates[listing.id] === 'signing' || listingTxStates[listing.id] === 'pending' || listing.pendingPurchase;
-                    return (
-                      <motion.div
-                        layout
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ 
-                          opacity: isPending ? 0.35 : 1,
-                          filter: isPending ? 'blur(1px)' : 'none'
-                        }}
-                        exit={{ opacity: 0, x: -50 }}
-                        transition={{ duration: 0.25 }}
-                        key={listing.id}
-                        className="grid grid-cols-12 items-center px-4 py-3.5 transition-colors group relative"
-                        style={{ 
-                          borderBottom: i < buyableListings.length - 1 ? '1px solid #141414' : 'none', 
-                          background: 'transparent',
-                          pointerEvents: isAnyTxActive ? 'none' : 'auto'
-                        }}
-                      >
-                        {/* Asset name */}
-                        <div className="col-span-2 flex items-center gap-2 min-w-0">
-                          <div className="w-8 h-8 flex items-center justify-center font-heading font-black text-sm flex-shrink-0"
-                            style={{ 
-                              background: 'rgba(169,221,211,0.08)', 
-                              border: `1px solid ${RARITY_BORDER[listing.rarity]}`, 
-                              color: RARITY_COLOR[listing.rarity] 
-                            }}>
-                            {(() => {
-                              const IconComponent = GAME_ICON_MAP[listing.gameIcon] || Gamepad2;
-                              return <IconComponent className="w-4 h-4" />;
-                            })()}
-                          </div>
-                          <div className="flex flex-col min-w-0">
-                            <span className="font-heading text-xs font-bold text-white truncate leading-tight">{listing.gameName}</span>
-                            <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">Level {listing.level}</span>
-                          </div>
-                        </div>
-                        {/* Rarity */}
-                        <div className="col-span-1">
-                          <span className="text-[9px] font-heading font-bold uppercase" style={{ color: RARITY_COLOR[listing.rarity] }}>{listing.rarity}</span>
-                        </div>
-                        {/* Level */}
-                        <div className="col-span-1">
-                          <span className="font-heading text-xs text-white font-bold">{listing.level}</span>
-                        </div>
-                        {/* Qty */}
-                        <div className="col-span-1">
-                          <span className="font-mono text-xs text-text-secondary">x{listing.amount}</span>
-                        </div>
-                        {/* Price */}
-                        <div className="col-span-2">
-                          <span className="font-heading font-bold text-sm" style={{ color: '#a9ddd3' }}>{listing.price}</span>
-                          <span className="font-heading text-[9px] text-text-muted ml-1">ETH</span>
-                        </div>
-                        {/* Expires */}
-                        <div className="col-span-2">
-                          <span className="font-mono text-[9px] text-text-muted">{new Date(listing.expiry * 1000).toLocaleDateString()}</span>
-                        </div>
-                        {/* Seller */}
-                        <div className="col-span-1">
-                          <span className="font-mono text-[9px] text-text-muted">{listing.seller.slice(0, 6)}...</span>
-                        </div>
-                        {/* Buy button */}
-                        <div className="col-span-2 flex justify-end">
-                          <button
-                            onClick={() => handleBuyListing(listing)}
-                            disabled={isAnyTxActive || isNetworkMismatch || isWalletAccountMismatch || isPending}
-                            className="px-4 py-2 text-[9px] font-heading font-bold uppercase tracking-widest disabled:opacity-40 transition-all flex items-center gap-1.5 cursor-pointer relative overflow-hidden"
-                            style={{ background: '#a9ddd3', color: '#000' }}
-                          >
-                            {listingTxStates[listing.id] === 'signing' && <><Loader2 className="w-3 h-3 animate-spin" /> Sign...</>}
-                            {listingTxStates[listing.id] === 'pending' && <><Loader2 className="w-3 h-3 animate-spin" /> Wait...</>}
-                            {(!listingTxStates[listing.id] || listingTxStates[listing.id] === 'idle') && 'Buy'}
-                          </button>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </AnimatePresence>
+      {/* ── MAIN CONTAINER (Right of Nav Strip) ── */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        
+        {/* ── TOP AREA (Header & Warnings & Featured Banner) ── */}
+        <div className="p-6 lg:p-8 pb-0 space-y-6">
+          {/* System Warnings/Banners */}
+          {isWalletAccountMismatch && (
+            <div className="p-4 flex items-start gap-3 rounded-sm" style={{ background: 'rgba(169,221,211,0.04)', border: '1px solid rgba(169,221,211,0.2)', borderLeft: '3px solid #a9ddd3' }}>
+              <ShieldAlert className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: '#a9ddd3' }} />
+              <div>
+                <h4 className="font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-white mb-1">Wallet Mismatch Detected</h4>
+                <p className="text-[9px] font-mono text-[#888]">Extension shows <strong className="text-white">{wallets[0]?.address ? `${wallets[0].address.slice(0, 6)}...${wallets[0].address.slice(-4)}` : 'Unknown'}</strong>. Reconnect authenticated wallet <strong style={{ color: '#a9ddd3' }}>{activeWalletAddress?.slice(0, 6)}...{activeWalletAddress?.slice(-4)}</strong>.</p>
               </div>
             </div>
           )}
-        </div>
-      )}
+          {isNetworkMismatch && (
+            <div className="p-4 flex items-center justify-between gap-4 rounded-sm" style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.25)', borderLeft: '3px solid #ef4444' }}>
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-red-400 mb-1">Wrong network. Please switch to Base Sepolia.</h4>
+                  <p className="text-[9px] font-mono text-text-secondary">Switch to Base Sepolia (Chain ID: 84532) to unlock marketplace operations.</p>
+                </div>
+              </div>
+              <button onClick={() => ensureCorrectChain(activeWallet)} className="px-4 py-2 text-[9px] font-heading font-bold uppercase tracking-wider text-black flex-shrink-0 cursor-pointer rounded-sm hover:opacity-90" style={{ background: '#ef4444' }}>Switch Network</button>
+            </div>
+          )}
 
-      {/* ══════════════════════════════════════════════════════
-          SELL TAB
-      ══════════════════════════════════════════════════════ */}
-      {activeTab === 'sell' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-border">
-          {/* ── NFT vault grid ── */}
-          <div className="lg:col-span-2 bg-bg-void p-6">
-            <h3 className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-white mb-6 flex items-center gap-2 pb-4" style={{ borderBottom: '1px solid #1f1f1f' }}>
-              <Layers className="w-4 h-4" style={{ color: '#a9ddd3' }} /> Select Asset From Vault
-            </h3>
-            {isLoadingInventory ? (
-              <div className="flex justify-center items-center py-16">
-                <div className="w-8 h-8 border-2 border-t-transparent animate-spin" style={{ borderColor: '#a9ddd3', borderTopColor: 'transparent' }} />
-              </div>
-            ) : inventory.length === 0 ? (
-              <div className="py-16 text-center">
-                <p className="font-heading text-xs text-text-muted uppercase tracking-widest mb-4">No assets in vault</p>
-                <Link href="/play" className="btn-primary text-[10px] px-6 py-2.5">Play to Earn NFTs</Link>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
-                {inventory.map(nft => {
-                  const isSelected = selectedNft?.tokenId === nft.tokenId;
-                  return (
-                    <button
-                      key={nft.tokenId}
-                      disabled={isAnyTxActive}
-                      onClick={() => { setSelectedNft(nft); setSellAmount(1); }}
-                      className="relative p-4 flex flex-col items-center justify-center text-center transition-all cursor-pointer disabled:opacity-40 min-h-[110px]"
-                      style={{
-                        background: isSelected ? 'rgba(169,221,211,0.08)' : '#0d0d0d',
-                        border: isSelected ? '1px solid #a9ddd3' : '1px solid #1f1f1f',
-                        boxShadow: isSelected ? '0 0 20px rgba(169,221,211,0.2)' : 'none',
-                      }}
-                    >
-                      <div className="absolute top-2 right-2 text-[9px] font-heading font-bold" style={{ color: '#a9ddd3' }}>x{nft.amount}</div>
-                      <div className="mb-2" style={{ color: RARITY_COLOR[nft.rarity] }}>
-                        {(() => {
-                          const IconComponent = GAME_ICON_MAP[nft.gameIcon] || Gamepad2;
-                          return <IconComponent className="w-5 h-5 mx-auto" style={{ color: RARITY_COLOR[nft.rarity] }} />;
-                        })()}
-                      </div>
-                      <div className="font-heading text-[10px] font-bold text-white uppercase truncate max-w-full">{nft.gameName}</div>
-                      <div className="text-[8px] font-mono text-text-muted uppercase tracking-wider mt-0.5">Lvl {nft.level} · {nft.rarity}</div>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+          {/* PAGE HEADER ── */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-6 border-b border-[#161616]">
+            <div>
+              <p className="text-[9px] font-heading tracking-[0.25em] mb-2 uppercase text-[#a9ddd3]">EIP-712 · ERC-1155 · Base Sepolia</p>
+              <h1 className="font-heading font-black text-2xl md:text-3xl text-white uppercase tracking-tight">NFT Marketplace</h1>
+            </div>
+            
+            <div className="flex flex-wrap items-center gap-4 w-full md:w-auto">
+              {/* Wallet Info Display */}
+              {authenticated && (
+                <div className="flex items-center gap-3 px-4 py-2 bg-[#09090c] border border-[#161616] text-[10px]">
+                  <div className="pr-3 border-r border-[#161616]">
+                    <span className="text-[8px] font-heading tracking-widest text-text-muted uppercase block">Wallet</span>
+                    <span className="font-mono text-white text-[10px]">{activeWalletAddress?.slice(0, 6)}...{activeWalletAddress?.slice(-4)}</span>
+                  </div>
+                  <div className="pr-1">
+                    <span className="text-[8px] font-heading tracking-widest text-text-muted uppercase block">Balance</span>
+                    <span className="font-heading font-bold flex items-center gap-1 text-[#a9ddd3] text-[10px]"><Coins className="w-3 h-3" />{ethBalance} ETH</span>
+                  </div>
+                  <button onClick={() => forceSynchronizedRefresh(false)} disabled={isSyncing || isAnyTxActive} className="p-1.5 transition-all border border-[#161616] hover:border-[#a9ddd3] rounded-sm ml-1 cursor-pointer disabled:opacity-30" style={{ color: isSyncing ? '#a9ddd3' : '#444' }} title="Sync">
+                    <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* ── Sell form ── */}
-          <div className="bg-bg-card p-6">
-            <h3 className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-white mb-6 pb-4 flex items-center gap-2" style={{ borderBottom: '1px solid #1f1f1f' }}>
-              <Tag className="w-4 h-4" style={{ color: '#a9ddd3' }} /> List Config
-            </h3>
-            {selectedNft ? (
-              <div className="space-y-5">
-                {/* Selected NFT preview */}
-                <div className="flex items-center gap-3 p-3" style={{ background: '#0d0d0d', border: '1px solid #1f1f1f' }}>
-                  <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" 
-                    style={{ 
-                      background: 'rgba(169,221,211,0.08)', 
-                      border: `1px solid ${RARITY_BORDER[selectedNft.rarity]}`, 
-                      color: RARITY_COLOR[selectedNft.rarity] 
-                    }}>
+          {/* FEATURED BANNER */}
+          {activeTab === 'buy' && (() => {
+            const activeFeatured = featuredListing || {
+              id: 'fallback',
+              gameName: 'Void Arena',
+              tokenId: '0x0000000000000000000000000000000000000000000000000000000000000001',
+              rarity: 'Legendary',
+              gameIcon: 'Zap',
+              price: '0.00',
+              isFallback: true
+            };
+
+            return (
+              <div className="relative w-full rounded-md overflow-hidden bg-[#09090c] border border-[#161616] p-6 sm:p-8 flex flex-col md:flex-row items-center gap-8 justify-between">
+                {/* Grid Overlay background */}
+                <div className="absolute inset-0 pixel-grid opacity-10 pointer-events-none" />
+                {/* Radial Glow behind featured item */}
+                <div className="absolute -left-16 -top-16 w-80 h-80 bg-radial-card rounded-full opacity-25 pointer-events-none" style={{
+                  background: `radial-gradient(circle, ${RARITY_COLOR[activeFeatured.rarity]} 0%, transparent 70%)`
+                }} />
+
+                {/* Featured NFT Card Preview */}
+                <div className="relative z-10 w-full max-w-[220px] flex-shrink-0 bg-[#050507]/95 border border-[#222]/80 p-4 rounded-md shadow-2xl overflow-hidden group">
+                  {/* Neon retro corners */}
+                  <div className="absolute top-0 left-0 w-2 h-[1px] bg-[#a9ddd3]" />
+                  <div className="absolute top-0 left-0 w-[1px] h-2 bg-[#a9ddd3]" />
+                  <div className="absolute bottom-0 right-0 w-2 h-[1px] bg-[#a9ddd3]" />
+                  <div className="absolute bottom-0 right-0 w-[1px] h-2 bg-[#a9ddd3]" />
+
+                  <div className="aspect-square bg-black/60 border border-[#161616] flex items-center justify-center relative overflow-hidden mb-3">
+                    {/* Glow circle behind card icon */}
+                    <div className="absolute w-24 h-24 rounded-full opacity-35 filter blur-xl animate-pulse" style={{
+                      background: `radial-gradient(circle, ${RARITY_COLOR[activeFeatured.rarity]} 0%, transparent 70%)`
+                    }} />
                     {(() => {
-                      const IconComponent = GAME_ICON_MAP[selectedNft.gameIcon] || Gamepad2;
-                      return <IconComponent className="w-5 h-5" />;
+                      const IconComponent = GAME_ICON_MAP[activeFeatured.gameIcon] || Gamepad2;
+                      return <IconComponent className="w-12 h-12 relative z-10 animate-float" style={{ color: RARITY_COLOR[activeFeatured.rarity] }} />;
                     })()}
+                    
+                    {/* Rarity tag top-left */}
+                    <div className="absolute top-2 left-2 text-[8px] font-heading font-bold uppercase px-2 py-0.5 border border-zinc-800 bg-black/80" style={{ color: RARITY_COLOR[activeFeatured.rarity], borderColor: RARITY_BORDER[activeFeatured.rarity] }}>
+                      {activeFeatured.rarity}
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-heading text-xs font-bold text-white">{selectedNft.gameName}</div>
-                    <div className="text-[9px] font-heading text-text-muted uppercase">Level {selectedNft.level} · {selectedNft.rarity} · x{selectedNft.amount} owned</div>
+                  
+                  <div className="space-y-1">
+                    <h4 className="font-heading font-black text-xs text-white truncate uppercase tracking-tight">{activeFeatured.gameName} #{activeFeatured.tokenId.slice(-3)}</h4>
+                    <div className="flex justify-between items-center text-[9px] text-text-muted">
+                      <span>{activeFeatured.gameName}</span>
+                      {activeFeatured.price && (
+                        <span className="font-mono text-[#a9ddd3] font-bold">{activeFeatured.price} ETH</span>
+                      )}
+                    </div>
                   </div>
                 </div>
 
-                {/* Price */}
-                <div>
-                  <label className="block text-[9px] font-heading tracking-[0.2em] text-text-muted uppercase mb-1.5">Asking Price (ETH)</label>
-                  <input type="number" step="0.001" min="0.0001" value={sellPrice} onChange={e => setSellPrice(e.target.value)}
-                    disabled={isAnyTxActive}
-                    className="w-full px-3 py-2.5 text-xs text-white font-mono focus:outline-none transition-colors disabled:opacity-40"
-                    style={{ background: '#0d0d0d', border: '1px solid #1f1f1f' }}
-                    onFocus={e => { e.target.style.borderColor = '#a9ddd3'; }}
-                    onBlur={e => { e.target.style.borderColor = '#1f1f1f'; }}
-                  />
-                </div>
-
-                {/* Quantity */}
-                {selectedNft.amount > 1 && (
-                  <div>
-                    <label className="block text-[9px] font-heading tracking-[0.2em] text-text-muted uppercase mb-1.5">Quantity: <span style={{ color: '#a9ddd3' }}>{sellAmount}</span></label>
-                    <input type="range" min="1" max={selectedNft.amount} value={sellAmount} onChange={e => setSellAmount(Number(e.target.value))} disabled={isAnyTxActive} className="w-full" style={{ accentColor: '#a9ddd3' }} />
-                  </div>
-                )}
-
-                {/* Expiry */}
-                <div>
-                  <label className="block text-[9px] font-heading tracking-[0.2em] text-text-muted uppercase mb-1.5">Expiry</label>
-                  <select value={sellExpiryDays} onChange={e => setSellExpiryDays(Number(e.target.value))}
-                    disabled={isAnyTxActive}
-                    className="w-full px-3 py-2.5 text-xs text-white font-mono focus:outline-none disabled:opacity-40"
-                    style={{ background: '#0d0d0d', border: '1px solid #1f1f1f' }}
-                  >
-                    <option value={1}>1 Day</option>
-                    <option value={3}>3 Days</option>
-                    <option value={7}>7 Days</option>
-                    <option value={30}>30 Days</option>
-                  </select>
-                </div>
-
-                {/* Fee breakdown */}
-                <div className="p-3 space-y-2 font-mono text-[9px]" style={{ background: '#0d0d0d', border: '1px solid #1f1f1f' }}>
-                  <div className="flex justify-between text-text-muted">
-                    <span>Royalties (0%):</span><span>0.0000 ETH</span>
-                  </div>
-                  <div className="flex justify-between text-text-muted">
-                    <span>Protocol ({marketplaceFeeBps / 100}%):</span><span className="text-red-400">-{((Number(sellPrice) * marketplaceFeeBps) / 10000).toFixed(4)} ETH</span>
-                  </div>
-                  <div className="flex justify-between pt-2 font-bold text-xs text-white" style={{ borderTop: '1px solid #1f1f1f' }}>
-                    <span>You receive:</span><span style={{ color: '#a9ddd3' }}>{(Number(sellPrice) - ((Number(sellPrice) * marketplaceFeeBps) / 10000)).toFixed(4)} ETH</span>
+                {/* Banner Content */}
+                <div className="relative z-10 flex-1 space-y-4 text-center md:text-left">
+                  <p className="text-[9px] font-heading tracking-[0.25em] text-[#a9ddd3] uppercase">Featured Game Asset</p>
+                  <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white leading-tight tracking-tight uppercase max-w-lg">
+                    Trade Legendary Game Assets
+                  </h2>
+                  <p className="text-xs text-text-secondary max-w-md">
+                    Acquire level upgrades, tools, and custom character cards on-chain to boost your R-Cade arena performance multiplier.
+                  </p>
+                  <div className="pt-2">
+                    {activeFeatured.isFallback ? (
+                      <button 
+                        onClick={() => {
+                          const el = document.getElementById('trending-assets');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="btn-primary text-[9px] px-6 py-3 rounded-sm transition-all"
+                      >
+                        Explore Assets
+                      </button>
+                    ) : (
+                      <button 
+                        onClick={() => handleBuyListing(activeFeatured)}
+                        disabled={isAnyTxActive || isNetworkMismatch || isWalletAccountMismatch}
+                        className="btn-primary text-[9px] px-6 py-3 rounded-sm transition-all"
+                      >
+                        {listingTxStates[activeFeatured.id] === 'signing' ? "Awaiting Signature..." : 
+                         listingTxStates[activeFeatured.id] === 'pending' ? "Purchasing..." : "Buy Featured"}
+                      </button>
+                    )}
                   </div>
                 </div>
 
-                <button onClick={handleCreateListing} disabled={Number(sellPrice) <= 0 || isNetworkMismatch || isWalletAccountMismatch || isAnyTxActive}
-                  className="w-full py-3.5 text-[10px] font-heading font-bold uppercase tracking-[0.2em] disabled:opacity-40 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                  style={{ background: '#a9ddd3', color: '#000' }}
-                >
-                  {listingTxStates.list === 'signing' ? <><Loader2 className="w-3 h-3 animate-spin" /> Signing...</> :
-                   listingTxStates.list === 'pending' ? <><Loader2 className="w-3 h-3 animate-spin" /> Syncing...</> :
-                   "Sign & List Off-Chain"}
-                </button>
-              </div>
-            ) : (
-              <div className="py-16 text-center text-[9px] font-heading tracking-[0.2em] text-text-muted uppercase" style={{ border: '1px dashed #1f1f1f' }}>
-                Select an asset from vault
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* ══════════════════════════════════════════════════════
-          TRADER DASHBOARD TAB
-      ══════════════════════════════════════════════════════ */}
-      {activeTab === 'dashboard' && (
-        <div className="space-y-6">
-          {/* Stat row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
-            {[
-              { icon: ShoppingBag, label: 'Active Offers',     value: dashboardStats.activeOffers, unit: '' },
-              { icon: TrendingUp,  label: 'Total Earned',      value: dashboardStats.totalVolumeEarned, unit: 'ETH' },
-              { icon: History,     label: 'Assets Purchased',  value: dashboardStats.totalAssetsPurchased, unit: '' },
-            ].map(s => {
-              const Icon = s.icon;
-              return (
-                <div key={s.label} className="bg-bg-card px-6 py-5 flex items-center gap-4">
-                  <div className="w-9 h-9 flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(169,221,211,0.08)', border: '1px solid rgba(169,221,211,0.2)' }}>
-                    <Icon className="w-4 h-4" style={{ color: '#a9ddd3' }} />
-                  </div>
-                  <div>
-                    <div className="text-[9px] font-heading tracking-[0.2em] text-text-muted uppercase">{s.label}</div>
-                    <div className="font-heading font-black text-2xl text-white mt-0.5">{s.value}<span className="text-xs ml-1 text-text-muted">{s.unit}</span></div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Sub-tab nav (Horizontal scroll support) */}
-          <div className="flex flex-row flex-nowrap items-center gap-0 overflow-x-auto scrollbar-none pb-1" style={{ borderBottom: '1px solid #1f1f1f', WebkitOverflowScrolling: 'touch' }}>
-            {([
-              { id: 'active',      label: `Active (${traderActiveListings.length})` },
-              { id: 'sales',       label: `Sales (${traderSalesListings.length})` },
-              { id: 'purchases',   label: `Purchases (${traderPurchasesListings.length})` },
-              { id: 'rewards',     label: `Reward Vault (${preparedRewards.length})` },
-              { id: 'progression', label: `Progression Status` },
-              { id: 'reserved',    label: `Reserved NFTs (${reservedInventory.length})` },
-            ] as const).map(t => (
-              <button key={t.id} onClick={() => setDashboardSubTab(t.id)}
-                disabled={isAnyTxActive}
-                className="px-5 py-3 text-[9px] font-heading font-bold tracking-[0.15em] uppercase transition-all whitespace-nowrap cursor-pointer disabled:opacity-40"
-                style={{ color: dashboardSubTab === t.id ? '#a9ddd3' : '#444', borderBottom: dashboardSubTab === t.id ? '2px solid #a9ddd3' : '2px solid transparent', marginBottom: '-1px' }}
-              >{t.label}</button>
-            ))}
-            {dashboardSubTab === 'active' && traderActiveListings.length > 0 && (
-              <button onClick={handleCancelAllListings} disabled={isAnyTxActive || isNetworkMismatch}
-                className="ml-auto px-4 py-2 text-[9px] font-heading font-bold uppercase tracking-wider transition-all flex-shrink-0 mr-0 disabled:opacity-40 cursor-pointer"
-                style={{ color: '#ef4444', border: '1px solid rgba(239,68,68,0.4)', background: 'transparent' }}
-              >
-                {listingTxStates['bulk-cancel'] === 'signing' ? "Signing..." : 
-                 listingTxStates['bulk-cancel'] === 'pending' ? "Voiding..." : 
-                 "Cancel All"}
-              </button>
-            )}
-          </div>
-
-          {/* Sub-tab content */}
-          <div className="min-h-[350px]">
-            {isListingsLoading ? (
-              <div className="flex justify-center items-center py-16">
-                <div className="w-6 h-6 border-2 border-t-transparent animate-spin animate-shimmer" style={{ borderColor: '#a9ddd3', borderTopColor: 'transparent' }} />
-              </div>
-            ) : (
-              <>
-                {/* ACTIVE SUBTAB */}
-                {dashboardSubTab === 'active' && (
-                  traderActiveListings.length === 0 ? (
-                    <div className="py-12 text-center" style={{ border: '1px dashed #1f1f1f' }}>
-                      <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase mb-3">No active listings</p>
-                      <button onClick={() => setActiveTab('sell')} disabled={isAnyTxActive} className="btn-primary text-[9px] px-5 py-2 cursor-pointer disabled:opacity-40">Create Listing</button>
+                {/* Carousel Navigation Indicators */}
+                {featuredPool.length > 1 && (
+                  <div className="hidden md:flex flex-col items-end gap-16 self-stretch justify-between relative z-10">
+                    <div className="flex gap-1.5">
+                      <button 
+                        onClick={() => setActiveHeroIndex(prev => (prev - 1 + featuredPool.length) % featuredPool.length)}
+                        className="w-6 h-6 border border-[#222] flex items-center justify-center text-text-muted hover:text-white hover:border-[#a9ddd3] transition-all cursor-pointer rounded-sm bg-black/40"
+                      >
+                        <ArrowLeft className="w-3 h-3" />
+                      </button>
+                      <button 
+                        onClick={() => setActiveHeroIndex(prev => (prev + 1) % featuredPool.length)}
+                        className="w-6 h-6 border border-[#222] flex items-center justify-center text-text-muted hover:text-white hover:border-[#a9ddd3] transition-all cursor-pointer rounded-sm bg-black/40"
+                      >
+                        <ArrowRight className="w-3 h-3" />
+                      </button>
                     </div>
-                  ) : (
-                    <div style={{ border: '1px solid #1f1f1f' }} className="overflow-x-auto scrollbar-none">
-                      <div className="min-w-[800px]">
-                        <AnimatePresence>
-                          {traderActiveListings.map((listing, i) => {
-                            const isPending = listingTxStates[listing.id] === 'signing' || listingTxStates[listing.id] === 'pending';
-                            const isSyncingListing = listing.status === 'Syncing';
-                            return (
-                              <motion.div 
-                                layout
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ 
-                                  opacity: (isPending || isSyncingListing) ? 0.45 : 1,
-                                  filter: (isPending || isSyncingListing) ? 'blur(0.5px)' : 'none'
-                                }}
-                                exit={{ opacity: 0, height: 0 }}
-                                transition={{ duration: 0.2 }}
-                                key={listing.id} 
-                                className="grid grid-cols-12 items-center px-4 py-3.5 transition-colors"
-                                style={{ 
-                                  borderBottom: i < traderActiveListings.length - 1 ? '1px solid #141414' : 'none', 
-                                  background: 'transparent',
-                                  pointerEvents: isAnyTxActive ? 'none' : 'auto'
-                                }}
-                              >
-                                <div className="col-span-2 flex items-center gap-2 min-w-0">
-                                  <div className="w-8 h-8 flex items-center justify-center font-heading font-black text-sm flex-shrink-0" 
-                                    style={{ 
-                                      background: 'rgba(169,221,211,0.08)', 
-                                      border: `1px solid ${RARITY_BORDER[listing.rarity]}`, 
-                                      color: RARITY_COLOR[listing.rarity] 
-                                    }}>
-                                    {(() => {
-                                      const IconComponent = GAME_ICON_MAP[listing.gameIcon] || Gamepad2;
-                                      return <IconComponent className="w-4 h-4" />;
-                                    })()}
-                                  </div>
-                                  <div className="flex flex-col min-w-0">
-                                    <span className="font-heading text-xs font-bold text-white truncate leading-tight">{listing.gameName}</span>
-                                    <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">Level {listing.level}</span>
-                                  </div>
-                                </div>
-                                <div className="col-span-2">
-                                  <span className="text-[9px] font-heading font-bold uppercase" style={{ color: RARITY_COLOR[listing.rarity] }}>{listing.rarity}</span>
-                                </div>
-                                <div className="col-span-1">
-                                  <span className="font-mono text-xs text-text-secondary">x{listing.amount}</span>
-                                </div>
-                                <div className="col-span-2">
-                                  <span className="font-heading font-bold text-sm" style={{ color: '#a9ddd3' }}>{listing.price}</span>
-                                  <span className="font-heading text-[9px] text-text-muted ml-1">ETH</span>
-                                </div>
-                                <div className="col-span-3">
-                                  {isSyncingListing ? (
-                                    <span className="text-[9px] font-heading font-bold tracking-widest animate-pulse" style={{ color: '#f59e0b' }}>[SYNCING...]</span>
-                                  ) : (
-                                    <span className="font-mono text-[9px] text-text-muted">Expires {new Date(listing.expiry * 1000).toLocaleDateString()}</span>
-                                  )}
-                                </div>
-                                <div className="col-span-2 flex justify-end">
-                                  {!isSyncingListing && (
-                                    <button 
-                                      onClick={() => handleCancelListing(listing)} 
-                                      disabled={isAnyTxActive || isNetworkMismatch || isPending}
-                                      className="px-3 py-2 text-[9px] font-heading font-bold uppercase tracking-wider flex items-center gap-1.5 disabled:opacity-40 transition-all cursor-pointer"
-                                      style={{ color: '#ef4444', border: '1px solid rgba(239,68,68,0.35)', background: 'transparent' }}
-                                    >
-                                      {listingTxStates[listing.id] === 'signing' ? <><Loader2 className="w-3 h-3 animate-spin" /> Voiding...</> :
-                                       listingTxStates[listing.id] === 'pending' ? <><Loader2 className="w-3 h-3 animate-spin" /> Pending...</> :
-                                       <><Trash2 className="w-3 h-3" /> Cancel</>}
-                                    </button>
-                                  )}
-                                </div>
-                              </motion.div>
-                            );
-                          })}
-                        </AnimatePresence>
-                      </div>
-                    </div>
-                  )
-                )}
-
-                {/* SALES SUBTAB */}
-                {dashboardSubTab === 'sales' && (
-                  traderSalesListings.length === 0 ? (
-                    <div className="py-12 text-center" style={{ border: '1px dashed #1f1f1f' }}>
-                      <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase">No completed sales yet</p>
-                    </div>
-                  ) : (
-                    <div style={{ border: '1px solid #1f1f1f' }} className="overflow-x-auto scrollbar-none">
-                      <div className="min-w-[800px]">
-                        <div className="grid grid-cols-12 px-4 py-2.5" style={{ background: '#0d0d0d', borderBottom: '1px solid #1f1f1f' }}>
-                          {['Asset', 'Price', 'Buyer', 'Explorer'].map((h, i) => (
-                            <div key={h} className={`font-heading text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted ${i === 0 ? 'col-span-4' : i === 1 ? 'col-span-2' : i === 2 ? 'col-span-4' : 'col-span-2'}`}>{h}</div>
-                          ))}
-                        </div>
-                        {traderSalesListings.map((listing, i) => (
-                          <div key={listing.id} className="grid grid-cols-12 items-center px-4 py-3.5 transition-colors"
-                            style={{ borderBottom: i < traderSalesListings.length - 1 ? '1px solid #141414' : 'none' }}
-                          >
-                            <div className="col-span-4 flex items-center gap-2 min-w-0">
-                              <div className="w-7 h-7 flex items-center justify-center flex-shrink-0" 
-                                style={{ 
-                                  background: 'rgba(169,221,211,0.06)', 
-                                  border: `1px solid ${RARITY_BORDER[listing.rarity]}`, 
-                                  color: RARITY_COLOR[listing.rarity] 
-                                }}>
-                                {(() => {
-                                  const IconComponent = GAME_ICON_MAP[listing.gameIcon] || Gamepad2;
-                                  return <IconComponent className="w-3.5 h-3.5" />;
-                                })()}
-                              </div>
-                              <div className="flex flex-col min-w-0">
-                                <span className="font-heading text-xs font-bold text-white truncate leading-none mb-0.5">{listing.gameName}</span>
-                                <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">Level {listing.level} · {listing.rarity}</span>
-                              </div>
-                            </div>
-                            <div className="col-span-2 font-heading font-bold text-sm" style={{ color: '#a9ddd3' }}>{listing.price} <span className="text-[9px] text-text-muted">ETH</span></div>
-                            <div className="col-span-4 font-mono text-[9px] text-text-secondary">{listing.buyer ? `${listing.buyer.slice(0, 10)}...${listing.buyer.slice(-6)}` : 'Unknown'}</div>
-                            <div className="col-span-2">
-                              {listing.saleTxHash ? (
-                                <a href={`https://sepolia.basescan.org/tx/${listing.saleTxHash}`} target="_blank" rel="noreferrer"
-                                  className="flex items-center gap-1 text-[9px] font-heading uppercase tracking-wider transition-colors hover:text-white" style={{ color: '#a9ddd3' }}>
-                                  View <ExternalLink className="w-3 h-3" />
-                                </a>
-                              ) : <span className="text-[9px] text-text-muted font-mono">—</span>}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )
-                )}
-
-                {/* PURCHASES SUBTAB */}
-                {dashboardSubTab === 'purchases' && (
-                  traderPurchasesListings.length === 0 ? (
-                    <div className="py-12 text-center" style={{ border: '1px dashed #1f1f1f' }}>
-                      <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase mb-3">No purchases yet</p>
-                      <button onClick={() => setActiveTab('buy')} className="btn-primary text-[9px] px-5 py-2 cursor-pointer">Browse Market</button>
-                    </div>
-                  ) : (
-                    <div style={{ border: '1px solid #1f1f1f' }} className="overflow-x-auto scrollbar-none">
-                      <div className="min-w-[800px]">
-                        <div className="grid grid-cols-12 px-4 py-2.5" style={{ background: '#0d0d0d', borderBottom: '1px solid #1f1f1f' }}>
-                          {['Asset', 'Price', 'Seller', 'Explorer'].map((h, i) => (
-                            <div key={h} className={`font-heading text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted ${i === 0 ? 'col-span-4' : i === 1 ? 'col-span-2' : i === 2 ? 'col-span-4' : 'col-span-2'}`}>{h}</div>
-                          ))}
-                        </div>
-                        {traderPurchasesListings.map((listing, i) => (
-                          <div key={listing.id} className="grid grid-cols-12 items-center px-4 py-3.5 transition-colors"
-                            style={{ borderBottom: i < traderPurchasesListings.length - 1 ? '1px solid #141414' : 'none' }}
-                          >
-                            <div className="col-span-4 flex items-center gap-2 min-w-0">
-                              <div className="w-7 h-7 flex items-center justify-center flex-shrink-0" 
-                                style={{ 
-                                  background: 'rgba(169,221,211,0.06)', 
-                                  border: `1px solid ${RARITY_BORDER[listing.rarity]}`, 
-                                  color: RARITY_COLOR[listing.rarity] 
-                                }}>
-                                {(() => {
-                                  const IconComponent = GAME_ICON_MAP[listing.gameIcon] || Gamepad2;
-                                  return <IconComponent className="w-3.5 h-3.5" />;
-                                })()}
-                              </div>
-                              <div className="flex flex-col min-w-0">
-                                <span className="font-heading text-xs font-bold text-white truncate leading-none mb-0.5">{listing.gameName}</span>
-                                <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">Level {listing.level} · {listing.rarity}</span>
-                              </div>
-                            </div>
-                            <div className="col-span-2 font-heading font-bold text-sm" style={{ color: '#a9ddd3' }}>{listing.price} <span className="text-[9px] text-text-muted">ETH</span></div>
-                            <div className="col-span-4 font-mono text-[9px] text-text-secondary">{listing.seller ? `${listing.seller.slice(0, 10)}...${listing.seller.slice(-6)}` : 'Unknown'}</div>
-                            <div className="col-span-2">
-                              {listing.saleTxHash ? (
-                                <a href={`https://sepolia.basescan.org/tx/${listing.saleTxHash}`} target="_blank" rel="noreferrer"
-                                  className="flex items-center gap-1 text-[9px] font-heading uppercase tracking-wider hover:text-white transition-colors" style={{ color: '#a9ddd3' }}>
-                                  View <ExternalLink className="w-3 h-3" />
-                                </a>
-                              ) : <span className="text-[9px] text-text-muted font-mono">—</span>}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )
-                )}
-
-                {/* REWARDS SUBTAB */}
-                {dashboardSubTab === 'rewards' && (
-                  preparedRewards.length === 0 ? (
-                    <div className="py-12 text-center" style={{ border: '1px dashed #1f1f1f' }}>
-                      <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase mb-3">No rewards available inside vault</p>
-                      <Link href="/play" className="btn-primary text-[9px] px-5 py-2 cursor-pointer inline-block">Play & Unlock Levels</Link>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                      {preparedRewards.map(reward => {
-                        const levelNum = reward.levelId.split('-').pop();
-                        const isMinting = reward.claimStatus === 'MINTING' || listingTxStates[reward.id] === 'signing' || listingTxStates[reward.id] === 'pending';
+                    <div className="flex gap-1.5 items-center">
+                      {featuredPool.slice(0, 5).map((_, idx) => {
+                        const isActive = (activeHeroIndex % featuredPool.length) === idx;
                         return (
-                          <div
-                            key={reward.id}
-                            className="p-5 relative transition-all duration-300 flex flex-col justify-between"
-                            style={{
-                              background: 'rgba(15,15,15,0.95)',
-                              border: `1px solid ${RARITY_BORDER[reward.rarity] || 'rgba(31,31,31,0.5)'}`,
-                              boxShadow: `0 0 15px ${RARITY_BORDER[reward.rarity] || 'rgba(31,31,31,0.3)'}`,
-                            }}
-                          >
-                            <div className="absolute inset-0 pointer-events-none opacity-5 bg-radial-card" style={{
-                              background: `radial-gradient(circle at 50% 20%, ${RARITY_COLOR[reward.rarity]}, transparent)`
-                            }} />
-                            
-                            <div className="space-y-3 relative z-10">
-                              <div className="flex justify-between items-start">
-                                <span className="text-[8px] font-heading font-black tracking-widest uppercase bg-black/40 px-2 py-0.5 border border-zinc-800" style={{ color: RARITY_COLOR[reward.rarity] }}>
-                                  {reward.rarity}
-                                </span>
-                                <span className="text-[8px] font-mono text-zinc-500">
-                                  RANK #{reward.completionRank}
-                                </span>
-                              </div>
-                              
-                              <div className="py-2">
-                                <h4 className="font-heading font-black text-2xl text-white tracking-tight uppercase">Level {levelNum}</h4>
-                                <p className="text-[9px] font-heading tracking-widest text-zinc-400 uppercase mt-0.5">{reward.season.replace('-', ' ')}</p>
-                              </div>
-                            </div>
-                            
-                            <div className="mt-4 pt-4 border-t border-zinc-900/60 relative z-10">
-                              <button
-                                onClick={() => handleMintReward(reward)}
-                                disabled={isAnyTxActive || isNetworkMismatch || isWalletAccountMismatch || isMinting}
-                                className="w-full py-2.5 text-[9px] font-heading font-black uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm hover:shadow-[#a9ddd3]/10"
-                                style={{
-                                  background: isMinting ? '#222' : RARITY_COLOR[reward.rarity] || '#a9ddd3',
-                                  color: isMinting ? '#555' : '#000',
-                                  boxShadow: `0 0 10px ${RARITY_BORDER[reward.rarity] || 'rgba(31,31,31,0.3)'}`
-                                }}
-                              >
-                                {isMinting ? (
-                                  <>
-                                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                                    <span>MINTING...</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <Zap className="w-3.5 h-3.5 fill-current" />
-                                    <span>MINT NFT REWARD</span>
-                                  </>
-                                )}
-                              </button>
-                            </div>
-                          </div>
+                          <button
+                            key={idx}
+                            onClick={() => setActiveHeroIndex(idx)}
+                            className={`h-1 transition-all rounded-full cursor-pointer ${isActive ? 'w-5 bg-[#a9ddd3]' : 'w-2.5 bg-[#1c1c1f] hover:bg-zinc-700'}`}
+                          />
                         );
                       })}
                     </div>
-                  )
+                  </div>
                 )}
+              </div>
+            );
+          })()}
+        </div>
 
-                {/* PROGRESSION SUBTAB */}
-                {dashboardSubTab === 'progression' && (
-                  <div className="space-y-6">
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                      {[
-                        { label: 'Contiguous Effective Level', value: dbUser?.effectiveProgressionLevel ?? 0, desc: 'Highest unbroken NFT level held' },
-                        { label: 'Highest Playable Level', value: dbUser?.highestUnlockedLevel ?? 1, desc: 'Max level unlocked in gameplay' },
-                        { label: 'Highest Score Record', value: dbUser?.highestScore ?? 0, desc: 'All-time retro leaderboard score' },
-                        { label: 'Max Combo Multiplier', value: `${(dbUser?.highestCombo ?? 1.0).toFixed(1)}x`, desc: 'Highest combo chain achieved' }
-                      ].map(stat => (
-                        <div key={stat.label} className="bg-black/80 border border-zinc-800 p-5 space-y-2 relative overflow-hidden group">
-                          <div className="absolute top-0 left-0 w-2 h-[1px] bg-[#a9ddd3]" />
-                          <div className="absolute top-0 left-0 w-[1px] h-2 bg-[#a9ddd3]" />
-                          <div className="text-[9px] font-heading tracking-[0.15em] text-zinc-500 uppercase">{stat.label}</div>
-                          <div className="text-3xl font-heading font-black text-white">{stat.value}</div>
-                          <div className="text-[8px] font-mono text-zinc-400">{stat.desc}</div>
-                        </div>
-                      ))}
+        {/* ── BOTTOM Split Content Section (Filters + Tabs Content) ── */}
+        <div className="flex-1 flex flex-col lg:flex-row min-h-0 border-t border-[#161616]">
+
+          {/* ── FILTER SIDEBAR (Left) ── */}
+          {activeTab === 'buy' && (
+            <div className="w-full lg:w-72 bg-[#080808]/90 border-r border-[#161616] flex flex-col flex-shrink-0 relative transition-all duration-300">
+              {/* Mobile Header Filter Toggle */}
+              <div className="p-4 flex items-center justify-between border-b border-[#161616] lg:hidden bg-black/40">
+                <span className="font-heading text-[10px] font-bold uppercase tracking-wider text-[#a9ddd3] flex items-center gap-1.5">
+                  <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
+                </span>
+                <button onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)} className="p-2 text-white border border-[#161616] rounded-sm hover:border-[#a9ddd3]">
+                  {isMobileSidebarOpen ? <X className="w-4 h-4" /> : <Filter className="w-4 h-4 text-[#a9ddd3]" />}
+                </button>
+              </div>
+
+              {/* Filters Scroll Panel */}
+              <div className={`p-6 space-y-6 flex-1 overflow-y-auto ${isMobileSidebarOpen ? 'block bg-[#080808]' : 'hidden lg:block'}`}>
+                
+                {/* SEARCH BAR */}
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="w-3.5 h-3.5 text-text-muted" />
+                  </span>
+                  <input 
+                    type="text" 
+                    placeholder="Search Assets..." 
+                    value={searchTerm} 
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="w-full bg-[#050505] border border-[#161616] pl-9 pr-8 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-[#a9ddd3] transition-all rounded-sm placeholder-text-muted"
+                  />
+                  {searchTerm && (
+                    <button onClick={() => setSearchTerm('')} className="absolute inset-y-0 right-0 pr-3 flex items-center text-text-muted hover:text-white">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+
+                {/* GAMES ACCORDION */}
+                <div className="border-b border-[#161616] pb-5">
+                  <button onClick={() => toggleFilterSection('games')} className="flex items-center justify-between w-full font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-[#a9ddd3] transition-colors py-2">
+                    <span>Games</span>
+                    {expandedFilters.games ? <ChevronUp className="w-3.5 h-3.5 text-[#a9ddd3]" /> : <ChevronDown className="w-3.5 h-3.5 text-text-muted" />}
+                  </button>
+                  {expandedFilters.games && (
+                    <div className="mt-3 space-y-2">
+                      <select 
+                        value={selectedGameFilter} 
+                        onChange={e => setSelectedGameFilter(e.target.value)}
+                        className="w-full bg-[#050505] border border-[#161616] text-[10px] font-heading px-3 py-2.5 text-white tracking-[0.1em] focus:outline-none focus:border-[#a9ddd3] uppercase transition-colors"
+                      >
+                        <option value="ALL">All Games</option>
+                        <option value="neon-snake">Neon Snake</option>
+                        <option value="cyber-runner">Cyber Runner</option>
+                        <option value="void-arena">Void Arena</option>
+                        <option value="pixel-heist">Pixel Heist</option>
+                        <option value="space-impact">Space Impact</option>
+                        <option value="sudoku">Sudoku Matrix</option>
+                      </select>
+                      
+                      {/* Visual Quicklinks matching reference design */}
+                      <div className="mt-3 space-y-1.5 pl-1">
+                        {([
+                          { id: 'ALL', name: 'All Games' },
+                          { id: 'neon-snake', name: 'Neon Snake' },
+                          { id: 'cyber-runner', name: 'Cyber Runner' },
+                          { id: 'void-arena', name: 'Void Arena' },
+                          { id: 'pixel-heist', name: 'Pixel Heist' },
+                          { id: 'space-impact', name: 'Space Impact' },
+                          { id: 'sudoku', name: 'Sudoku Matrix' },
+                        ]).map(game => (
+                          <button 
+                            key={game.id} 
+                            onClick={() => setSelectedGameFilter(game.id)}
+                            className={`block text-[9px] font-mono tracking-wider transition-colors py-0.5 text-left w-full ${selectedGameFilter === game.id ? 'text-[#a9ddd3] font-bold' : 'text-text-muted hover:text-white'}`}
+                          >
+                            {selectedGameFilter === game.id ? '•' : '>'} {game.name}
+                          </button>
+                        ))}
+                      </div>
                     </div>
+                  )}
+                </div>
 
-                    <div className="bg-black/90 border border-zinc-800/80 p-6 relative">
-                      <h4 className="font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-white mb-6 flex items-center gap-2">
-                        <Layers className="w-4 h-4 text-[#a9ddd3]" /> ON-CHAIN PROGRESSION TIMELINE (LEVELS 1-10)
-                      </h4>
+                {/* CATEGORIES ACCORDION */}
+                <div className="border-b border-[#161616] pb-5">
+                  <button onClick={() => toggleFilterSection('categories')} className="flex items-center justify-between w-full font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-[#a9ddd3] transition-colors py-2">
+                    <span>Categories</span>
+                    {expandedFilters.categories ? <ChevronUp className="w-3.5 h-3.5 text-[#a9ddd3]" /> : <ChevronDown className="w-3.5 h-3.5 text-text-muted" />}
+                  </button>
+                  {expandedFilters.categories && (
+                    <div className="mt-3 space-y-2 pl-1">
+                      {['Avatars', 'Weapons', 'Lands', 'Skins', 'Items'].map(cat => {
+                        const isChecked = selectedCategories.includes(cat);
+                        return (
+                          <label key={cat} className="flex items-center gap-2.5 text-[10px] font-heading uppercase tracking-wider text-text-secondary hover:text-white cursor-pointer select-none">
+                            <input 
+                              type="checkbox" 
+                              checked={isChecked} 
+                              onChange={() => {
+                                setSelectedCategories(prev => prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]);
+                              }}
+                              className="sr-only"
+                            />
+                            <span className={`w-3.5 h-3.5 border flex items-center justify-center transition-all ${isChecked ? 'bg-[#a9ddd3] border-[#a9ddd3] text-black' : 'border-[#222] bg-[#050505] hover:border-text-muted'}`}>
+                              {isChecked && <CheckCircle2 className="w-2.5 h-2.5 text-black stroke-[3]" />}
+                            </span>
+                            <span>{cat}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
 
-                      <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4 py-4 overflow-x-auto scrollbar-none">
-                        <div className="hidden md:block absolute top-[43px] left-8 right-8 h-0.5 bg-zinc-800 z-0" />
-                        
-                        {Array.from({ length: 10 }).map((_, idx) => {
-                          const level = idx + 1;
-                          const isHeld = inventory.some(item => item.level === level);
-                          const isContiguous = level <= (dbUser?.effectiveProgressionLevel ?? 0);
-                          
-                          return (
-                            <div key={level} className="relative z-10 flex md:flex-col items-center gap-4 md:gap-2 flex-1 min-w-[70px]">
-                              <div 
-                                className="w-10 h-10 rounded-full flex items-center justify-center font-heading font-black text-xs transition-all duration-300 relative"
-                                style={{
-                                  background: isContiguous ? 'rgba(169,221,211,0.15)' : isHeld ? 'rgba(31,31,31,0.8)' : '#000',
-                                  border: isContiguous ? '2px solid #a9ddd3' : isHeld ? '1px solid rgba(169,221,211,0.4)' : '1px solid #27272a',
-                                  color: isContiguous ? '#a9ddd3' : isHeld ? '#f59e0b' : '#3f3f46',
-                                  boxShadow: isContiguous ? '0 0 15px rgba(169,221,211,0.3)' : 'none'
-                                }}
+                {/* PRICE RANGE ACCORDION */}
+                <div className="border-b border-[#161616] pb-5">
+                  <button onClick={() => toggleFilterSection('priceRange')} className="flex items-center justify-between w-full font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-[#a9ddd3] transition-colors py-2">
+                    <span>Price Range</span>
+                    {expandedFilters.priceRange ? <ChevronUp className="w-3.5 h-3.5 text-[#a9ddd3]" /> : <ChevronDown className="w-3.5 h-3.5 text-text-muted" />}
+                  </button>
+                  {expandedFilters.priceRange && (
+                    <div className="mt-3 space-y-3.5 pl-1">
+                      {/* Custom glowing slider track visualization from screenshot */}
+                      <div className="relative pt-4 px-1 pb-1">
+                        <div className="h-1 bg-[#161616] rounded-full w-full relative">
+                          <div className="absolute left-[5%] right-[25%] h-full bg-[#a9ddd3]" />
+                          <div className="absolute left-[5%] -top-1.5 w-4 h-4 rounded-full bg-[#a9ddd3] border-2 border-black cursor-pointer shadow-[0_0_8px_rgba(169,221,211,0.5)]" />
+                          <div className="absolute right-[25%] -top-1.5 w-4 h-4 rounded-full bg-[#a9ddd3] border-2 border-black cursor-pointer shadow-[0_0_8px_rgba(169,221,211,0.5)]" />
+                        </div>
+                        <div className="flex justify-between items-center text-[8px] font-mono text-text-muted mt-3">
+                          <span>0 ETH</span>
+                          <span>10+ ETH</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <div className="relative flex-1">
+                          <input 
+                            type="text" 
+                            value={minPrice} 
+                            onChange={e => setMinPrice(e.target.value)} 
+                            placeholder="Min" 
+                            className="w-full bg-[#050505] border border-[#161616] text-[10px] font-mono p-2 pr-6 text-white focus:outline-none focus:border-[#a9ddd3] transition-colors"
+                          />
+                          <span className="absolute right-2 top-2.5 text-[8px] font-heading text-text-muted">ETH</span>
+                        </div>
+                        <span className="text-[10px] text-text-muted font-mono">-</span>
+                        <div className="relative flex-1">
+                          <input 
+                            type="text" 
+                            value={maxPrice} 
+                            onChange={e => setMaxPrice(e.target.value)} 
+                            placeholder="Max" 
+                            className="w-full bg-[#050505] border border-[#161616] text-[10px] font-mono p-2 pr-6 text-white focus:outline-none focus:border-[#a9ddd3] transition-colors"
+                          />
+                          <span className="absolute right-2 top-2.5 text-[8px] font-heading text-text-muted">ETH</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* RARITY ACCORDION */}
+                <div className="border-b border-[#161616] pb-5">
+                  <button onClick={() => toggleFilterSection('rarity')} className="flex items-center justify-between w-full font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-[#a9ddd3] transition-colors py-2">
+                    <span>Rarity</span>
+                    {expandedFilters.rarity ? <ChevronUp className="w-3.5 h-3.5 text-[#a9ddd3]" /> : <ChevronDown className="w-3.5 h-3.5 text-text-muted" />}
+                  </button>
+                  {expandedFilters.rarity && (
+                    <div className="mt-3 space-y-2 pl-1">
+                      {['Common', 'Rare', 'Epic', 'Legendary'].map(rarity => {
+                        const isChecked = selectedRarities.includes(rarity);
+                        return (
+                          <label key={rarity} className="flex items-center gap-2.5 text-[10px] font-heading uppercase tracking-wider text-text-secondary hover:text-white cursor-pointer select-none">
+                            <input 
+                              type="checkbox" 
+                              checked={isChecked} 
+                              onChange={() => {
+                                setSelectedRarities(prev => prev.includes(rarity) ? prev.filter(r => r !== rarity) : [...prev, rarity]);
+                              }}
+                              className="sr-only"
+                            />
+                            <span className={`w-3.5 h-3.5 border flex items-center justify-center transition-all ${isChecked ? 'bg-[#a9ddd3] border-[#a9ddd3] text-black' : 'border-[#222] bg-[#050505] hover:border-text-muted'}`}>
+                              {isChecked && <CheckCircle2 className="w-2.5 h-2.5 text-black stroke-[3]" />}
+                            </span>
+                            <span style={{ color: RARITY_COLOR[rarity] }}>{rarity}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                {/* STATUS ACCORDION */}
+                <div className="pb-2">
+                  <button onClick={() => toggleFilterSection('status')} className="flex items-center justify-between w-full font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-[#a9ddd3] transition-colors py-2">
+                    <span>Status</span>
+                    {expandedFilters.status ? <ChevronUp className="w-3.5 h-3.5 text-[#a9ddd3]" /> : <ChevronDown className="w-3.5 h-3.5 text-text-muted" />}
+                  </button>
+                  {expandedFilters.status && (
+                    <div className="mt-3 space-y-2 pl-1">
+                      {['Buy Now', 'Auction', 'Live Drops'].map(status => {
+                        const isChecked = selectedStatus.includes(status);
+                        return (
+                          <label key={status} className="flex items-center gap-2.5 text-[10px] font-heading uppercase tracking-wider text-text-secondary hover:text-white cursor-pointer select-none">
+                            <input 
+                              type="checkbox" 
+                              checked={isChecked} 
+                              onChange={() => {
+                                setSelectedStatus(prev => prev.includes(status) ? prev.filter(s => s !== status) : [...prev, status]);
+                              }}
+                              className="sr-only"
+                            />
+                            <span className={`w-3.5 h-3.5 border flex items-center justify-center transition-all ${isChecked ? 'bg-[#a9ddd3] border-[#a9ddd3] text-black' : 'border-[#222] bg-[#050505] hover:border-text-muted'}`}>
+                              {isChecked && <CheckCircle2 className="w-2.5 h-2.5 text-black stroke-[3]" />}
+                            </span>
+                            <span>{status}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          )}
+
+          {/* ── TAB CONTENT PANEL (Right) ── */}
+          <div className="flex-1 flex flex-col p-6 lg:p-8 overflow-y-auto space-y-8 min-w-0 pb-24 md:pb-8">
+
+            {/* ══════════════════════════════════════════════════════
+                BUY TAB (Redesigned with Grid Cards)
+            ══════════════════════════════════════════════════════ */}
+            {activeTab === 'buy' && (
+              <div className="space-y-8 min-h-[450px]">
+
+                {/* GRID LAYOUT SECTION */}
+                <div className="space-y-4">
+              <div className="flex justify-between items-center pb-2 border-b border-[#161616]">
+                <h3 className="font-heading text-xs font-black uppercase tracking-[0.2em] text-white">Trending Assets</h3>
+                <div className="flex gap-1.5">
+                  <button className="w-5 h-5 border border-[#222] flex items-center justify-center text-text-muted hover:text-white hover:border-white transition-colors cursor-pointer rounded-sm bg-black/20">
+                    <ArrowLeft className="w-3 h-3" />
+                  </button>
+                  <button className="w-5 h-5 border border-[#222] flex items-center justify-center text-text-muted hover:text-white hover:border-white transition-colors cursor-pointer rounded-sm bg-black/20">
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+
+              {isListingsLoading ? (
+                /* Premium Retro Shimmer Loading Skeletons in Grid */
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                  {[1, 2, 3, 4, 5].map(idx => (
+                    <div key={idx} className="bg-[#09090c] border border-[#161616] p-4 rounded-md space-y-4 animate-pulse">
+                      <div className="aspect-square bg-zinc-950 border border-zinc-900 rounded-sm" />
+                      <div className="space-y-2">
+                        <div className="w-2/3 h-3.5 bg-zinc-900" />
+                        <div className="w-1/2 h-2.5 bg-zinc-900" />
+                        <div className="flex justify-between pt-2">
+                          <div className="w-1/3 h-3.5 bg-zinc-900" />
+                          <div className="w-1/4 h-2.5 bg-zinc-900" />
+                        </div>
+                      </div>
+                      <div className="flex gap-2 pt-2">
+                        <div className="w-1/2 h-7 bg-zinc-900 rounded-sm" />
+                        <div className="w-1/2 h-7 bg-zinc-900 rounded-sm" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : buyableListings.length === 0 ? (
+                <div className="py-24 text-center rounded-md" style={{ border: '1px dashed #1f1f1f' }}>
+                  <ShoppingBag className="w-10 h-10 mx-auto mb-4 text-text-muted" />
+                  <p className="font-heading text-xs text-text-muted uppercase tracking-widest mb-1">No Active Listings</p>
+                  <p className="text-[9px] font-heading tracking-widest text-text-muted uppercase">Try adjusting your filters or search terms</p>
+                </div>
+              ) : (
+                /* Dynamic Card Grid */
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                  <AnimatePresence>
+                    {buyableListings.map(listing => {
+                      const isPending = listingTxStates[listing.id] === 'signing' || listingTxStates[listing.id] === 'pending' || listing.pendingPurchase;
+                      const isFavorited = favorites[listing.id];
+                      return (
+                        <motion.div
+                          layout
+                          initial={{ opacity: 0, y: 12 }}
+                          animate={{ 
+                            opacity: isPending ? 0.35 : 1,
+                            filter: isPending ? 'blur(1px)' : 'none'
+                          }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                          key={listing.id}
+                          className="bg-[#09090c] border border-[#161616] hover:border-zinc-800 p-4 rounded-md flex flex-col justify-between transition-all duration-300 group relative overflow-hidden"
+                        >
+                          {/* Accent border highlight on hover */}
+                          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#a9ddd3]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                          <div>
+                            {/* Visual Asset Container */}
+                            <div className="aspect-square bg-[#050507] border border-[#161616] flex items-center justify-center relative rounded-sm overflow-hidden mb-3.5 group-hover:bg-[#07070b] transition-all">
+                              {/* Rarity theme glow behind icon */}
+                              <div className="absolute w-20 h-20 rounded-full opacity-20 filter blur-xl group-hover:opacity-35 transition-all duration-300" style={{
+                                background: `radial-gradient(circle, ${RARITY_COLOR[listing.rarity]} 0%, transparent 70%)`
+                              }} />
+
+                              {(() => {
+                                const IconComponent = GAME_ICON_MAP[listing.gameIcon] || Gamepad2;
+                                return <IconComponent className="w-10 h-10 relative z-10 transition-transform duration-300 group-hover:scale-110" style={{ color: RARITY_COLOR[listing.rarity] }} />;
+                              })()}
+
+                              {/* Heart Favorite Button */}
+                              <button 
+                                onClick={(e) => toggleFavorite(listing.id, e)} 
+                                className="absolute top-2.5 right-2.5 p-1.5 bg-black/60 border border-zinc-900 rounded-sm text-text-muted hover:text-red-500 hover:border-red-500/20 transition-all z-10 cursor-pointer"
                               >
-                                {isContiguous && <div className="absolute inset-1 rounded-full border border-[#a9ddd3]/20 animate-ping" />}
-                                {level}
-                              </div>
+                                <Heart className={`w-3.5 h-3.5 ${isFavorited ? 'fill-red-500 text-red-500' : ''}`} />
+                              </button>
 
-                              <div className="flex flex-col md:items-center text-left md:text-center space-y-0.5">
-                                <span className="text-[8px] font-heading font-black uppercase tracking-wider">
-                                  LVL {level}
+                              {/* Multi-quantities badge */}
+                              {listing.amount > 1 && (
+                                <div className="absolute bottom-2.5 right-2.5 text-[8px] font-mono font-bold bg-black/85 border border-zinc-800 px-1.5 py-0.5 text-[#a9ddd3]">
+                                  x{listing.amount}
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Asset Metadata */}
+                            <div className="space-y-1.5">
+                              <div className="flex justify-between items-start gap-2">
+                                <h4 className="font-heading font-black text-xs text-white truncate uppercase tracking-tight">{listing.gameName} #{listing.tokenId.slice(-3)}</h4>
+                                <span className="text-[8px] font-heading font-bold uppercase px-1.5 py-0.5 border flex-shrink-0" style={{
+                                  color: RARITY_COLOR[listing.rarity],
+                                  borderColor: RARITY_BORDER[listing.rarity],
+                                  background: `${RARITY_COLOR[listing.rarity]}0c`
+                                }}>
+                                  {listing.rarity}
                                 </span>
-                                <span 
-                                  className="text-[7px] font-mono uppercase tracking-widest font-black"
-                                  style={{ color: isContiguous ? '#a9ddd3' : isHeld ? '#f59e0b' : '#3f3f46' }}
+                              </div>
+                              <p className="text-[9px] font-mono text-text-muted uppercase tracking-wider truncate">{listing.gameName} &middot; Level {listing.level}</p>
+                            </div>
+                          </div>
+
+                          {/* Price details and Action buttons */}
+                          <div className="mt-4 pt-3 border-t border-[#161616] space-y-3.5">
+                            <div className="flex justify-between items-end">
+                              <span className="text-[8px] font-heading tracking-widest text-text-muted uppercase">Price</span>
+                              <div className="text-right">
+                                <div className="text-xs font-heading font-bold text-[#a9ddd3]">{listing.price} ETH</div>
+                                <div className="text-[8px] font-mono text-text-muted">~${(parseFloat(listing.price) * 3000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} USD</div>
+                              </div>
+                            </div>
+
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => handleBuyListing(listing)}
+                                disabled={isAnyTxActive || isNetworkMismatch || isWalletAccountMismatch || isPending}
+                                className="flex-1 py-2 text-[9px] font-heading font-black uppercase tracking-widest border border-zinc-800 hover:border-zinc-700 bg-black/40 text-white hover:bg-black/80 transition-all cursor-pointer flex items-center justify-center gap-1 rounded-sm disabled:opacity-40"
+                              >
+                                BUY NOW
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toast.info("Bid Option", "Bidding mechanics will be enabled in the Marketplace V2 protocol update!");
+                                }}
+                                disabled={isAnyTxActive || isPending}
+                                className="flex-1 py-2 text-[9px] font-heading font-black uppercase tracking-widest bg-[#a9ddd3] text-black hover:bg-[#b9ede3] transition-all cursor-pointer flex items-center justify-center gap-1 font-bold rounded-sm disabled:opacity-40"
+                              >
+                                {listingTxStates[listing.id] === 'signing' && <Loader2 className="w-2.5 h-2.5 animate-spin" />}
+                                {listingTxStates[listing.id] === 'pending' && <Loader2 className="w-2.5 h-2.5 animate-spin" />}
+                                {(!listingTxStates[listing.id] || listingTxStates[listing.id] === 'idle') && 'BID'}
+                              </button>
+                            </div>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </AnimatePresence>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ══════════════════════════════════════════════════════
+            SELL TAB (Redesigned with Grid)
+        ══════════════════════════════════════════════════════ */}
+        {activeTab === 'sell' && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Vault Inventory Grid */}
+            <div className="lg:col-span-2 bg-[#09090c] border border-[#161616] p-6 rounded-md">
+              <h3 className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-white mb-6 flex items-center gap-2 pb-4 border-b border-[#161616]">
+                <Layers className="w-4 h-4 text-[#a9ddd3]" /> Select Asset From Vault
+              </h3>
+              {isLoadingInventory ? (
+                <div className="flex justify-center items-center py-24">
+                  <div className="w-8 h-8 border-2 border-t-transparent animate-spin rounded-full" style={{ borderColor: '#a9ddd3', borderTopColor: 'transparent' }} />
+                </div>
+              ) : inventory.length === 0 ? (
+                <div className="py-24 text-center">
+                  <p className="font-heading text-xs text-text-muted uppercase tracking-widest mb-4">No assets in vault</p>
+                  <Link href="/play" className="btn-primary text-[9px] px-6 py-3 rounded-sm">Play to Earn NFTs</Link>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+                  {inventory.map(nft => {
+                    const isSelected = selectedNft?.tokenId === nft.tokenId;
+                    return (
+                      <button
+                        key={nft.tokenId}
+                        disabled={isAnyTxActive}
+                        onClick={() => { setSelectedNft(nft); setSellAmount(1); }}
+                        className="relative p-4 flex flex-col items-center justify-center text-center transition-all cursor-pointer disabled:opacity-40 min-h-[120px] rounded-sm group overflow-hidden"
+                        style={{
+                          background: isSelected ? 'rgba(169,221,211,0.05)' : '#050507',
+                          border: isSelected ? '1px solid #a9ddd3' : '1px solid #161616',
+                          boxShadow: isSelected ? '0 0 16px rgba(169,221,211,0.15)' : 'none',
+                        }}
+                      >
+                        <div className="absolute top-2 right-2 text-[9px] font-mono font-bold text-[#a9ddd3]">x{nft.amount}</div>
+                        <div className="mb-2 relative">
+                          <div className="absolute inset-0 w-8 h-8 rounded-full opacity-10 filter blur-md" style={{
+                            background: `radial-gradient(circle, ${RARITY_COLOR[nft.rarity]} 0%, transparent 70%)`
+                          }} />
+                          {(() => {
+                            const IconComponent = GAME_ICON_MAP[nft.gameIcon] || Gamepad2;
+                            return <IconComponent className="w-6 h-6 mx-auto relative z-10 transition-transform group-hover:scale-110" style={{ color: RARITY_COLOR[nft.rarity] }} />;
+                          })()}
+                        </div>
+                        <div className="font-heading text-[10px] font-bold text-white uppercase truncate max-w-full tracking-wide">{nft.gameName}</div>
+                        <div className="text-[8px] font-mono text-text-muted uppercase tracking-wider mt-1">Lvl {nft.level} &middot; {nft.rarity}</div>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* List Config Form */}
+            <div className="bg-[#09090c] border border-[#161616] p-6 rounded-md h-fit">
+              <h3 className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-white mb-6 pb-4 flex items-center gap-2 border-b border-[#161616]">
+                <Tag className="w-4 h-4 text-[#a9ddd3]" /> List Config
+              </h3>
+              {selectedNft ? (
+                <div className="space-y-5">
+                  {/* Selected NFT Preview Card */}
+                  <div className="flex items-center gap-3.5 p-3.5 bg-[#050507] border border-[#161616] rounded-sm">
+                    <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 relative overflow-hidden rounded-sm bg-black/40" 
+                      style={{ 
+                        border: `1px solid ${RARITY_BORDER[selectedNft.rarity]}`, 
+                        color: RARITY_COLOR[selectedNft.rarity] 
+                      }}>
+                      {(() => {
+                        const IconComponent = GAME_ICON_MAP[selectedNft.gameIcon] || Gamepad2;
+                        return <IconComponent className="w-5 h-5 relative z-10" />;
+                      })()}
+                    </div>
+                    <div>
+                      <div className="font-heading text-xs font-bold text-white uppercase tracking-tight">{selectedNft.gameName}</div>
+                      <div className="text-[8px] font-mono text-text-muted uppercase tracking-widest mt-0.5">Level {selectedNft.level} &middot; {selectedNft.rarity} &middot; x{selectedNft.amount} owned</div>
+                    </div>
+                  </div>
+
+                  {/* Pricing Input */}
+                  <div>
+                    <label className="block text-[8px] font-heading tracking-[0.2em] text-text-muted uppercase mb-1.5">Asking Price (ETH)</label>
+                    <div className="relative">
+                      <input type="number" step="0.001" min="0.0001" value={sellPrice} onChange={e => setSellPrice(e.target.value)}
+                        disabled={isAnyTxActive}
+                        className="w-full bg-[#050505] border border-[#161616] px-3.5 py-3 text-xs text-white font-mono focus:outline-none focus:border-[#a9ddd3] transition-colors rounded-sm"
+                      />
+                      <span className="absolute right-3.5 top-3 text-[9px] font-heading text-text-muted uppercase">ETH</span>
+                    </div>
+                  </div>
+
+                  {/* Quantity Slider */}
+                  {selectedNft.amount > 1 && (
+                    <div>
+                      <label className="block text-[8px] font-heading tracking-[0.2em] text-text-muted uppercase mb-2">Quantity to List: <span className="text-[#a9ddd3] font-bold">{sellAmount}</span></label>
+                      <input type="range" min="1" max={selectedNft.amount} value={sellAmount} onChange={e => setSellAmount(Number(e.target.value))} disabled={isAnyTxActive} className="w-full" style={{ accentColor: '#a9ddd3' }} />
+                    </div>
+                  )}
+
+                  {/* Expiry Selector */}
+                  <div>
+                    <label className="block text-[8px] font-heading tracking-[0.2em] text-text-muted uppercase mb-1.5">Expiry Duration</label>
+                    <select value={sellExpiryDays} onChange={e => setSellExpiryDays(Number(e.target.value))}
+                      disabled={isAnyTxActive}
+                      className="w-full bg-[#050505] border border-[#161616] px-3.5 py-3 text-xs text-white font-mono focus:outline-none focus:border-[#a9ddd3] transition-colors rounded-sm uppercase"
+                    >
+                      <option value={1}>1 Day</option>
+                      <option value={3}>3 Days</option>
+                      <option value={7}>7 Days</option>
+                      <option value={30}>30 Days</option>
+                    </select>
+                  </div>
+
+                  {/* Fee Breakdown */}
+                  <div className="p-3.5 space-y-2.5 font-mono text-[9px] bg-[#050507] border border-[#161616] rounded-sm">
+                    <div className="flex justify-between text-text-muted">
+                      <span>Royalties (0%):</span><span>0.0000 ETH</span>
+                    </div>
+                    <div className="flex justify-between text-text-muted">
+                      <span>Protocol Fee ({marketplaceFeeBps / 100}%):</span><span className="text-red-400">-{((Number(sellPrice) * marketplaceFeeBps) / 10000).toFixed(4)} ETH</span>
+                    </div>
+                    <div className="flex justify-between pt-2.5 font-bold text-xs text-white border-t border-[#161616]">
+                      <span>You receive:</span><span className="text-[#a9ddd3]">{(Number(sellPrice) - ((Number(sellPrice) * marketplaceFeeBps) / 10000)).toFixed(4)} ETH</span>
+                    </div>
+                  </div>
+
+                  {/* Action Button */}
+                  <button onClick={handleCreateListing} disabled={Number(sellPrice) <= 0 || isNetworkMismatch || isWalletAccountMismatch || isAnyTxActive}
+                    className="w-full py-4 text-[9px] font-heading font-black uppercase tracking-[0.2em] disabled:opacity-40 transition-all flex items-center justify-center gap-2 cursor-pointer bg-[#a9ddd3] text-black hover:bg-[#b9ede3] rounded-sm font-bold shadow-[0_0_15px_rgba(169,221,211,0.2)]"
+                  >
+                    {listingTxStates.list === 'signing' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Signing...</> :
+                     listingTxStates.list === 'pending' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Publishing...</> :
+                     "Sign & List Off-Chain"}
+                  </button>
+                </div>
+              ) : (
+                <div className="py-24 text-center text-[9px] font-heading tracking-[0.2em] text-text-muted uppercase border border-dashed border-[#161616] rounded-sm">
+                  Select an asset from the vault
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ══════════════════════════════════════════════════════
+            TRADER DASHBOARD TAB (Redesigned with cards)
+        ══════════════════════════════════════════════════════ */}
+        {activeTab === 'dashboard' && (
+          <div className="space-y-8">
+            
+            {/* Stats Summary Panel */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                { icon: ShoppingBag, label: 'Active Offers',     value: dashboardStats.activeOffers, unit: '' },
+                { icon: TrendingUp,  label: 'Total Volume Earned',      value: dashboardStats.totalVolumeEarned, unit: 'ETH' },
+                { icon: History,     label: 'Assets Purchased',  value: dashboardStats.totalAssetsPurchased, unit: '' },
+              ].map(s => {
+                const Icon = s.icon;
+                return (
+                  <div key={s.label} className="bg-[#09090c] border border-[#161616] p-5 rounded-md flex items-center gap-4 hover:border-zinc-800 transition-colors">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-sm bg-[#a9ddd3]/5 border border-[#a9ddd3]/15">
+                      <Icon className="w-4 h-4 text-[#a9ddd3]" />
+                    </div>
+                    <div>
+                      <div className="text-[8px] font-heading tracking-[0.2em] text-text-muted uppercase">{s.label}</div>
+                      <div className="font-heading font-black text-xl text-white mt-1">{s.value}<span className="text-[10px] ml-1 text-text-muted font-normal">{s.unit}</span></div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Sub-tab navigation bar */}
+            <div className="flex flex-row flex-nowrap items-center gap-1 overflow-x-auto scrollbar-none pb-1 border-b border-[#161616] whitespace-nowrap">
+              {([
+                { id: 'active',      label: `Active (${traderActiveListings.length})` },
+                { id: 'sales',       label: `Sales (${traderSalesListings.length})` },
+                { id: 'purchases',   label: `Purchases (${traderPurchasesListings.length})` },
+                { id: 'rewards',     label: `Reward Vault (${preparedRewards.length})` },
+                { id: 'progression', label: `Progression Timeline` },
+                { id: 'reserved',    label: `Reserved NFTs (${reservedInventory.length})` },
+              ] as const).map(t => (
+                <button key={t.id} onClick={() => setDashboardSubTab(t.id)}
+                  disabled={isAnyTxActive}
+                  className={`px-4 py-2 text-[9px] font-heading font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap rounded-sm ${dashboardSubTab === t.id ? 'bg-[#a9ddd3] text-black shadow-[0_0_10px_rgba(169,221,211,0.2)]' : 'text-text-muted hover:text-white hover:bg-zinc-950/40'}`}
+                >{t.label}</button>
+              ))}
+              
+              {dashboardSubTab === 'active' && traderActiveListings.length > 0 && (
+                <button onClick={handleCancelAllListings} disabled={isAnyTxActive || isNetworkMismatch}
+                  className="ml-auto px-4 py-2 text-[9px] font-heading font-bold uppercase tracking-wider transition-all flex-shrink-0 mr-0 disabled:opacity-40 cursor-pointer rounded-sm hover:bg-red-500 hover:text-black"
+                  style={{ color: '#ef4444', border: '1px solid rgba(239,68,68,0.4)', background: 'transparent' }}
+                >
+                  {listingTxStates['bulk-cancel'] === 'signing' ? "Signing..." : 
+                   listingTxStates['bulk-cancel'] === 'pending' ? "Voiding..." : 
+                   "Cancel All Listings"}
+                </button>
+              )}
+            </div>
+
+            {/* Sub-tab Panel Content */}
+            <div className="min-h-[350px]">
+              {isListingsLoading ? (
+                <div className="flex justify-center items-center py-20">
+                  <div className="w-8 h-8 border-2 border-t-transparent animate-spin rounded-full" style={{ borderColor: '#a9ddd3', borderTopColor: 'transparent' }} />
+                </div>
+              ) : (
+                <>
+                  {/* ACTIVE SUBTAB */}
+                  {dashboardSubTab === 'active' && (
+                    traderActiveListings.length === 0 ? (
+                      <div className="py-16 text-center border border-dashed border-[#161616] rounded-sm">
+                        <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase mb-3.5">No active offers listed</p>
+                        <button onClick={() => setActiveTab('sell')} disabled={isAnyTxActive} className="btn-primary text-[9px] px-5 py-2.5 rounded-sm">Create Listing</button>
+                      </div>
+                    ) : (
+                      <div className="border border-[#161616] rounded-sm overflow-x-auto scrollbar-none">
+                        <div className="min-w-[800px]">
+                          <div className="grid grid-cols-12 px-4 py-3 bg-[#050507] border-b border-[#161616]">
+                            {['Asset Name', 'Rarity Tier', 'Quantity', 'Asking Price', 'Status / Expiry', ''].map((h, i) => (
+                              <div key={h} className={`font-heading text-[8px] font-bold uppercase tracking-[0.15em] text-text-muted ${i === 0 ? 'col-span-2' : i === 1 ? 'col-span-2' : i === 2 ? 'col-span-1' : i === 3 ? 'col-span-2' : i === 4 ? 'col-span-3' : 'col-span-2 text-right'}`}>{h}</div>
+                            ))}
+                          </div>
+                          <AnimatePresence>
+                            {traderActiveListings.map((listing, i) => {
+                              const isPending = listingTxStates[listing.id] === 'signing' || listingTxStates[listing.id] === 'pending';
+                              const isSyncingListing = listing.status === 'Syncing';
+                              return (
+                                <motion.div 
+                                  layout
+                                  initial={{ opacity: 0, y: 10 }}
+                                  animate={{ 
+                                    opacity: (isPending || isSyncingListing) ? 0.45 : 1,
+                                    filter: (isPending || isSyncingListing) ? 'blur(0.5px)' : 'none'
+                                  }}
+                                  exit={{ opacity: 0, height: 0 }}
+                                  transition={{ duration: 0.2 }}
+                                  key={listing.id} 
+                                  className="grid grid-cols-12 items-center px-4 py-3.5 transition-colors border-b border-[#111] last:border-0"
                                 >
-                                  {isContiguous ? 'ACTIVE' : isHeld ? 'HELD' : 'LOCKED'}
-                                </span>
+                                  <div className="col-span-2 flex items-center gap-2.5 min-w-0">
+                                    <div className="w-7 h-7 flex items-center justify-center flex-shrink-0 text-xs bg-black/40 border" 
+                                      style={{ 
+                                        borderColor: RARITY_BORDER[listing.rarity], 
+                                        color: RARITY_COLOR[listing.rarity] 
+                                      }}>
+                                      {(() => {
+                                        const IconComponent = GAME_ICON_MAP[listing.gameIcon] || Gamepad2;
+                                        return <IconComponent className="w-3.5 h-3.5" />;
+                                      })()}
+                                    </div>
+                                    <div className="flex flex-col min-w-0">
+                                      <span className="font-heading text-xs font-bold text-white truncate leading-none mb-1">{listing.gameName}</span>
+                                      <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">Level {listing.level}</span>
+                                    </div>
+                                  </div>
+                                  <div className="col-span-2">
+                                    <span className="text-[8px] font-heading font-bold uppercase px-2 py-0.5 border" style={{ color: RARITY_COLOR[listing.rarity], borderColor: RARITY_BORDER[listing.rarity], background: `${RARITY_COLOR[listing.rarity]}08` }}>{listing.rarity}</span>
+                                  </div>
+                                  <div className="col-span-1">
+                                    <span className="font-mono text-xs text-text-secondary">x{listing.amount}</span>
+                                  </div>
+                                  <div className="col-span-2">
+                                    <span className="font-heading font-bold text-xs text-[#a9ddd3]">{listing.price}</span>
+                                    <span className="font-heading text-[8px] text-text-muted ml-1">ETH</span>
+                                  </div>
+                                  <div className="col-span-3">
+                                    {isSyncingListing ? (
+                                      <span className="text-[8px] font-heading font-bold tracking-widest animate-pulse" style={{ color: '#f59e0b' }}>[SYNCING TO NODE]</span>
+                                    ) : (
+                                      <span className="font-mono text-[9px] text-text-muted">Expires {new Date(listing.expiry * 1000).toLocaleDateString()}</span>
+                                    )}
+                                  </div>
+                                  <div className="col-span-2 flex justify-end">
+                                    {!isSyncingListing && (
+                                      <button 
+                                        onClick={() => handleCancelListing(listing)} 
+                                        disabled={isAnyTxActive || isNetworkMismatch || isPending}
+                                        className="px-3 py-1.5 text-[8px] font-heading font-bold uppercase tracking-wider flex items-center gap-1.5 disabled:opacity-40 transition-all cursor-pointer rounded-sm hover:bg-red-500/10"
+                                        style={{ color: '#ef4444', border: '1px solid rgba(239,68,68,0.35)', background: 'transparent' }}
+                                      >
+                                        {listingTxStates[listing.id] === 'signing' ? <><Loader2 className="w-3 h-3 animate-spin" /> Voiding...</> :
+                                         listingTxStates[listing.id] === 'pending' ? <><Loader2 className="w-3 h-3 animate-spin" /> Pending...</> :
+                                         <><Trash2 className="w-3 h-3" /> Cancel</>}
+                                      </button>
+                                    )}
+                                  </div>
+                                </motion.div>
+                              );
+                            })}
+                          </AnimatePresence>
+                        </div>
+                      </div>
+                    )
+                  )}
+
+                  {/* SALES SUBTAB */}
+                  {dashboardSubTab === 'sales' && (
+                    traderSalesListings.length === 0 ? (
+                      <div className="py-16 text-center border border-dashed border-[#161616] rounded-sm">
+                        <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase">No completed sales recorded yet</p>
+                      </div>
+                    ) : (
+                      <div className="border border-[#161616] rounded-sm overflow-x-auto scrollbar-none">
+                        <div className="min-w-[800px]">
+                          <div className="grid grid-cols-12 px-4 py-3 bg-[#050507] border-b border-[#161616]">
+                            {['Sold Asset', 'Revenue Earned', 'Buyer Address', 'Explorer Link'].map((h, i) => (
+                              <div key={h} className={`font-heading text-[8px] font-bold uppercase tracking-[0.15em] text-text-muted ${i === 0 ? 'col-span-4' : i === 1 ? 'col-span-2' : i === 2 ? 'col-span-4' : 'col-span-2'}`}>{h}</div>
+                            ))}
+                          </div>
+                          {traderSalesListings.map((listing, i) => (
+                            <div key={listing.id} className="grid grid-cols-12 items-center px-4 py-3.5 border-b border-[#111] last:border-0"
+                            >
+                              <div className="col-span-4 flex items-center gap-2.5 min-w-0">
+                                <div className="w-7 h-7 flex items-center justify-center flex-shrink-0 text-xs bg-black/40 border" 
+                                  style={{ 
+                                    borderColor: RARITY_BORDER[listing.rarity], 
+                                    color: RARITY_COLOR[listing.rarity] 
+                                  }}>
+                                  {(() => {
+                                    const IconComponent = GAME_ICON_MAP[listing.gameIcon] || Gamepad2;
+                                    return <IconComponent className="w-3.5 h-3.5" />;
+                                  })()}
+                                </div>
+                                <div className="flex flex-col min-w-0">
+                                  <span className="font-heading text-xs font-bold text-white truncate leading-none mb-1">{listing.gameName}</span>
+                                  <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">Level {listing.level} &middot; {listing.rarity}</span>
+                                </div>
+                              </div>
+                              <div className="col-span-2 font-heading font-bold text-xs text-[#a9ddd3]">{listing.price} <span className="text-[9px] text-text-muted">ETH</span></div>
+                              <div className="col-span-4 font-mono text-[10px] text-text-secondary">{listing.buyer ? `${listing.buyer.slice(0, 10)}...${listing.buyer.slice(-6)}` : 'Unknown'}</div>
+                              <div className="col-span-2">
+                                {listing.saleTxHash ? (
+                                  <a href={`https://sepolia.basescan.org/tx/${listing.saleTxHash}`} target="_blank" rel="noreferrer"
+                                    className="flex items-center gap-1 text-[9px] font-heading uppercase tracking-wider text-[#a9ddd3] hover:text-white transition-colors">
+                                    Scan <ExternalLink className="w-3 h-3" />
+                                  </a>
+                                ) : <span className="text-[9px] text-text-muted font-mono">—</span>}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  )}
+
+                  {/* PURCHASES SUBTAB */}
+                  {dashboardSubTab === 'purchases' && (
+                    traderPurchasesListings.length === 0 ? (
+                      <div className="py-16 text-center border border-dashed border-[#161616] rounded-sm">
+                        <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase mb-3.5">No assets purchased yet</p>
+                        <button onClick={() => setActiveTab('buy')} className="btn-primary text-[9px] px-5 py-2.5 rounded-sm">Browse Market</button>
+                      </div>
+                    ) : (
+                      <div className="border border-[#161616] rounded-sm overflow-x-auto scrollbar-none">
+                        <div className="min-w-[800px]">
+                          <div className="grid grid-cols-12 px-4 py-3 bg-[#050507] border-b border-[#161616]">
+                            {['Purchased Asset', 'Acquisition Cost', 'Seller Address', 'Explorer Link'].map((h, i) => (
+                              <div key={h} className={`font-heading text-[8px] font-bold uppercase tracking-[0.15em] text-text-muted ${i === 0 ? 'col-span-4' : i === 1 ? 'col-span-2' : i === 2 ? 'col-span-4' : 'col-span-2'}`}>{h}</div>
+                            ))}
+                          </div>
+                          {traderPurchasesListings.map((listing, i) => (
+                            <div key={listing.id} className="grid grid-cols-12 items-center px-4 py-3.5 border-b border-[#111] last:border-0"
+                            >
+                              <div className="col-span-4 flex items-center gap-2.5 min-w-0">
+                                <div className="w-7 h-7 flex items-center justify-center flex-shrink-0 text-xs bg-black/40 border" 
+                                  style={{ 
+                                    borderColor: RARITY_BORDER[listing.rarity], 
+                                    color: RARITY_COLOR[listing.rarity] 
+                                  }}>
+                                  {(() => {
+                                    const IconComponent = GAME_ICON_MAP[listing.gameIcon] || Gamepad2;
+                                    return <IconComponent className="w-3.5 h-3.5" />;
+                                  })()}
+                                </div>
+                                <div className="flex flex-col min-w-0">
+                                  <span className="font-heading text-xs font-bold text-white truncate leading-none mb-1">{listing.gameName}</span>
+                                  <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">Level {listing.level} &middot; {listing.rarity}</span>
+                                </div>
+                              </div>
+                              <div className="col-span-2 font-heading font-bold text-xs text-[#a9ddd3]">{listing.price} <span className="text-[9px] text-text-muted">ETH</span></div>
+                              <div className="col-span-4 font-mono text-[10px] text-text-secondary">{listing.seller ? `${listing.seller.slice(0, 10)}...${listing.seller.slice(-6)}` : 'Unknown'}</div>
+                              <div className="col-span-2">
+                                {listing.saleTxHash ? (
+                                  <a href={`https://sepolia.basescan.org/tx/${listing.saleTxHash}`} target="_blank" rel="noreferrer"
+                                    className="flex items-center gap-1 text-[9px] font-heading uppercase tracking-wider text-[#a9ddd3] hover:text-white transition-colors">
+                                    Scan <ExternalLink className="w-3 h-3" />
+                                  </a>
+                                ) : <span className="text-[9px] text-text-muted font-mono">—</span>}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  )}
+
+                  {/* REWARDS SUBTAB */}
+                  {dashboardSubTab === 'rewards' && (
+                    preparedRewards.length === 0 ? (
+                      <div className="py-16 text-center border border-dashed border-[#161616] rounded-sm">
+                        <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase mb-3.5">No rewards pending minting inside vault</p>
+                        <Link href="/play" className="btn-primary text-[9px] px-5 py-2.5 rounded-sm inline-block">Play & Unlock Levels</Link>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {preparedRewards.map(reward => {
+                          const levelNum = reward.levelId.split('-').pop();
+                          const isMinting = reward.claimStatus === 'MINTING' || listingTxStates[reward.id] === 'signing' || listingTxStates[reward.id] === 'pending';
+                          return (
+                            <div
+                              key={reward.id}
+                              className="p-5 relative transition-all duration-300 flex flex-col justify-between rounded-md border"
+                              style={{
+                                background: '#09090c',
+                                borderColor: RARITY_BORDER[reward.rarity] || '#161616',
+                                boxShadow: `0 0 12px ${RARITY_BORDER[reward.rarity] || 'transparent'}`
+                              }}
+                            >
+                              <div className="absolute inset-0 pointer-events-none opacity-5 bg-radial-card" style={{
+                                background: `radial-gradient(circle at 50% 20%, ${RARITY_COLOR[reward.rarity]}, transparent)`
+                              }} />
+                              
+                              <div className="space-y-3 relative z-10">
+                                <div className="flex justify-between items-start">
+                                  <span className="text-[8px] font-heading font-black tracking-widest uppercase bg-black/40 px-2 py-0.5 border" style={{ color: RARITY_COLOR[reward.rarity], borderColor: RARITY_BORDER[reward.rarity] }}>
+                                    {reward.rarity}
+                                  </span>
+                                  <span className="text-[8px] font-mono text-zinc-500">
+                                    RANK #{reward.completionRank}
+                                  </span>
+                                </div>
+                                
+                                <div className="py-2">
+                                  <h4 className="font-heading font-black text-2xl text-white tracking-tight uppercase">Level {levelNum}</h4>
+                                  <p className="text-[9px] font-heading tracking-widest text-zinc-400 uppercase mt-0.5">{reward.season.replace('-', ' ')}</p>
+                                </div>
+                              </div>
+                              
+                              <div className="mt-4 pt-4 border-t border-[#161616] relative z-10">
+                                <button
+                                  onClick={() => handleMintReward(reward)}
+                                  disabled={isAnyTxActive || isNetworkMismatch || isWalletAccountMismatch || isMinting}
+                                  className="w-full py-2.5 text-[9px] font-heading font-black uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm hover:shadow-[#a9ddd3]/10 rounded-sm font-bold"
+                                  style={{
+                                    background: isMinting ? '#222' : RARITY_COLOR[reward.rarity] || '#a9ddd3',
+                                    color: isMinting ? '#555' : '#000',
+                                    boxShadow: `0 0 10px ${RARITY_BORDER[reward.rarity] || 'rgba(31,31,31,0.3)'}`
+                                  }}
+                                >
+                                  {isMinting ? (
+                                    <>
+                                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                      <span>MINTING...</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Zap className="w-3.5 h-3.5 fill-current" />
+                                      <span>MINT NFT REWARD</span>
+                                    </>
+                                  )}
+                                </button>
                               </div>
                             </div>
                           );
                         })}
                       </div>
+                    )
+                  )}
 
-                      <div className="mt-6 flex flex-wrap gap-4 pt-4 border-t border-zinc-900 text-[8px] font-mono text-zinc-500">
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-2.5 h-2.5 rounded-full border-2 border-[#a9ddd3] bg-[#a9ddd3]/10" />
-                          <span>ACTIVE (Contiguous Chain Level)</span>
+                  {/* PROGRESSION TIMELINE */}
+                  {dashboardSubTab === 'progression' && (
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        {[
+                          { label: 'Contiguous Effective Level', value: dbUser?.effectiveProgressionLevel ?? 0, desc: 'Highest unbroken NFT level held' },
+                          { label: 'Highest Playable Level', value: dbUser?.highestUnlockedLevel ?? 1, desc: 'Max level unlocked in gameplay' },
+                          { label: 'Highest Score Record', value: dbUser?.highestScore ?? 0, desc: 'All-time retro leaderboard score' },
+                          { label: 'Max Combo Multiplier', value: `${(dbUser?.highestCombo ?? 1.0).toFixed(1)}x`, desc: 'Highest combo chain achieved' }
+                        ].map(stat => (
+                          <div key={stat.label} className="bg-[#09090c] border border-zinc-800 p-5 space-y-2 relative overflow-hidden group rounded-sm">
+                            <div className="absolute top-0 left-0 w-2 h-[1px] bg-[#a9ddd3]" />
+                            <div className="absolute top-0 left-0 w-[1px] h-2 bg-[#a9ddd3]" />
+                            <div className="text-[8px] font-heading tracking-[0.15em] text-zinc-500 uppercase">{stat.label}</div>
+                            <div className="text-3xl font-heading font-black text-white">{stat.value}</div>
+                            <div className="text-[8px] font-mono text-zinc-400">{stat.desc}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="bg-[#09090c] border border-[#161616] p-6 relative rounded-sm">
+                        <h4 className="font-heading text-[9px] font-bold uppercase tracking-[0.2em] text-white mb-6 flex items-center gap-2">
+                          <Layers className="w-4 h-4 text-[#a9ddd3]" /> ON-CHAIN PROGRESSION TIMELINE (LEVELS 1-10)
+                        </h4>
+
+                        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4 py-4 overflow-x-auto scrollbar-none">
+                          <div className="hidden md:block absolute top-[43px] left-8 right-8 h-0.5 bg-zinc-800 z-0" />
+                          
+                          {Array.from({ length: 10 }).map((_, idx) => {
+                            const level = idx + 1;
+                            const isHeld = inventory.some(item => item.level === level);
+                            const isContiguous = level <= (dbUser?.effectiveProgressionLevel ?? 0);
+                            
+                            return (
+                              <div key={level} className="relative z-10 flex md:flex-col items-center gap-4 md:gap-2 flex-1 min-w-[70px]">
+                                <div 
+                                  className="w-10 h-10 rounded-full flex items-center justify-center font-heading font-black text-xs transition-all duration-300 relative"
+                                  style={{
+                                    background: isContiguous ? 'rgba(169,221,211,0.15)' : isHeld ? 'rgba(31,31,31,0.8)' : '#000',
+                                    border: isContiguous ? '2px solid #a9ddd3' : isHeld ? '1px solid rgba(169,221,211,0.4)' : '1px solid #27272a',
+                                    color: isContiguous ? '#a9ddd3' : isHeld ? '#f59e0b' : '#3f3f46',
+                                    boxShadow: isContiguous ? '0 0 15px rgba(169,221,211,0.3)' : 'none'
+                                  }}
+                                >
+                                  {isContiguous && <div className="absolute inset-1 rounded-full border border-[#a9ddd3]/20 animate-ping" />}
+                                  {level}
+                                </div>
+
+                                <div className="flex flex-col md:items-center text-left md:text-center space-y-0.5">
+                                  <span className="text-[8px] font-heading font-black uppercase tracking-wider">
+                                    LVL {level}
+                                  </span>
+                                  <span 
+                                    className="text-[7px] font-mono uppercase tracking-widest font-black"
+                                    style={{ color: isContiguous ? '#a9ddd3' : isHeld ? '#f59e0b' : '#3f3f46' }}
+                                  >
+                                    {isContiguous ? 'ACTIVE' : isHeld ? 'HELD' : 'LOCKED'}
+                                  </span>
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-2.5 h-2.5 rounded-full border border-[#a9ddd3]/40 bg-zinc-900" />
-                          <span>HELD (Owned but chain broken)</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-2.5 h-2.5 rounded-full border border-zinc-800 bg-black" />
-                          <span>LOCKED (Not owned)</span>
+
+                        <div className="mt-6 flex flex-wrap gap-4 pt-4 border-t border-[#111] text-[8px] font-mono text-zinc-500">
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-2.5 h-2.5 rounded-full border border-[#a9ddd3] bg-[#a9ddd3]/10" />
+                            <span>ACTIVE (Contiguous Chain Level)</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-2.5 h-2.5 rounded-full border border-[#a9ddd3]/40 bg-zinc-900" />
+                            <span>HELD (Owned but chain broken)</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-2.5 h-2.5 rounded-full border border-zinc-800 bg-black" />
+                            <span>LOCKED (Not owned)</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Developer Diagnostics Panel Toggle */}
-                    <div className="mt-6">
-                      <button 
-                        onClick={() => setShowDevPanel(!showDevPanel)}
-                        className="text-[8px] font-heading font-black tracking-[0.25em] uppercase px-4 py-2 border transition-all cursor-pointer"
-                        style={{
-                          borderColor: showDevPanel ? '#a9ddd3' : '#27272a',
-                          color: showDevPanel ? '#a9ddd3' : '#52525b',
-                          background: showDevPanel ? 'rgba(169,221,211,0.05)' : 'transparent'
-                        }}
-                      >
-                        {showDevPanel ? '[ CLOSE DEVELOPER DIAGNOSTICS ]' : '[ OPEN DEVELOPER DIAGNOSTICS ]'}
-                      </button>
+                      {/* Developer Diagnostics Panel Toggle */}
+                      <div className="mt-6">
+                        <button 
+                          onClick={() => setShowDevPanel(!showDevPanel)}
+                          className="text-[8px] font-heading font-black tracking-[0.25em] uppercase px-4 py-2 border transition-all cursor-pointer rounded-sm"
+                          style={{
+                            borderColor: showDevPanel ? '#a9ddd3' : '#27272a',
+                            color: showDevPanel ? '#a9ddd3' : '#52525b',
+                            background: showDevPanel ? 'rgba(169,221,211,0.05)' : 'transparent'
+                          }}
+                        >
+                          {showDevPanel ? '[ CLOSE DEVELOPER DIAGNOSTICS ]' : '[ OPEN DEVELOPER DIAGNOSTICS ]'}
+                        </button>
 
-                      <AnimatePresence>
-                        {showDevPanel && (
-                          <motion.div 
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="overflow-hidden mt-4"
-                          >
-                            <div className="p-5 font-mono text-[9px] bg-black border border-zinc-800 space-y-4 relative">
-                              <div className="absolute inset-0 pointer-events-none opacity-5 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
-                              
-                              <div className="flex justify-between items-center pb-2 border-b border-zinc-900">
-                                <span className="text-[#a9ddd3] font-bold uppercase tracking-wider">// SYSTEM RUNTIME METRICS</span>
-                                <button 
-                                  onClick={fetchDiagnostics} 
-                                  disabled={isFetchingDiagnostics}
-                                  className="px-2 py-0.5 border border-zinc-800 text-[8px] text-zinc-400 hover:text-white transition-colors uppercase disabled:opacity-40 cursor-pointer"
-                                >
-                                  {isFetchingDiagnostics ? 'Diagnosing...' : 'Force Run'}
-                                </button>
-                              </div>
-
-                              {diagnosticsData ? (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 divide-y md:divide-y-0 md:divide-x divide-zinc-900">
-                                  <div className="space-y-2">
-                                    <div className="font-bold text-white uppercase tracking-wider text-[8px] text-zinc-500">// ENVIRONMENT & HARDWARE</div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">Status:</span>
-                                      <span className={diagnosticsData.health === 'HEALTHY' ? 'text-green-400 font-bold' : 'text-red-400 font-bold'}>{diagnosticsData.health}</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">Database Connection:</span>
-                                      <span className={diagnosticsData.database?.status === 'HEALTHY' ? 'text-green-400' : 'text-red-400'}>
-                                        {diagnosticsData.database?.status} {diagnosticsData.database?.latencyMs ? `(${diagnosticsData.database.latencyMs}ms)` : ''}
-                                      </span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">Required Environment:</span>
-                                      <span className={diagnosticsData.environment?.status === 'HEALTHY' ? 'text-green-400' : 'text-yellow-400'}>
-                                        {diagnosticsData.environment?.status} {diagnosticsData.environment?.missing?.length > 0 ? `(Missing: ${diagnosticsData.environment.missing.join(', ')})` : ''}
-                                      </span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">Indexer Connection:</span>
-                                      <span className={diagnosticsData.indexer?.mode === 'WEBSOCKET' ? 'text-green-400 font-bold' : 'text-yellow-400 font-bold animate-pulse'}>
-                                        {diagnosticsData.indexer?.mode}
-                                      </span>
-                                    </div>
-                                  </div>
-
-                                  <div className="space-y-2 pt-4 md:pt-0 md:pl-4">
-                                    <div className="font-bold text-white uppercase tracking-wider text-[8px] text-zinc-500">// RPC & SYNCHRONIZATION INFRASTRUCTURE</div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">RPC Sepolia Node:</span>
-                                      <span className={diagnosticsData.rpc?.status === 'HEALTHY' ? 'text-green-400' : 'text-red-400'}>
-                                        {diagnosticsData.rpc?.status} {diagnosticsData.rpc?.latencyMs ? `(${diagnosticsData.rpc.latencyMs}ms)` : ''}
-                                      </span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">Base Sepolia blockHeight:</span>
-                                      <span className="text-white font-bold">{diagnosticsData.rpc?.blockNumber ?? 'UNKNOWN'}</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">WS Reconnects Count:</span>
-                                      <span className="text-white">{diagnosticsData.indexer?.metrics?.indexerReconnectCount ?? 0}</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">WS Total Drops / Failures:</span>
-                                      <span className={diagnosticsData.indexer?.metrics?.websocketFailures > 0 ? 'text-yellow-500' : 'text-white'}>
-                                        {diagnosticsData.indexer?.metrics?.websocketFailures ?? 0}
-                                      </span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">Last Synced Loop Timing:</span>
-                                      <span className="text-white">{diagnosticsData.indexer?.metrics?.lastSyncDurationMs ?? 0} ms</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                      <span className="text-zinc-500">Last Progression Loop:</span>
-                                      <span className="text-white">{diagnosticsData.indexer?.metrics?.lastProgressionDurationMs ?? 0} ms</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex items-center gap-2 text-zinc-500 py-4 justify-center">
-                                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                                  <span>Establishing secure diagnostic connection...</span>
-                                </div>
-                              )}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </div>
-                )}
-
-                {/* RESERVED SUBTAB */}
-                {dashboardSubTab === 'reserved' && (
-                  reservedInventory.length === 0 ? (
-                    <div className="py-12 text-center" style={{ border: '1px dashed #1f1f1f' }}>
-                      <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase mb-3">No assets currently reserved</p>
-                    </div>
-                  ) : (
-                    <div style={{ border: '1px solid #1f1f1f' }} className="overflow-x-auto scrollbar-none">
-                      <div className="min-w-[800px]">
-                        <div className="grid grid-cols-12 px-4 py-3" style={{ background: '#0d0d0d', borderBottom: '1px solid #1f1f1f' }}>
-                          {['Reserved Asset', 'Rarity', 'Price', 'Locked Qty', 'Expiry', 'Timestamp', ''].map((h, i) => (
-                            <div key={h} className={`font-heading text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted ${i === 0 ? 'col-span-2' : i === 2 ? 'col-span-2' : i === 5 ? 'col-span-2' : i === 6 ? 'col-span-2 text-right' : 'col-span-1'}`}>{h}</div>
-                          ))}
-                        </div>
                         <AnimatePresence>
-                          {reservedInventory.map((item, i) => {
-                            const isPending = listingTxStates[item.id] === 'signing' || listingTxStates[item.id] === 'pending';
-                            const priceEth = formatEther(BigInt(item.price));
-                            const listingToCancel = {
-                              id: item.id,
-                              listingHash: item.listingHash,
-                              seller: activeWalletAddress,
-                              tokenId: item.tokenId,
-                              amount: item.amount,
-                              price: priceEth,
-                              expiry: item.expiry,
-                              nonce: item.nonce
-                            };
-
-                            return (
-                              <motion.div
-                                layout
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ 
-                                  opacity: isPending ? 0.45 : 1,
-                                  filter: isPending ? 'blur(0.5px)' : 'none'
-                                }}
-                                exit={{ opacity: 0, height: 0 }}
-                                transition={{ duration: 0.2 }}
-                                key={item.id}
-                                className="grid grid-cols-12 items-center px-4 py-3.5 transition-colors"
-                                style={{
-                                  borderBottom: i < reservedInventory.length - 1 ? '1px solid #141414' : 'none',
-                                  background: 'rgba(239,68,68,0.01)',
-                                  pointerEvents: isAnyTxActive ? 'none' : 'auto'
-                                }}
-                              >
-                                <div className="col-span-2 flex items-center gap-2">
-                                  <div className="w-8 h-8 flex items-center justify-center font-heading font-black text-sm flex-shrink-0" style={{ background: 'rgba(239,68,68,0.08)', border: `1px solid rgba(239,68,68,0.3)`, color: '#ef4444' }}>
-                                    🔒
-                                  </div>
-                                  <span className="font-heading text-xs font-bold text-white">Lvl {item.level}</span>
-                                </div>
-                                <div className="col-span-1">
-                                  <span className="text-[9px] font-heading font-bold uppercase" style={{ color: RARITY_COLOR[item.rarity] }}>{item.rarity}</span>
-                                </div>
-                                <div className="col-span-2">
-                                  <span className="font-heading font-bold text-sm text-white">{priceEth}</span>
-                                  <span className="font-heading text-[9px] text-text-muted ml-1">ETH</span>
-                                </div>
-                                <div className="col-span-1">
-                                  <span className="font-mono text-xs text-text-secondary">x{item.amount}</span>
-                                </div>
-                                <div className="col-span-2">
-                                  <span className="font-mono text-[9px] text-text-muted">Expires {new Date(item.expiry * 1000).toLocaleDateString()}</span>
-                                </div>
-                                <div className="col-span-2">
-                                  <span className="font-mono text-[9px] text-text-muted">{new Date(item.createdAt).toLocaleDateString()} {new Date(item.createdAt).toLocaleTimeString()}</span>
-                                </div>
-                                <div className="col-span-2 flex justify-end">
-                                  <button
-                                    onClick={() => handleCancelListing(listingToCancel)}
-                                    disabled={isAnyTxActive || isNetworkMismatch || isPending}
-                                    className="px-3 py-2 text-[9px] font-heading font-bold uppercase tracking-wider flex items-center gap-1.5 disabled:opacity-40 transition-all cursor-pointer"
-                                    style={{ color: '#ef4444', border: '1px solid rgba(239,68,68,0.35)', background: 'transparent' }}
+                          {showDevPanel && (
+                            <motion.div 
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="overflow-hidden mt-4"
+                            >
+                              <div className="p-5 font-mono text-[9px] bg-black border border-zinc-800 space-y-4 relative rounded-sm">
+                                <div className="absolute inset-0 pointer-events-none opacity-5 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
+                                
+                                <div className="flex justify-between items-center pb-2 border-b border-zinc-900">
+                                  <span className="text-[#a9ddd3] font-bold uppercase tracking-wider">// SYSTEM RUNTIME METRICS</span>
+                                  <button 
+                                    onClick={fetchDiagnostics} 
+                                    disabled={isFetchingDiagnostics}
+                                    className="px-2 py-0.5 border border-zinc-800 text-[8px] text-zinc-400 hover:text-white transition-colors uppercase disabled:opacity-40 cursor-pointer rounded-sm bg-black/40"
                                   >
-                                    {listingTxStates[item.id] === 'signing' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Voiding...</> :
-                                     listingTxStates[item.id] === 'pending' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Pending...</> :
-                                     <><Trash2 className="w-3 h-3" /> Cancel</>}
+                                    {isFetchingDiagnostics ? 'Diagnosing...' : 'Force Run'}
                                   </button>
+                                </div>
+
+                                {diagnosticsData ? (
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 divide-y md:divide-y-0 md:divide-x divide-zinc-900">
+                                    <div className="space-y-2">
+                                      <div className="font-bold text-white uppercase tracking-wider text-[8px] text-zinc-500">// ENVIRONMENT & HARDWARE</div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">Status:</span>
+                                        <span className={diagnosticsData.health === 'HEALTHY' ? 'text-green-400 font-bold' : 'text-red-400 font-bold'}>{diagnosticsData.health}</span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">Database Connection:</span>
+                                        <span className={diagnosticsData.database?.status === 'HEALTHY' ? 'text-green-400' : 'text-red-400'}>
+                                          {diagnosticsData.database?.status} {diagnosticsData.database?.latencyMs ? `(${diagnosticsData.database.latencyMs}ms)` : ''}
+                                        </span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">Required Environment:</span>
+                                        <span className={diagnosticsData.environment?.status === 'HEALTHY' ? 'text-green-400' : 'text-yellow-400'}>
+                                          {diagnosticsData.environment?.status} {diagnosticsData.environment?.missing?.length > 0 ? `(Missing: ${diagnosticsData.environment.missing.join(', ')})` : ''}
+                                        </span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">Indexer Connection:</span>
+                                        <span className={diagnosticsData.indexer?.mode === 'WEBSOCKET' ? 'text-green-400 font-bold' : 'text-yellow-400 font-bold animate-pulse'}>
+                                          {diagnosticsData.indexer?.mode}
+                                        </span>
+                                      </div>
+                                    </div>
+
+                                    <div className="space-y-2 pt-4 md:pt-0 md:pl-4">
+                                      <div className="font-bold text-white uppercase tracking-wider text-[8px] text-zinc-500">// RPC & SYNCHRONIZATION INFRASTRUCTURE</div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">RPC Sepolia Node:</span>
+                                        <span className={diagnosticsData.rpc?.status === 'HEALTHY' ? 'text-green-400' : 'text-red-400'}>
+                                          {diagnosticsData.rpc?.status} {diagnosticsData.rpc?.latencyMs ? `(${diagnosticsData.rpc.latencyMs}ms)` : ''}
+                                        </span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">Base Sepolia blockHeight:</span>
+                                        <span className="text-white font-bold">{diagnosticsData.rpc?.blockNumber ?? 'UNKNOWN'}</span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">WS Reconnects Count:</span>
+                                        <span className="text-white">{diagnosticsData.indexer?.metrics?.indexerReconnectCount ?? 0}</span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">WS Total Drops / Failures:</span>
+                                        <span className={diagnosticsData.indexer?.metrics?.websocketFailures > 0 ? 'text-yellow-500' : 'text-white'}>
+                                          {diagnosticsData.indexer?.metrics?.websocketFailures ?? 0}
+                                        </span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">Last Synced Loop Timing:</span>
+                                        <span className="text-white">{diagnosticsData.indexer?.metrics?.lastSyncDurationMs ?? 0} ms</span>
+                                      </div>
+                                      <div className="flex justify-between">
+                                        <span className="text-zinc-500">Last Progression Loop:</span>
+                                        <span className="text-white">{diagnosticsData.indexer?.metrics?.lastProgressionDurationMs ?? 0} ms</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center gap-2 text-zinc-500 py-4 justify-center">
+                                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                    <span>Establishing secure diagnostic connection...</span>
+                                  </div>
+                                )}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* RESERVED SUBTAB */}
+                  {dashboardSubTab === 'reserved' && (
+                    reservedInventory.length === 0 ? (
+                      <div className="py-16 text-center border border-dashed border-[#161616] rounded-sm">
+                        <p className="font-heading text-[9px] tracking-[0.2em] text-text-muted uppercase">No assets currently reserved in escrow</p>
+                      </div>
+                    ) : (
+                      <div className="border border-[#161616] rounded-sm overflow-x-auto scrollbar-none">
+                        <div className="min-w-[800px]">
+                          <div className="grid grid-cols-12 px-4 py-3 bg-[#050507] border-b border-[#161616]">
+                            {['Reserved Asset', 'Rarity', 'Locked Price', 'Quantity', 'Expiry / Lockout', 'Locked Date', ''].map((h, i) => (
+                              <div key={h} className={`font-heading text-[8px] font-bold uppercase tracking-[0.15em] text-text-muted ${i === 0 ? 'col-span-2' : i === 2 ? 'col-span-2' : i === 4 ? 'col-span-2' : i === 5 ? 'col-span-2' : i === 6 ? 'col-span-2 text-right' : 'col-span-1'}`}>{h}</div>
+                            ))}
+                          </div>
+                          <AnimatePresence>
+                            {reservedInventory.map((item, i) => {
+                              const isPending = listingTxStates[item.id] === 'signing' || listingTxStates[item.id] === 'pending';
+                              const priceEth = formatEther(BigInt(item.price));
+                              const listingToCancel = {
+                                id: item.id,
+                                listingHash: item.listingHash,
+                                seller: activeWalletAddress,
+                                tokenId: item.tokenId,
+                                amount: item.amount,
+                                price: priceEth,
+                                expiry: item.expiry,
+                                nonce: item.nonce
+                              };
+
+                              return (
+                                <motion.div
+                                  layout
+                                  initial={{ opacity: 0, y: 10 }}
+                                  animate={{ 
+                                    opacity: isPending ? 0.45 : 1,
+                                    filter: isPending ? 'blur(0.5px)' : 'none'
+                                  }}
+                                  exit={{ opacity: 0, height: 0 }}
+                                  transition={{ duration: 0.2 }}
+                                  key={item.id}
+                                  className="grid grid-cols-12 items-center px-4 py-3.5 border-b border-[#111] last:border-0"
+                                  style={{
+                                    background: 'rgba(239,68,68,0.01)',
+                                    pointerEvents: isAnyTxActive ? 'none' : 'auto'
+                                  }}
+                                >
+                                  <div className="col-span-2 flex items-center gap-2.5">
+                                    <div className="w-7 h-7 flex items-center justify-center rounded-sm bg-[#ef4444]/5 border border-[#ef4444]/25 text-xs text-[#ef4444]">
+                                      🔒
+                                    </div>
+                                    <span className="font-heading text-xs font-bold text-white">Lvl {item.level}</span>
+                                  </div>
+                                  <div className="col-span-1">
+                                    <span className="text-[8px] font-heading font-bold uppercase px-1.5 py-0.5 border" style={{ color: RARITY_COLOR[item.rarity], borderColor: RARITY_BORDER[item.rarity], background: `${RARITY_COLOR[item.rarity]}08` }}>{item.rarity}</span>
+                                  </div>
+                                  <div className="col-span-2">
+                                    <span className="font-heading font-bold text-xs text-white">{priceEth}</span>
+                                    <span className="font-heading text-[8px] text-text-muted ml-1">ETH</span>
+                                  </div>
+                                  <div className="col-span-1">
+                                    <span className="font-mono text-xs text-text-secondary">x{item.amount}</span>
+                                  </div>
+                                  <div className="col-span-2">
+                                    <span className="font-mono text-[9px] text-text-muted">Expires {new Date(item.expiry * 1000).toLocaleDateString()}</span>
+                                  </div>
+                                  <div className="col-span-2">
+                                    <span className="font-mono text-[9px] text-text-muted">{new Date(item.createdAt).toLocaleDateString()}</span>
+                                  </div>
+                                  <div className="col-span-2 flex justify-end">
+                                    <button
+                                      onClick={() => handleCancelListing(listingToCancel)}
+                                      disabled={isAnyTxActive || isNetworkMismatch || isPending}
+                                      className="px-3 py-1.5 text-[8px] font-heading font-bold uppercase tracking-wider flex items-center gap-1.5 disabled:opacity-40 transition-all cursor-pointer rounded-sm hover:bg-red-500/10"
+                                      style={{ color: '#ef4444', border: '1px solid rgba(239,68,68,0.35)', background: 'transparent' }}
+                                    >
+                                      {listingTxStates[item.id] === 'signing' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Voiding...</> :
+                                       listingTxStates[item.id] === 'pending' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Pending...</> :
+                                       <><Trash2 className="w-3 h-3" /> Cancel</>}
+                                    </button>
                                 </div>
                               </motion.div>
                             );
@@ -1924,6 +2410,41 @@ function Marketplace() {
           </div>
         </div>
       )}
+          </div>
+        </div>
+      </div>
+
+      {/* ── MOBILE BOTTOM NAVIGATION TAB BAR ── */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#040404] border-t border-[#161616] flex items-center justify-around z-50">
+        <button 
+          onClick={() => setActiveTab('buy')}
+          className={`p-3 flex flex-col items-center justify-center transition-colors ${activeTab === 'buy' ? 'text-[#a9ddd3]' : 'text-text-muted'}`}
+        >
+          <Grid className="w-4 h-4" />
+          <span className="text-[7px] font-heading font-bold uppercase mt-1">Market</span>
+        </button>
+        <button 
+          onClick={() => { if (!authenticated) { login(); return; } setActiveTab('sell'); }}
+          className={`p-3 flex flex-col items-center justify-center transition-colors ${activeTab === 'sell' ? 'text-[#a9ddd3]' : 'text-text-muted'}`}
+        >
+          <Tag className="w-4 h-4" />
+          <span className="text-[7px] font-heading font-bold uppercase mt-1">List</span>
+        </button>
+        <button 
+          onClick={() => { if (!authenticated) { login(); return; } setActiveTab('dashboard'); }}
+          className={`p-3 flex flex-col items-center justify-center transition-colors ${activeTab === 'dashboard' ? 'text-[#a9ddd3]' : 'text-text-muted'}`}
+        >
+          <TrendingUp className="w-4 h-4" />
+          <span className="text-[7px] font-heading font-bold uppercase mt-1">Trades</span>
+        </button>
+        <button 
+          onClick={() => { setActiveTab('dashboard'); setDashboardSubTab('progression'); setShowDevPanel(!showDevPanel); }}
+          className={`p-3 flex flex-col items-center justify-center transition-colors ${showDevPanel ? 'text-[#a9ddd3]' : 'text-text-muted'}`}
+        >
+          <Settings className="w-4 h-4" />
+          <span className="text-[7px] font-heading font-bold uppercase mt-1">Dev</span>
+        </button>
+      </div>
 
     </div>
   );

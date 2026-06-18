@@ -14,6 +14,11 @@ import { SudokuScene } from './sudoku/scenes/SudokuScene';
 import { SudokuGameOverScene } from './sudoku/scenes/SudokuGameOverScene';
 import { SudokuLevelCompleteScene } from './sudoku/scenes/SudokuLevelCompleteScene';
 
+import { CyberBootScene } from './cyber-runner/scenes/CyberBootScene';
+import { CyberRunnerScene } from './cyber-runner/scenes/CyberRunnerScene';
+import { CyberRunnerGameOverScene } from './cyber-runner/scenes/CyberRunnerGameOverScene';
+import { CyberRunnerLevelCompleteScene } from './cyber-runner/scenes/CyberRunnerLevelCompleteScene';
+
 import { AUTO, Game, Scale } from 'phaser';
 
 const GAME_SCENES_REGISTRY: Record<string, Function[]> = {
@@ -35,6 +40,12 @@ const GAME_SCENES_REGISTRY: Record<string, Function[]> = {
         SudokuScene,
         SudokuGameOverScene,
         SudokuLevelCompleteScene
+    ],
+    'cyber-runner': [
+        CyberBootScene,
+        CyberRunnerScene,
+        CyberRunnerGameOverScene,
+        CyberRunnerLevelCompleteScene
     ]
 };
 

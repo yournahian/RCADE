@@ -46,9 +46,9 @@ export const GAMES: GameConfig[] = [
     description: 'Dash through high-speed hacker tunnels, hack security nodes, and escape the security scanner.',
     icon: 'Cpu',
     accentColor: '#22d3ee', // Cyan glow
-    availableLevels: 0,
+    availableLevels: 10,
     routeSlug: 'cyber-runner',
-    status: 'COMING_SOON',
+    status: 'LIVE',
     unlockTitles: ['Bronze Tunnel Runner', 'Silver Network Glider', 'Gold Hack master'],
     capabilities: {
       ranked: false,
@@ -56,7 +56,7 @@ export const GAMES: GameConfig[] = [
       wagering: false,
       deterministicSeed: false,
       multiplayer: false,
-      mobileControls: false
+      mobileControls: true
     }
   },
   {

@@ -9,9 +9,10 @@ import { EventBus } from '@/game/EventBus';
 import MobileControls from '@/components/game/MobileControls';
 import SpaceImpactMobileControls from '@/components/game/SpaceImpactMobileControls';
 import SudokuMobileControls from '@/components/game/SudokuMobileControls';
+import CyberRunnerMobileControls from '@/components/game/CyberRunnerMobileControls';
 import Link from 'next/link';
 import { ApiService } from '@/services/api';
-import { Lock, Play } from 'lucide-react';
+import { Lock, Play, Heart } from 'lucide-react';
 import { getGameBySlug } from '@/lib/games';
 
 const PhaserGame = dynamic(() => import('@/game/PhaserGame').then(mod => mod.PhaserGame), {
@@ -73,6 +74,8 @@ function PlayContent() {
   const [score, setScore] = useState(0);
   const [targetScore, setTargetScore] = useState(100);
   const [combo, setCombo] = useState(1.0);
+  const [shields, setShields] = useState<number | null>(null);
+  const [lives, setLives] = useState<number | null>(null);
 
   // Session state
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -190,13 +193,22 @@ function PlayContent() {
     const onScore = (s: number) => setScore(s);
     const onTarget = (t: number) => setTargetScore(t);
     const onCombo = (c: number) => setCombo(c);
-    const onGameStarted = () => { setScore(0); setCombo(1.0); };
+    const onShields = (s: number) => setShields(s);
+    const onLives = (l: number) => setLives(l);
+    const onGameStarted = () => {
+      setScore(0);
+      setCombo(1.0);
+      setShields(null);
+      setLives(null);
+    };
     const onLevelChanged = (l: number) =>
       console.log(`[Play] Phaser level-changed=${l} (informational; authorizedLevel=${authorizedLevelRef.current})`);
 
     EventBus.on('score-changed', onScore);
     EventBus.on('target-changed', onTarget);
     EventBus.on('combo-changed', onCombo);
+    EventBus.on('shields-changed', onShields);
+    EventBus.on('lives-changed', onLives);
     EventBus.on('game-started', onGameStarted);
     EventBus.on('level-changed', onLevelChanged);
 
@@ -204,6 +216,8 @@ function PlayContent() {
       EventBus.removeListener('score-changed', onScore);
       EventBus.removeListener('target-changed', onTarget);
       EventBus.removeListener('combo-changed', onCombo);
+      EventBus.removeListener('shields-changed', onShields);
+      EventBus.removeListener('lives-changed', onLives);
       EventBus.removeListener('game-started', onGameStarted);
       EventBus.removeListener('level-changed', onLevelChanged);
     };
@@ -232,17 +246,18 @@ function PlayContent() {
           reward = completeData.reward ?? null;
         }
 
-        // Sync and re-create session at the same level (Web3 rules)
-        const result = await createSession(lvl);
-        
         if (runData.completed) {
-            const nextLevelUnlocked = result.effectiveProgressionLevel >= lvl;
-            setCompletion({
-                show: true,
-                reward,
-                completedLevel: lvl,
-                nextLevelUnlocked
-            });
+          // Only sync/re-create session when the player actually completes the level.
+          // For game-over (completed=false), skip this to prevent sessionId from going
+          // null mid-transition and tearing down the Phaser canvas.
+          const result = await createSession(lvl);
+          const nextLevelUnlocked = result.effectiveProgressionLevel >= lvl;
+          setCompletion({
+            show: true,
+            reward,
+            completedLevel: lvl,
+            nextLevelUnlocked
+          });
         }
 
         EventBus.emit('run-saved');
@@ -252,12 +267,13 @@ function PlayContent() {
       }
     };
 
+
     const handleRequestNextLevel = async () => {
       const lvl = authorizedLevelRef.current;
       console.log(`[Play] request-next-level fallback. Requesting level ${lvl + 1}...`);
       const result = await createSession(lvl + 1);
       if (phaserRef.current?.scene) {
-        const sceneKey = gameSlugRef.current === 'space-impact' ? 'SpaceImpactScene' : gameSlugRef.current === 'sudoku' ? 'SudokuScene' : 'GameScene';
+        const sceneKey = gameSlugRef.current === 'space-impact' ? 'SpaceImpactScene' : gameSlugRef.current === 'sudoku' ? 'SudokuScene' : gameSlugRef.current === 'cyber-runner' ? 'CyberRunnerScene' : 'GameScene';
         phaserRef.current.scene.scene.start(sceneKey, { level: result.level, score: 0 });
       }
     };
@@ -285,7 +301,7 @@ function PlayContent() {
     const lvl = completion.completedLevel;
     setCompletion(IDLE_STATE);
     if (phaserRef.current?.scene) {
-      const sceneKey = gameSlugRef.current === 'space-impact' ? 'SpaceImpactScene' : gameSlugRef.current === 'sudoku' ? 'SudokuScene' : 'GameScene';
+      const sceneKey = gameSlugRef.current === 'space-impact' ? 'SpaceImpactScene' : gameSlugRef.current === 'sudoku' ? 'SudokuScene' : gameSlugRef.current === 'cyber-runner' ? 'CyberRunnerScene' : 'GameScene';
       phaserRef.current.scene.scene.start(sceneKey, { level: lvl, score: 0 });
     }
   }, [completion.completedLevel]);
@@ -358,6 +374,79 @@ function PlayContent() {
           />
         </div>
         <div className="text-right text-xs text-gray-500 mt-1">Target: {targetScore}</div>
+
+        {/* Dynamic game HUD indicators (Shields and Lives) */}
+        {(shields !== null || lives !== null) && (
+          <div className="border-t border-gray-800 pt-3 mt-3 flex justify-between items-center gap-4 flex-wrap">
+            {/* Shields Indicator */}
+            {shields !== null && (
+              <div className="flex items-center gap-3 flex-1 min-w-[200px]">
+                <span className="text-gray-400 font-heading text-sm whitespace-nowrap">
+                  {gameSlug === 'sudoku' ? 'ATTEMPTS:' : 'SHIELDS:'}
+                </span>
+                {gameSlug === 'sudoku' ? (
+                  <div className="flex gap-1">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`w-6 h-3 rounded-sm border ${
+                          i < shields
+                            ? 'bg-neon-cyan border-neon-cyan shadow-[0_0_6px_rgba(0,240,255,0.6)]'
+                            : 'bg-transparent border-gray-700'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex-1 flex items-center gap-2">
+                    <div className="flex-1 bg-gray-800 rounded-full h-2.5 overflow-hidden border border-gray-700">
+                      <div
+                        className={`h-full transition-all duration-300 ${
+                          shields > 50
+                            ? 'bg-emerald-500'
+                            : shields > 25
+                            ? 'bg-amber-500'
+                            : 'bg-rose-600 animate-pulse'
+                        }`}
+                        style={{ width: `${shields}%` }}
+                      />
+                    </div>
+                    <span
+                      className={`font-mono text-sm font-bold min-w-[32px] text-right ${
+                        shields > 50
+                          ? 'text-emerald-400'
+                          : shields > 25
+                          ? 'text-amber-400'
+                          : 'text-rose-500 animate-pulse'
+                      }`}
+                    >
+                      {shields}%
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Lives Indicator */}
+            {lives !== null && (
+              <div className="flex items-center gap-2">
+                <span className="text-gray-400 font-heading text-sm">LIVES:</span>
+                <div className="flex gap-1.5">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <Heart
+                      key={i}
+                      className={`w-5 h-5 transition-all duration-300 ${
+                        i < lives
+                          ? 'fill-rose-500 text-rose-500 drop-shadow-[0_0_4px_rgba(244,63,94,0.6)] scale-100'
+                          : 'text-gray-700 scale-90'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Game canvas */}
@@ -369,6 +458,8 @@ function PlayContent() {
             <SpaceImpactMobileControls onInput={action => EventBus.emit('mobile-input', action)} />
           ) : gameSlug === 'sudoku' ? (
             <SudokuMobileControls onInput={action => EventBus.emit('mobile-input', action)} />
+          ) : gameSlug === 'cyber-runner' ? (
+            <CyberRunnerMobileControls onInput={action => EventBus.emit('mobile-input', action)} />
           ) : (
             <MobileControls onInput={dir => EventBus.emit('mobile-input', dir)} />
           )}
