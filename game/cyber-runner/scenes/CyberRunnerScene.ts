@@ -233,6 +233,10 @@ export class CyberRunnerScene extends Scene {
         // Define target score for the HUD
         this.targetScore = this.score + 500 + this.level * 200;
 
+        if (this.registry.get('arenaMode')) {
+            this.lives = 1;
+        }
+
         // Emit initial stats
         EventBus.emit('current-scene-ready', this);
         EventBus.emit('game-started');
@@ -469,7 +473,7 @@ export class CyberRunnerScene extends Scene {
             }
 
             // Slide trigger keys (keyboard)
-            if (this.canSlide && this.cursors && this.wasd && (this.cursors.down.isDown || this.wasd.down.isDown) && !this.isSliding && this.player.body.blocked.down) {
+            if (this.canSlide && this.cursors && this.wasd && (this.cursors.down.isDown || this.wasd.down.isDown) && !this.isSliding && (this.player.body as Phaser.Physics.Arcade.Body).blocked.down) {
                 this.triggerSlide();
             }
 
@@ -1001,8 +1005,9 @@ export class CyberRunnerScene extends Scene {
         this.bossBarrier = this.physics.add.sprite(x - 40, y, 'laser_grid');
         this.physics.add.collider(this.player, this.bossBarrier);
         this.bossBarrier.setAlpha(0);
-        this.bossBarrier.body.setAllowGravity(false);
-        this.bossBarrier.body.setImmovable(true);
+        const barrierBody = this.bossBarrier.body as Phaser.Physics.Arcade.Body;
+        barrierBody.setAllowGravity(false);
+        barrierBody.setImmovable(true);
     }
 
     spawnLevelCredits(levelWidth: number) {
@@ -1061,15 +1066,15 @@ export class CyberRunnerScene extends Scene {
     // ============================================================
     triggerJump() {
         if (this.isTransitioning) return;
-        const isGrounded = this.player.body.blocked.down || this.player.body.touching.down;
+        const isGrounded = (this.player.body as Phaser.Physics.Arcade.Body).blocked.down || (this.player.body as Phaser.Physics.Arcade.Body).touching.down;
 
         if (isGrounded) {
             this.player.setVelocityY(-450);
             this.jumpsCount = 1;
             SoundManager.playSFX('/audio/laser.mp3');
         } 
-        else if (this.canWallJump && (this.player.body.blocked.left || this.player.body.blocked.right)) {
-            const kickDir = this.player.body.blocked.left ? 1 : -1;
+        else if (this.canWallJump && ((this.player.body as Phaser.Physics.Arcade.Body).blocked.left || (this.player.body as Phaser.Physics.Arcade.Body).blocked.right)) {
+            const kickDir = (this.player.body as Phaser.Physics.Arcade.Body).blocked.left ? 1 : -1;
             this.player.setVelocityX(kickDir * 320);
             this.player.setVelocityY(-410);
             this.jumpsCount = 1;
@@ -1091,7 +1096,7 @@ export class CyberRunnerScene extends Scene {
     }
 
     triggerSlide() {
-        if (this.isTransitioning || this.isSliding || !this.player.body.blocked.down) return;
+        if (this.isTransitioning || this.isSliding || !(this.player.body as Phaser.Physics.Arcade.Body).blocked.down) return;
         this.isSliding = true;
         this.slideTimer = this.time.now + 450;
         
@@ -1199,11 +1204,13 @@ export class CyberRunnerScene extends Scene {
         this.bossPhase = 1;
 
         // Spawn physical boss body
-        this.boss = this.bossGroup.create(x, y, type);
-        this.boss.setAlpha(0);
-        this.boss.body.setAllowGravity(false);
-        this.boss.body.setImmovable(true);
-        (this.boss.body as Phaser.Physics.Arcade.Body).setSize(60, 60);
+        const bossSprite = this.bossGroup.create(x, y, type) as Phaser.Physics.Arcade.Sprite;
+        this.boss = bossSprite;
+        bossSprite.setAlpha(0);
+        const bossBody = bossSprite.body as Phaser.Physics.Arcade.Body;
+        bossBody.setAllowGravity(false);
+        bossBody.setImmovable(true);
+        bossBody.setSize(60, 60);
 
         // Slide boss onto screen
         this.tweens.add({
@@ -1229,27 +1236,28 @@ export class CyberRunnerScene extends Scene {
     }
 
     runBossActionPattern(time: number) {
-        if (!this.boss || !this.boss.active) return;
+        const boss = this.boss;
+        if (!boss || !boss.active) return;
 
-        const dist = Phaser.Math.Distance.Between(this.boss.x, this.boss.y, this.player.x, this.player.y);
+        const dist = Phaser.Math.Distance.Between(boss.x, boss.y, this.player.x, this.player.y);
 
         if (this.level === 1) {
             // Drone Commander: fires a 3-spread orb
-            this.fireEnemyProjectile(this.boss.x - 30, this.boss.y, -180, 0, 'enemy_bullet');
-            this.fireEnemyProjectile(this.boss.x - 30, this.boss.y, -160, -80, 'enemy_bullet');
-            this.fireEnemyProjectile(this.boss.x - 30, this.boss.y, -160, 80, 'enemy_bullet');
+            this.fireEnemyProjectile(boss.x - 30, boss.y, -180, 0, 'enemy_bullet');
+            this.fireEnemyProjectile(boss.x - 30, boss.y, -160, -80, 'enemy_bullet');
+            this.fireEnemyProjectile(boss.x - 30, boss.y, -160, 80, 'enemy_bullet');
         }
         else if (this.level === 2) {
             // Turret Bot: fires a laser blast pattern
-            this.fireEnemyProjectile(this.boss.x - 20, this.boss.y - 10, -220, 0, 'enemy_bullet');
-            this.fireEnemyProjectile(this.boss.x - 20, this.boss.y + 10, -220, 0, 'enemy_bullet');
+            this.fireEnemyProjectile(boss.x - 20, boss.y - 10, -220, 0, 'enemy_bullet');
+            this.fireEnemyProjectile(boss.x - 20, boss.y + 10, -220, 0, 'enemy_bullet');
         }
         else if (this.level === 3) {
             // Gang Leader: Charge runs towards player
-            const walkDir = this.player.x > this.boss.x ? 1 : -1;
+            const walkDir = this.player.x > boss.x ? 1 : -1;
             this.tweens.add({
-                targets: this.boss,
-                x: this.boss.x + (walkDir * 200),
+                targets: boss,
+                x: boss.x + (walkDir * 200),
                 duration: 600,
                 ease: 'Quad.easeInOut'
             });
@@ -1260,25 +1268,25 @@ export class CyberRunnerScene extends Scene {
         else if (this.level === 4) {
             // Metro AI: Sparks falling electric particles
             for(let i=0; i<4; i++) {
-                this.fireEnemyProjectile(this.boss.x - 50 + (i*20), this.boss.y, 0, 180, 'enemy_bullet');
+                this.fireEnemyProjectile(boss.x - 50 + (i*20), boss.y, 0, 180, 'enemy_bullet');
             }
         }
         else if (this.level === 5) {
             // Experimental Android: Teleports directly above player and drops
-            const oldX = this.boss.x;
-            const oldY = this.boss.y;
+            const oldX = boss.x;
+            const oldY = boss.y;
             this.createVisualSparks(oldX, oldY, 0xff00ff, 12);
             
-            this.boss.x = this.player.x;
-            this.boss.y = this.player.y - 180;
+            boss.x = this.player.x;
+            boss.y = this.player.y - 180;
             this.tweens.add({
-                targets: this.boss,
+                targets: boss,
                 y: this.player.y - 20,
                 duration: 400,
                 ease: 'Expo.easeIn',
                 onComplete: () => {
                     this.shakeIntensity = 8;
-                    if (Math.abs(this.player.x - this.boss.x) < 40) {
+                    if (Math.abs(this.player.x - boss.x) < 40) {
                         this.takeDamage(15);
                     }
                 }
@@ -1287,14 +1295,14 @@ export class CyberRunnerScene extends Scene {
         else if (this.level === 6) {
             // Defense Core: Fires lasers rotating 360 deg
             const angle = time * 0.0025;
-            this.fireEnemyProjectile(this.boss.x, this.boss.y, Math.cos(angle)*180, Math.sin(angle)*180, 'enemy_bullet');
-            this.fireEnemyProjectile(this.boss.x, this.boss.y, -Math.cos(angle)*180, -Math.sin(angle)*180, 'enemy_bullet');
+            this.fireEnemyProjectile(boss.x, boss.y, Math.cos(angle)*180, Math.sin(angle)*180, 'enemy_bullet');
+            this.fireEnemyProjectile(boss.x, boss.y, -Math.cos(angle)*180, -Math.sin(angle)*180, 'enemy_bullet');
         }
         else if (this.level === 7) {
             // Titan Mech: Heavy Ground Slam screen rumbles + Missiles
             this.shakeIntensity = 18;
-            this.fireEnemyHomingMissile(this.boss.x - 40, this.boss.y - 20);
-            if (this.player.body.blocked.down) {
+            this.fireEnemyHomingMissile(boss.x - 40, boss.y - 20);
+            if ((this.player.body as Phaser.Physics.Arcade.Body).blocked.down) {
                 this.takeDamage(5); // Ground tremor hits player if standing on floor
             }
         }
@@ -1302,27 +1310,27 @@ export class CyberRunnerScene extends Scene {
             // Sky Hunter: Flies back and forth launching missile drops
             const flightDir = this.rng.next() > 0.5 ? 1 : -1;
             this.tweens.add({
-                targets: this.boss,
+                targets: boss,
                 x: this.player.x + (flightDir * 180),
                 y: this.player.y - 150,
                 duration: 900,
                 ease: 'Cubic.easeInOut',
                 onComplete: () => {
-                    this.fireEnemyProjectile(this.boss.x, this.boss.y, 0, 250, 'enemy_missile');
+                    this.fireEnemyProjectile(boss.x, boss.y, 0, 250, 'enemy_missile');
                 }
             });
         }
         else if (this.level === 9) {
             // Cyber General: Sword strike dash
-            const walkDir = this.player.x > this.boss.x ? 1 : -1;
-            this.boss.setFlipX(walkDir < 0);
+            const walkDir = this.player.x > boss.x ? 1 : -1;
+            boss.setFlipX(walkDir < 0);
             this.tweens.add({
-                targets: this.boss,
+                targets: boss,
                 x: this.player.x,
                 duration: 500,
                 ease: 'Expo.easeOut',
                 onComplete: () => {
-                    if (Math.abs(this.player.x - this.boss.x) < 50) {
+                    if (Math.abs(this.player.x - boss.x) < 50) {
                         this.takeDamage(20);
                     }
                 }
@@ -1332,39 +1340,41 @@ export class CyberRunnerScene extends Scene {
             // Level 10 Omega Final AI Core (Dynamic phase attacks)
             if (this.bossPhase === 1) {
                 // Form 1: Heavy Robot blasts
-                this.fireEnemyProjectile(this.boss.x - 30, this.boss.y, -220, 50, 'enemy_bullet');
-                this.fireEnemyProjectile(this.boss.x - 30, this.boss.y, -220, -50, 'enemy_bullet');
+                this.fireEnemyProjectile(boss.x - 30, boss.y, -220, 50, 'enemy_bullet');
+                this.fireEnemyProjectile(boss.x - 30, boss.y, -220, -50, 'enemy_bullet');
             } else if (this.bossPhase === 2) {
                 // Form 2: Digital face grid lasers
-                const angle = Phaser.Math.Angle.Between(this.boss.x, this.boss.y, this.player.x, this.player.y);
-                this.fireEnemyProjectile(this.boss.x, this.boss.y, Math.cos(angle)*280, Math.sin(angle)*280, 'enemy_bullet');
+                const angle = Phaser.Math.Angle.Between(boss.x, boss.y, this.player.x, this.player.y);
+                this.fireEnemyProjectile(boss.x, boss.y, Math.cos(angle)*280, Math.sin(angle)*280, 'enemy_bullet');
             } else {
                 // Form 3: Main Core hyper missile storm
-                this.fireEnemyHomingMissile(this.boss.x, this.boss.y - 30);
-                this.fireEnemyProjectile(this.boss.x, this.boss.y + 10, -180, 0, 'enemy_bullet');
-                this.fireEnemyProjectile(this.boss.x, this.boss.y + 10, -160, -90, 'enemy_bullet');
+                this.fireEnemyHomingMissile(boss.x, boss.y - 30);
+                this.fireEnemyProjectile(boss.x, boss.y + 10, -180, 0, 'enemy_bullet');
+                this.fireEnemyProjectile(boss.x, boss.y + 10, -160, -90, 'enemy_bullet');
             }
         }
     }
 
     shiftOmegaBossPhase() {
+        const boss = this.boss;
+        if (!boss) return;
         if (this.bossPhase === 1) {
             this.bossPhase = 2;
             this.bossHp = 150;
             this.bossMaxHp = 150;
-            this.boss.setTexture('omega_digital');
-            this.createVisualSparks(this.boss.x, this.boss.y, 0xff00ff, 25);
+            boss.setTexture('omega_digital');
+            this.createVisualSparks(boss.x, boss.y, 0xff00ff, 25);
             SoundManager.playSFX('/audio/explosion.mp3');
         } else if (this.bossPhase === 2) {
             this.bossPhase = 3;
             this.bossHp = 200;
             this.bossMaxHp = 200;
-            this.boss.setTexture('omega_core');
-            this.createVisualSparks(this.boss.x, this.boss.y, 0x00f0ff, 35);
+            boss.setTexture('omega_core');
+            this.createVisualSparks(boss.x, boss.y, 0x00f0ff, 35);
             SoundManager.playSFX('/audio/explosion.mp3');
         } else {
             // Form 3 Core Down! Complete defeat
-            this.boss.destroy();
+            boss.destroy();
             this.triggerBossDefeated();
         }
     }
@@ -1497,6 +1507,13 @@ export class CyberRunnerScene extends Scene {
     }
 
     handlePlayerDeath() {
+        if (this.registry.get('arenaMode')) {
+            this.lives = 0;
+            EventBus.emit('lives-changed', 0);
+            this.gameOver();
+            return;
+        }
+
         this.lives--;
         EventBus.emit('lives-changed', this.lives);
         this.createVisualSparks(this.player.x, this.player.y, 0xef4444, 25);
@@ -1635,7 +1652,7 @@ export class CyberRunnerScene extends Scene {
             this.gameGraphics.fillRect(flip ? px - 24 : px + 21, py - 8, 3, 3);
         } else {
             // Draw Standing/Running Hacker
-            const isMoving = Math.abs(this.player.body.velocity.x) > 10;
+            const isMoving = Math.abs((this.player.body as Phaser.Physics.Arcade.Body).velocity.x) > 10;
             const yOffset = isMoving ? Math.sin(this.time.now * 0.015) * 2 : 0;
             
             this.gameGraphics.fillStyle(0x0a1128, 1); // Pants
@@ -2057,6 +2074,16 @@ export class CyberRunnerScene extends Scene {
     triggerVictory() {
         const duration = Date.now() - this.startTime;
         
+        if (this.registry.get('arenaMode')) {
+            const nextLvl = Math.min(10, this.level + 1);
+            EventBus.emit('level-changed', nextLvl);
+            this.scene.start('CyberRunnerScene', {
+                level: nextLvl,
+                score: this.score
+            });
+            return;
+        }
+
         EventBus.emit('save-run', {
             level: this.level,
             score: this.score,

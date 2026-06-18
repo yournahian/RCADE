@@ -22,11 +22,11 @@
     {
       "id": "id_tlov1nmp4",
       "createdAt": "2026-05-26T17:31:32.205Z",
-      "updatedAt": "2026-06-18T09:03:47.431Z",
+      "updatedAt": "2026-06-18T09:32:51.290Z",
       "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
-      "totalWagersWon": 600,
-      "totalWins": 15,
-      "totalMatches": 15
+      "totalWagersWon": 720,
+      "totalWins": 18,
+      "totalMatches": 18
     }
   ],
   "playerGameRank": [
@@ -125,26 +125,26 @@
     {
       "id": "id_qiw7g2wbt_10200",
       "createdAt": "2026-06-18T09:05:10.200Z",
-      "updatedAt": "2026-06-18T09:06:34.553Z",
+      "updatedAt": "2026-06-18T09:32:49.100Z",
       "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
       "gameId": 2,
       "seasonId": null,
       "trophies": 100,
       "peakTrophies": 100,
       "lastOpponentId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
-      "consecutiveOpponentCount": 1
+      "consecutiveOpponentCount": 5
     },
     {
       "id": "id_75v6q0nfp_10551",
       "createdAt": "2026-06-18T09:05:10.551Z",
-      "updatedAt": "2026-06-18T09:06:34.548Z",
+      "updatedAt": "2026-06-18T09:32:49.104Z",
       "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
       "gameId": 2,
       "seasonId": null,
       "trophies": 100,
       "peakTrophies": 100,
       "lastOpponentId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
-      "consecutiveOpponentCount": 1
+      "consecutiveOpponentCount": 5
     }
   ],
   "trophyHistory": [],
@@ -1203,6 +1203,32 @@
       "status": "COMPLETED",
       "guestId": null,
       "matchId": "id_ip6j1ltnf_09409"
+    },
+    {
+      "id": "id_hl0dqosdb_89905",
+      "createdAt": "2026-06-18T09:16:29.905Z",
+      "updatedAt": "2026-06-18T09:23:14.938Z",
+      "roomCode": "RU9YVW",
+      "gameId": 2,
+      "creatorId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_2ilcs6eum_00088"
+    },
+    {
+      "id": "id_7uqemxyou_21209",
+      "createdAt": "2026-06-18T09:27:01.209Z",
+      "updatedAt": "2026-06-18T09:32:51.302Z",
+      "roomCode": "KHE3F4",
+      "gameId": 2,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_njkfeqdol_92499"
     }
   ],
   "arenaMatch": [
@@ -2377,6 +2403,51 @@
       "escrowId": "id_gy11woxhc_09420",
       "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
       "resolvedAt": "2026-06-18T09:06:36.570Z"
+    },
+    {
+      "id": "id_2ilcs6eum_00088",
+      "createdAt": "2026-06-18T09:16:40.088Z",
+      "updatedAt": "2026-06-18T09:23:14.933Z",
+      "gameId": 2,
+      "mode": "CUSTOM",
+      "roomCode": "RU9YVW",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_4sn6tjfcs_00097",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-06-18T09:23:14.929Z"
+    },
+    {
+      "id": "id_y4fq9c4c5_26529",
+      "createdAt": "2026-06-18T09:27:06.529Z",
+      "updatedAt": "2026-06-18T09:27:59.078Z",
+      "gameId": 2,
+      "mode": "CUSTOM",
+      "roomCode": "KHE3F4",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_41tewxv9y_26538",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-06-18T09:27:59.075Z"
+    },
+    {
+      "id": "id_njkfeqdol_92499",
+      "createdAt": "2026-06-18T09:29:52.499Z",
+      "updatedAt": "2026-06-18T09:32:52.033Z",
+      "gameId": 2,
+      "mode": "CUSTOM",
+      "roomCode": "KHE3F4",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "escrowId": "id_ix9aiu2xe_92521",
+      "winnerId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "resolvedAt": "2026-06-18T09:32:51.292Z",
+      "player1Score": 860,
+      "player1Status": "SUBMITTED",
+      "player1SubmittedAt": "2026-06-18T09:32:52.031Z"
     }
   ],
   "escrowState": [
@@ -4277,6 +4348,84 @@
           }
         ]
       }
+    },
+    {
+      "id": "id_4sn6tjfcs_00097",
+      "createdAt": "2026-06-18T09:16:40.097Z",
+      "updatedAt": "2026-06-18T09:23:11.004Z",
+      "matchId": "id_2ilcs6eum_00088",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_41tewxv9y_26538",
+      "createdAt": "2026-06-18T09:27:06.538Z",
+      "updatedAt": "2026-06-18T09:27:59.055Z",
+      "matchId": "id_y4fq9c4c5_26529",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_ix9aiu2xe_92521",
+      "createdAt": "2026-06-18T09:29:52.521Z",
+      "updatedAt": "2026-06-18T09:32:51.275Z",
+      "matchId": "id_njkfeqdol_92499",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
     }
   ],
   "wagerTransaction": [
@@ -4819,6 +4968,66 @@
       "amount": "10.00",
       "type": "FEE",
       "status": "SUCCESS"
+    },
+    {
+      "id": "id_wa586hbhx_91008",
+      "createdAt": "2026-06-18T09:23:11.008Z",
+      "updatedAt": "2026-06-18T09:23:11.008Z",
+      "escrowId": "id_4sn6tjfcs_00097",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_u5oft68m3_91013",
+      "createdAt": "2026-06-18T09:23:11.013Z",
+      "updatedAt": "2026-06-18T09:23:11.013Z",
+      "escrowId": "id_4sn6tjfcs_00097",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_0ayqt95kr_79059",
+      "createdAt": "2026-06-18T09:27:59.059Z",
+      "updatedAt": "2026-06-18T09:27:59.059Z",
+      "escrowId": "id_41tewxv9y_26538",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_raa7syxgb_79065",
+      "createdAt": "2026-06-18T09:27:59.065Z",
+      "updatedAt": "2026-06-18T09:27:59.065Z",
+      "escrowId": "id_41tewxv9y_26538",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_89cogwg60_71279",
+      "createdAt": "2026-06-18T09:32:51.279Z",
+      "updatedAt": "2026-06-18T09:32:51.279Z",
+      "escrowId": "id_ix9aiu2xe_92521",
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_w0fjf01qe_71284",
+      "createdAt": "2026-06-18T09:32:51.284Z",
+      "updatedAt": "2026-06-18T09:32:51.284Z",
+      "escrowId": "id_ix9aiu2xe_92521",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
     }
   ],
   "matchReplay": [
@@ -5133,6 +5342,18 @@
       "duration": 13134,
       "seed": "system-seed-v1",
       "checksum": "8ad51fe19c9fde0e5a2f6fff1c8cbd07410a480778a21adbfb060e9b3d44a2da"
+    },
+    {
+      "id": "id_m4m01saic_72027",
+      "createdAt": "2026-06-18T09:32:52.027Z",
+      "updatedAt": "2026-06-18T09:32:52.027Z",
+      "matchId": "id_njkfeqdol_92499",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":26482,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":100},{\"t\":28198,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":200},{\"t\":30540,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":30540,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":400},{\"t\":32506,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1.3},{\"t\":32507,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":660},{\"t\":33172,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1.1999559999999962},{\"t\":33839,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1.0999074999999916},{\"t\":34506,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":36244,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":760},{\"t\":37911,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":860},{\"t\":59430,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 860,
+      "duration": 59430,
+      "seed": "system-seed-v1",
+      "checksum": "98d53fb947e27eb09d1b5f0017f5e0228b09c343c4c1628d17b403f043992b15"
     }
   ],
   "leaderboardEntry": [
@@ -5177,9 +5398,9 @@
       "trophies": 100
     },
     {
-      "id": "id_uce0za8br_96650",
-      "createdAt": "2026-06-18T09:06:36.650Z",
-      "updatedAt": "2026-06-18T09:06:36.650Z",
+      "id": "id_bfvbupx9n_71416",
+      "createdAt": "2026-06-18T09:32:51.416Z",
+      "updatedAt": "2026-06-18T09:32:51.416Z",
       "gameId": 2,
       "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
       "seasonId": null,
@@ -5187,9 +5408,9 @@
       "trophies": 100
     },
     {
-      "id": "id_vtsmw9y0w_96660",
-      "createdAt": "2026-06-18T09:06:36.660Z",
-      "updatedAt": "2026-06-18T09:06:36.660Z",
+      "id": "id_v786z4zb3_71424",
+      "createdAt": "2026-06-18T09:32:51.424Z",
+      "updatedAt": "2026-06-18T09:32:51.424Z",
       "gameId": 2,
       "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
       "seasonId": null,
@@ -5397,6 +5618,16 @@
       "flagType": "SUSPICIOUS_WAGER_FARMING",
       "severity": "MEDIUM",
       "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 28 times."
+    },
+    {
+      "id": "id_cr82ttzj5_72022",
+      "createdAt": "2026-06-18T09:32:52.022Z",
+      "updatedAt": "2026-06-18T09:32:52.022Z",
+      "matchId": "id_njkfeqdol_92499",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 5 times."
     }
   ]
 }

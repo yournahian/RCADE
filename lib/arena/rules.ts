@@ -147,8 +147,41 @@ export class SudokuRuleAdapter implements ArenaRuleAdapter {
   }
 }
 
+export class RunnerRuleAdapter implements ArenaRuleAdapter {
+  determineWinner(
+    p1Score: number, p1Duration: number, p1Replay: any,
+    p2Score: number, p2Duration: number, p2Replay: any
+  ): 'player1' | 'player2' | null {
+    // Survival-based win condition: First death loses (duration)
+    if (p1Duration > p2Duration) return 'player1';
+    if (p2Duration > p1Duration) return 'player2';
+
+    // Tie-breaker: Highest score
+    if (p1Score > p2Score) return 'player1';
+    if (p2Score > p1Score) return 'player2';
+
+    return null; // Absolute Draw
+  }
+
+  validateScore(score: number, duration: number, replayData: any): boolean {
+    // In Cyber Runner, maximum score rate shouldn't exceed 1000 points per second
+    const maxScore = (duration / 1000) * 1000;
+    return score <= maxScore || score < 1000;
+  }
+
+  validateReplay(replayData: any, seed: string): boolean {
+    if (!replayData || !Array.isArray(replayData.events)) return false;
+    return true;
+  }
+
+  getTimeoutThreshold(): number {
+    return 600; // 10 minutes maximum time limit
+  }
+}
+
 export const RULE_ADAPTERS: Record<number, ArenaRuleAdapter> = {
   1: new SnakeRuleAdapter(),
+  2: new RunnerRuleAdapter(),
   5: new SpaceImpactRuleAdapter(),
   6: new SudokuRuleAdapter()
 };

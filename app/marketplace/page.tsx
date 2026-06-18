@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { usePrivy, useWallets } from '@privy-io/react-auth';
 import { useEffect, useState, useMemo } from 'react';
 import { 
@@ -1033,7 +1034,7 @@ function Marketplace() {
     <div className="w-full min-h-[calc(100vh-60px)] flex flex-col md:flex-row relative pb-16 md:pb-0">
 
       {/* ── FAR-LEFT MINI NAVIGATION STRIP ── */}
-      <div className="hidden md:flex flex-col items-center justify-between py-6 w-16 bg-[#040404] border-r border-[#161616] flex-shrink-0 self-stretch">
+      <div className="hidden md:flex flex-col items-center justify-start py-6 w-16 bg-[#040404] border-r border-[#161616] flex-shrink-0 self-stretch">
         {/* Top Section */}
         <div className="flex flex-col items-center space-y-6 w-full">
           <button 
@@ -1059,10 +1060,7 @@ function Marketplace() {
           >
             <TrendingUp className="w-4 h-4" />
           </button>
-        </div>
 
-        {/* Bottom Section */}
-        <div className="flex flex-col items-center space-y-4 w-full">
           <div className="w-8 h-[1px] bg-zinc-800" />
           
           <button className="p-3 text-text-muted hover:text-[#a9ddd3] transition-colors cursor-pointer relative" title="Notifications">

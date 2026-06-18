@@ -97,14 +97,14 @@ export class RealtimeService {
               username: fullMatch.player1?.username || 'Challenger',
               score: fullMatch.player1Score,
               status: fullMatch.player1Status,
-              submittedAt: fullMatch.player1SubmittedAt ? fullMatch.player1SubmittedAt.toISOString() : null
+              submittedAt: fullMatch.player1SubmittedAt ? (fullMatch.player1SubmittedAt instanceof Date ? fullMatch.player1SubmittedAt.toISOString() : new Date(fullMatch.player1SubmittedAt).toISOString()) : null
             },
             {
               userId: fullMatch.player2Id,
               username: fullMatch.player2?.username || 'Defender',
               score: fullMatch.player2Score,
               status: fullMatch.player2Status,
-              submittedAt: fullMatch.player2SubmittedAt ? fullMatch.player2SubmittedAt.toISOString() : null
+              submittedAt: fullMatch.player2SubmittedAt ? (fullMatch.player2SubmittedAt instanceof Date ? fullMatch.player2SubmittedAt.toISOString() : new Date(fullMatch.player2SubmittedAt).toISOString()) : null
             }
           ];
 

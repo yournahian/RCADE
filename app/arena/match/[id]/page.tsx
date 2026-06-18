@@ -10,7 +10,7 @@ import { IRefPhaserGame } from '@/game/PhaserGame';
 import { GameplayEventSnapshot } from '@/types/arena/arena.types';
 import MobileControls from '@/components/game/MobileControls';
 import SpaceImpactMobileControls from '@/components/game/SpaceImpactMobileControls';
-import { Loader2, ShieldAlert, Cpu, Swords, Zap, RefreshCw, LogOut, Trophy } from 'lucide-react';
+import { Loader2, ShieldAlert, Cpu, Swords, Zap, RefreshCw, LogOut, Trophy, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { getGameById } from '@/lib/games';
 
@@ -36,6 +36,9 @@ export default function ArenaMatchPage() {
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(1.0);
   const [maxCombo, setMaxCombo] = useState(1.0);
+  const [shields, setShields] = useState<number | null>(null);
+  const [lives, setLives] = useState<number | null>(null);
+  const [level, setLevel] = useState(1);
   const [showResultOverlay, setShowResultOverlay] = useState(false);
 
   // Refs for tracking event snapshot timelines
@@ -278,11 +281,18 @@ export default function ArenaMatchPage() {
       });
     };
 
+    const onShields = (s: number) => setShields(s);
+    const onLives = (l: number) => setLives(l);
+    const onLevel = (l: number) => setLevel(l);
+
     const onGameStarted = () => {
       setScore(0);
       setCombo(1.0);
       setMaxCombo(1.0);
       maxComboRef.current = 1.0;
+      setShields(null);
+      setLives(null);
+      setLevel(1);
       eventsRef.current = [];
       startTimeRef.current = Date.now();
     };
@@ -302,13 +312,14 @@ export default function ArenaMatchPage() {
               } catch {}
             }
             scene.scene.pause();
-            if ((scene as any).player?.body) {
+            const sceneAny = scene as any;
+            if (sceneAny.player && sceneAny.player.body) {
               try {
-                (scene as any).player.setVelocity(0, 0);
+                sceneAny.player.setVelocity(0, 0);
               } catch {}
             }
-            if ((scene as any).snake) {
-              (scene as any).snake.baseSpeed = 0;
+            if (sceneAny.snake) {
+              sceneAny.snake.baseSpeed = 0;
             }
           });
           if (phaserRef.current.game.input.keyboard) {
@@ -326,6 +337,9 @@ export default function ArenaMatchPage() {
     EventBus.on('telemetry-event', onTelemetryEvent);
     EventBus.on('game-started', onGameStarted);
     EventBus.on('match-completed', onMatchCompletedEvent);
+    EventBus.on('shields-changed', onShields);
+    EventBus.on('lives-changed', onLives);
+    EventBus.on('level-changed', onLevel);
 
     return () => {
       EventBus.removeListener('score-changed', onScore);
@@ -334,6 +348,9 @@ export default function ArenaMatchPage() {
       EventBus.removeListener('telemetry-event', onTelemetryEvent);
       EventBus.removeListener('game-started', onGameStarted);
       EventBus.removeListener('match-completed', onMatchCompletedEvent);
+      EventBus.removeListener('shields-changed', onShields);
+      EventBus.removeListener('lives-changed', onLives);
+      EventBus.removeListener('level-changed', onLevel);
     };
   }, [uiState]);
 
@@ -416,11 +433,14 @@ export default function ArenaMatchPage() {
           }
           scene.scene.pause();
           (scene as any).isTransitioning = true;
-          if ((scene as any).player?.setVelocity) {
-            (scene as any).player.setVelocity(0, 0);
+          const sceneAny = scene as any;
+          if (sceneAny.player && typeof sceneAny.player.setVelocity === 'function') {
+            try {
+              sceneAny.player.setVelocity(0, 0);
+            } catch {}
           }
-          if ((scene as any).snake) {
-            (scene as any).snake.baseSpeed = 0;
+          if (sceneAny.snake) {
+            sceneAny.snake.baseSpeed = 0;
           }
         });
         if (phaserRef.current.game.input.keyboard) {
@@ -591,6 +611,10 @@ export default function ArenaMatchPage() {
             <span className="text-neon-cyan font-black text-xl drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">{score}</span>
           </div>
           <div className="font-heading text-base">
+            <span className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold block mb-0.5">LEVEL</span>
+            <span className="text-neon-magenta font-black text-xl drop-shadow-[0_0_8px_rgba(255,0,85,0.4)]">{level}</span>
+          </div>
+          <div className="font-heading text-base">
             <span className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold block mb-0.5">MULTIPLIER</span>
             <span className={`font-black text-xl transition-all ${combo > 2 ? 'text-neon-magenta animate-pulse' : 'text-yellow-400'}`}>
               x{combo.toFixed(1)}
@@ -615,6 +639,79 @@ export default function ArenaMatchPage() {
             FIRST BLOOD DUEL
           </div>
         </div>
+
+        {/* Dynamic game HUD indicators (Shields and Lives) */}
+        {(shields !== null || lives !== null) && (
+          <div className="w-full border-t border-zinc-900 pt-3 mt-1 flex justify-between items-center gap-4 flex-wrap">
+            {/* Shields/Attempts Indicator */}
+            {shields !== null && (
+              <div className="flex items-center gap-3 flex-1 min-w-[200px]">
+                <span className="text-zinc-500 font-heading text-[10px] tracking-wider uppercase font-bold whitespace-nowrap">
+                  {gameSlug === 'sudoku' ? 'ATTEMPTS:' : 'SHIELDS:'}
+                </span>
+                {gameSlug === 'sudoku' ? (
+                  <div className="flex gap-1">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`w-6 h-3 rounded-sm border ${
+                          i < shields
+                            ? 'bg-neon-cyan border-neon-cyan shadow-[0_0_6px_rgba(0,240,255,0.6)]'
+                            : 'bg-transparent border-zinc-800'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex-1 flex items-center gap-2">
+                    <div className="flex-1 bg-zinc-900 rounded-full h-2.5 overflow-hidden border border-zinc-800">
+                      <div
+                        className={`h-full transition-all duration-300 ${
+                          shields > 50
+                            ? 'bg-emerald-500'
+                            : shields > 25
+                            ? 'bg-amber-500'
+                            : 'bg-rose-600 animate-pulse'
+                        }`}
+                        style={{ width: `${shields}%` }}
+                      />
+                    </div>
+                    <span
+                      className={`font-mono text-sm font-bold min-w-[32px] text-right ${
+                        shields > 50
+                          ? 'text-emerald-400'
+                          : shields > 25
+                          ? 'text-amber-400'
+                          : 'text-rose-500 animate-pulse'
+                      }`}
+                    >
+                      {shields}%
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Lives Indicator */}
+            {lives !== null && (
+              <div className="flex items-center gap-2">
+                <span className="text-zinc-500 font-heading text-[10px] tracking-wider uppercase font-bold">LIVES:</span>
+                <div className="flex gap-1.5">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <Heart
+                      key={i}
+                      className={`w-5 h-5 transition-all duration-300 ${
+                        i < lives
+                          ? 'fill-rose-500 text-rose-500 drop-shadow-[0_0_4px_rgba(244,63,94,0.6)] scale-100'
+                          : 'text-zinc-800 scale-90'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Phaser Canvas Wrapper */}

@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';
+import Phaser, { Scene } from 'phaser';
 import { EventBus } from '../../EventBus';
 
 export class CyberRunnerGameOverScene extends Scene {
