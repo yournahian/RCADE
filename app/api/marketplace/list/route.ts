@@ -85,16 +85,16 @@ export async function POST(req: Request) {
         });
 
         if (status !== 0) {
-            const statusMap = [
-                "Valid",
-                "Listing expired",
-                "Listing already used or cancelled",
-                "Listing nonce invalidated",
-                "Invalid signature",
-                "Insufficient NFT balance",
-                "Marketplace not approved"
-            ];
-            return NextResponse.json({ error: statusMap[status] || "Invalid listing status on-chain" }, { status: 400 });
+            const statusMap: Record<number, string> = {
+                1: "Listing has expired.",
+                2: "Listing signature has already been used or cancelled.",
+                3: "Listing nonce is invalid.",
+                4: "Invalid EIP-712 wallet signature.",
+                5: "Insufficient on-chain NFT balance. If this is a newly earned reward, please click 'Mint' in your Vault first so it exists on Base Sepolia before listing.",
+                6: "Marketplace contract operator is not approved."
+            };
+            const reason = statusMap[status] || `Contract validation error code ${status}`;
+            return NextResponse.json({ error: reason }, { status: 400 });
         }
 
         // 4. Compute correct EIP-712 hash on-chain to prevent duplicate logic/bugs
