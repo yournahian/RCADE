@@ -659,56 +659,27 @@ function Marketplace() {
         transport: custom(provider) 
       });
       
-      const sellerNonce = await publicClient.readContract({ 
-        address: MARKETPLACE_ADDRESS as `0x${string}`, 
-        abi: RCADE_MARKETPLACE_ABI, 
-        functionName: 'userNonces', 
-        args: [activeWallet.address as `0x${string}`] 
-      });
+      // Parallelize contract reads for userNonces and operator approval state (<100ms)
+      const [sellerNonce, isApproved] = await Promise.all([
+        publicClient.readContract({ 
+          address: MARKETPLACE_ADDRESS as `0x${string}`, 
+          abi: RCADE_MARKETPLACE_ABI, 
+          functionName: 'userNonces', 
+          args: [activeWallet.address as `0x${string}`] 
+        }),
+        publicClient.readContract({ 
+          address: CONTRACT_ADDRESS as `0x${string}`, 
+          abi: RCADE_ERC1155_ABI, 
+          functionName: 'isApprovedForAll', 
+          args: [activeWallet.address as `0x${string}`, MARKETPLACE_ADDRESS as `0x${string}`] 
+        })
+      ]);
       
       const priceWei = parseEther(sellPrice);
       const expiryUnix = Math.floor(Date.now() / 1000) + (86400 * sellExpiryDays);
       const uniqueListingNonce = sellerNonce + BigInt(Math.floor(Math.random() * 1000000) + 1);
 
-      toast.loading("Awaiting Signature", "Please sign typed data payload in wallet extension...", { id: toastId });
-
-      const signature = await walletClient.signTypedData({ 
-        domain: { 
-          name: 'RCADEMarketplace', 
-          version: '1', 
-          chainId: baseSepolia.id, 
-          verifyingContract: MARKETPLACE_ADDRESS as `0x${string}` 
-        }, 
-        types: { 
-          Listing: [
-            { name: 'seller', type: 'address' }, 
-            { name: 'tokenId', type: 'uint256' }, 
-            { name: 'amount', type: 'uint256' }, 
-            { name: 'price', type: 'uint256' }, 
-            { name: 'expiry', type: 'uint256' }, 
-            { name: 'nonce', type: 'uint256' }
-          ] 
-        }, 
-        primaryType: 'Listing', 
-        message: { 
-          seller: activeWallet.address as `0x${string}`, 
-          tokenId: BigInt(selectedNft.tokenId), 
-          amount: BigInt(sellAmount), 
-          price: priceWei, 
-          expiry: BigInt(expiryUnix), 
-          nonce: uniqueListingNonce 
-        } 
-      });
-
       // Audit operator approval states
-      toast.loading("Awaiting Signature", "Checking marketplace operator approval...", { id: toastId });
-      const isApproved = await publicClient.readContract({ 
-        address: CONTRACT_ADDRESS as `0x${string}`, 
-        abi: RCADE_ERC1155_ABI, 
-        functionName: 'isApprovedForAll', 
-        args: [activeWallet.address as `0x${string}`, MARKETPLACE_ADDRESS as `0x${string}`] 
-      });
-
       if (!isApproved) {
         toast.loading("Confirm in Wallet...", "Approving marketplace contract operator in wallet...", { id: toastId });
         const encodeData = await import('viem').then(m => m.encodeFunctionData);
@@ -726,10 +697,82 @@ function Marketplace() {
           chain: baseSepolia 
         });
         
-        toast.loading("Waiting for Confirmation...", "Transaction Pending... voiding approvals in base sepolia", { id: toastId });
+        toast.loading("Waiting for Confirmation...", "Transaction Pending... confirming operator approval on Base Sepolia", { id: toastId });
         setListingTxStates(prev => ({ ...prev, list: 'pending' }));
         await publicClient.waitForTransactionReceipt({ hash: txHash });
         toast.success("Approved", "Marketplace authorized successfully!");
+      }
+
+      toast.loading("Awaiting Signature", "Please sign typed data payload in wallet extension...", { id: toastId });
+
+      let signature: string;
+      const typedDataString = JSON.stringify({
+        domain: { 
+          name: 'RCADEMarketplace', 
+          version: '1', 
+          chainId: baseSepolia.id, 
+          verifyingContract: MARKETPLACE_ADDRESS 
+        }, 
+        types: { 
+          EIP712Domain: [
+            { name: 'name', type: 'string' }, 
+            { name: 'version', type: 'string' }, 
+            { name: 'chainId', type: 'uint256' }, 
+            { name: 'verifyingContract', type: 'address' }
+          ],
+          Listing: [
+            { name: 'seller', type: 'address' }, 
+            { name: 'tokenId', type: 'uint256' }, 
+            { name: 'amount', type: 'uint256' }, 
+            { name: 'price', type: 'uint256' }, 
+            { name: 'expiry', type: 'uint256' }, 
+            { name: 'nonce', type: 'uint256' }
+          ] 
+        }, 
+        primaryType: 'Listing', 
+        message: { 
+          seller: activeWallet.address, 
+          tokenId: selectedNft.tokenId.toString(), 
+          amount: sellAmount.toString(), 
+          price: priceWei.toString(), 
+          expiry: expiryUnix.toString(), 
+          nonce: uniqueListingNonce.toString() 
+        } 
+      });
+
+      try {
+        signature = await provider.request({
+          method: 'eth_signTypedData_v4',
+          params: [activeWallet.address, typedDataString]
+        });
+      } catch (err: any) {
+        signature = await walletClient.signTypedData({ 
+          domain: { 
+            name: 'RCADEMarketplace', 
+            version: '1', 
+            chainId: baseSepolia.id, 
+            verifyingContract: MARKETPLACE_ADDRESS as `0x${string}` 
+          }, 
+          types: { 
+            Listing: [
+              { name: 'seller', type: 'address' }, 
+              { name: 'tokenId', type: 'uint256' }, 
+              { name: 'amount', type: 'uint256' }, 
+              { name: 'price', type: 'uint256' }, 
+              { name: 'expiry', type: 'uint256' }, 
+              { name: 'nonce', type: 'uint256' }
+            ] 
+          }, 
+          primaryType: 'Listing', 
+          message: { 
+            seller: activeWallet.address as `0x${string}`, 
+            tokenId: BigInt(selectedNft.tokenId), 
+            amount: BigInt(sellAmount), 
+            price: priceWei, 
+            expiry: BigInt(expiryUnix), 
+            nonce: uniqueListingNonce 
+          } 
+        });
       }
 
       // INSTANTLY Inject optimistic listing card marked as Syncing into trader's dashboard
