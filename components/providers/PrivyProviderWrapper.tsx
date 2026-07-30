@@ -7,10 +7,30 @@ import { baseSepolia } from 'viem/chains';
 export default function PrivyProviderWrapper({ children }: { children: ReactNode }) {
   const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
 
+  if (typeof window !== 'undefined') {
+    // Catch transient Privy session network timeouts silently
+    window.addEventListener('unhandledrejection', (event) => {
+      const msg = String(event.reason?.message || event.reason || '');
+      if (msg.includes('auth.privy.io') || msg.includes('TimeoutError')) {
+        event.preventDefault();
+      }
+    });
+  }
+
   if (!appId) {
     console.error('Missing NEXT_PUBLIC_PRIVY_APP_ID environment variable.');
     return <>{children}</>;
   }
+
+  const customBaseSepolia = {
+    ...baseSepolia,
+    rpcUrls: {
+      ...baseSepolia.rpcUrls,
+      default: {
+        http: [process.env.NEXT_PUBLIC_RPC_URL || 'https://sepolia.base.org']
+      }
+    }
+  };
 
   return (
     <PrivyProvider
@@ -20,10 +40,10 @@ export default function PrivyProviderWrapper({ children }: { children: ReactNode
         appearance: {
           theme: 'dark',
           accentColor: '#00f0ff', // Cyberpunk neon cyan
-          logo: 'https://auth.privy.io/logos/privy-logo-dark.png', // We can replace with custom logo
+          logo: 'https://auth.privy.io/logos/privy-logo-dark.png',
         },
-        defaultChain: baseSepolia,
-        supportedChains: [baseSepolia],
+        defaultChain: customBaseSepolia,
+        supportedChains: [customBaseSepolia],
         embeddedWallets: {
           ethereum: {
             createOnLogin: 'users-without-wallets',

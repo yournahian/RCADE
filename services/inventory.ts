@@ -111,9 +111,14 @@ export function parseTokenId(tokenId: string) {
 export async function getUsableInventory(wallet: string): Promise<UsableInventoryItem[]> {
   if (!wallet) return [];
 
+  const lowerWallet = wallet.toLowerCase();
+
   const ownerships = await prisma.nFTOwnership.findMany({
     where: {
-      wallet: { equals: wallet, mode: 'insensitive' },
+      OR: [
+        { wallet: lowerWallet },
+        { wallet: wallet }
+      ],
       isActive: true,
       amount: { gt: 0 }
     },
@@ -122,40 +127,52 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
 
   const activeListings = await prisma.marketplaceListing.findMany({
     where: {
-      seller: { equals: wallet, mode: 'insensitive' },
+      OR: [
+        { seller: lowerWallet },
+        { seller: wallet }
+      ],
       status: 'ACTIVE'
     }
   });
 
-  const listedAmountMap = new Map<string, number>();
+  // Track listed amounts per tokenId so active listings deduct correctly
+  const listedCountMap = new Map<string, number>();
   for (const listing of activeListings) {
     const key = listing.tokenId.toString();
-    listedAmountMap.set(key, (listedAmountMap.get(key) ?? 0) + listing.amount);
+    listedCountMap.set(key, (listedCountMap.get(key) ?? 0) + listing.amount);
   }
 
-  return ownerships
-    .map(o => {
-      const totalListed = listedAmountMap.get(o.tokenId) ?? 0;
-      const usableAmount = o.amount - totalListed;
+  const result: UsableInventoryItem[] = [];
 
-      if (usableAmount <= 0) return null;
+  for (const o of ownerships) {
+    const currentlyListed = listedCountMap.get(o.tokenId) ?? 0;
+    
+    // Deduct active listings from available copies
+    if (currentlyListed >= o.amount) {
+      listedCountMap.set(o.tokenId, currentlyListed - o.amount);
+      continue; // This ownership row is fully listed
+    }
 
-      const { gameId, gameName, gameSlug, gameIcon, level, rarity } = parseTokenId(o.tokenId);
+    const availableAmount = o.amount - currentlyListed;
+    listedCountMap.set(o.tokenId, 0);
 
-      return {
-        id: o.id,
-        tokenId: o.tokenId,
-        gameId,
-        gameName,
-        gameSlug,
-        gameIcon,
-        level,
-        rarity,
-        amount: usableAmount,
-        txHash: null
-      };
-    })
-    .filter((item): item is NonNullable<typeof item> => item !== null);
+    const { gameId, gameName, gameSlug, gameIcon, level, rarity } = parseTokenId(o.tokenId);
+
+    result.push({
+      id: o.id,
+      tokenId: o.tokenId,
+      gameId,
+      gameName,
+      gameSlug,
+      gameIcon,
+      level,
+      rarity,
+      amount: availableAmount,
+      txHash: null
+    });
+  }
+
+  return result;
 }
 
 /**

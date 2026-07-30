@@ -4,20 +4,20 @@
     {
       "id": "id_f2j5lirsm",
       "createdAt": "2026-05-25T16:56:10.666Z",
-      "updatedAt": "2026-06-18T09:06:36.565Z",
+      "updatedAt": "2026-07-30T12:39:17.997Z",
       "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
-      "totalWagersWon": 360,
-      "totalWins": 9,
-      "totalMatches": 9
+      "totalWagersWon": 400,
+      "totalWins": 10,
+      "totalMatches": 10
     },
     {
       "id": "id_80zi1ee2r",
       "createdAt": "2026-05-25T18:35:20.146Z",
-      "updatedAt": "2026-06-03T19:45:46.374Z",
+      "updatedAt": "2026-07-30T13:22:57.811Z",
       "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
-      "totalWagersWon": 80,
-      "totalWins": 2,
-      "totalMatches": 2
+      "totalWagersWon": 120,
+      "totalWins": 3,
+      "totalMatches": 3
     },
     {
       "id": "id_tlov1nmp4",
@@ -57,26 +57,26 @@
     {
       "id": "id_zqjygrbwp_89658",
       "createdAt": "2026-05-24T10:46:29.658Z",
-      "updatedAt": "2026-06-18T09:04:23.293Z",
+      "updatedAt": "2026-07-30T13:22:55.387Z",
       "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
       "gameId": 5,
       "seasonId": null,
       "trophies": 100,
       "peakTrophies": 100,
-      "lastOpponentId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "lastOpponentId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
       "consecutiveOpponentCount": 2
     },
     {
       "id": "id_p8opx2gjv_89681",
       "createdAt": "2026-05-24T10:46:29.681Z",
-      "updatedAt": "2026-06-03T19:45:44.045Z",
+      "updatedAt": "2026-07-30T13:22:55.352Z",
       "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
       "gameId": 5,
       "seasonId": null,
       "trophies": 100,
       "peakTrophies": 100,
       "lastOpponentId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
-      "consecutiveOpponentCount": 16
+      "consecutiveOpponentCount": 18
     },
     {
       "id": "id_iaq4dkyn6_03720",
@@ -145,6 +145,16 @@
       "peakTrophies": 100,
       "lastOpponentId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
       "consecutiveOpponentCount": 5
+    },
+    {
+      "id": "id_po9tov8u7_75075",
+      "createdAt": "2026-06-18T13:44:35.075Z",
+      "updatedAt": "2026-06-18T13:44:35.075Z",
+      "userId": "did:privy:cmqjdwup100cj0cibur13i8df",
+      "gameId": 1,
+      "seasonId": null,
+      "trophies": 100,
+      "peakTrophies": 100
     }
   ],
   "trophyHistory": [],
@@ -1229,6 +1239,32 @@
       "status": "COMPLETED",
       "guestId": null,
       "matchId": "id_njkfeqdol_92499"
+    },
+    {
+      "id": "id_p0014klsb_95019",
+      "createdAt": "2026-07-30T12:38:15.019Z",
+      "updatedAt": "2026-07-30T12:39:18.039Z",
+      "roomCode": "TS6KKE",
+      "gameId": 5,
+      "creatorId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_4ityyfemi_30496"
+    },
+    {
+      "id": "id_8vs7qv5jt_45814",
+      "createdAt": "2026-07-30T13:22:25.814Z",
+      "updatedAt": "2026-07-30T13:22:57.829Z",
+      "roomCode": "G2HHWC",
+      "gameId": 5,
+      "creatorId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "wagerAmount": "50",
+      "platformFee": "10.00",
+      "status": "COMPLETED",
+      "guestId": null,
+      "matchId": "id_tbcd7yzf7_54299"
     }
   ],
   "arenaMatch": [
@@ -2448,6 +2484,40 @@
       "player1Score": 860,
       "player1Status": "SUBMITTED",
       "player1SubmittedAt": "2026-06-18T09:32:52.031Z"
+    },
+    {
+      "id": "id_4ityyfemi_30496",
+      "createdAt": "2026-07-30T12:38:50.496Z",
+      "updatedAt": "2026-07-30T12:39:19.825Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "TS6KKE",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "player2Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "escrowId": "id_zkkdxba8t_30513",
+      "winnerId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "resolvedAt": "2026-07-30T12:39:18.004Z",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-07-30T12:39:19.822Z"
+    },
+    {
+      "id": "id_tbcd7yzf7_54299",
+      "createdAt": "2026-07-30T13:22:34.299Z",
+      "updatedAt": "2026-07-30T13:22:59.400Z",
+      "gameId": 5,
+      "mode": "CUSTOM",
+      "roomCode": "G2HHWC",
+      "status": "COMPLETED",
+      "player1Id": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "player2Id": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "escrowId": "id_i0icfjmwi_54313",
+      "winnerId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "resolvedAt": "2026-07-30T13:22:57.818Z",
+      "player2Score": 0,
+      "player2Status": "SUBMITTED",
+      "player2SubmittedAt": "2026-07-30T13:22:59.398Z"
     }
   ],
   "escrowState": [
@@ -4426,6 +4496,58 @@
           }
         ]
       }
+    },
+    {
+      "id": "id_zkkdxba8t_30513",
+      "createdAt": "2026-07-30T12:38:50.513Z",
+      "updatedAt": "2026-07-30T12:39:17.968Z",
+      "matchId": "id_4ityyfemi_30496",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_i0icfjmwi_54313",
+      "createdAt": "2026-07-30T13:22:34.313Z",
+      "updatedAt": "2026-07-30T13:22:57.794Z",
+      "matchId": "id_tbcd7yzf7_54299",
+      "wagerAmount": "50.00",
+      "platformFee": "10.00",
+      "payoutAmount": "90.00",
+      "status": "DISBURSED",
+      "transactions": {
+        "create": [
+          {
+            "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          },
+          {
+            "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+            "amount": "50.00",
+            "type": "DEPOSIT",
+            "status": "SUCCESS"
+          }
+        ]
+      }
     }
   ],
   "wagerTransaction": [
@@ -5028,6 +5150,46 @@
       "amount": "10.00",
       "type": "FEE",
       "status": "SUCCESS"
+    },
+    {
+      "id": "id_ruk04wswl_57976",
+      "createdAt": "2026-07-30T12:39:17.976Z",
+      "updatedAt": "2026-07-30T12:39:17.976Z",
+      "escrowId": "id_zkkdxba8t_30513",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_52vrlnuh5_57987",
+      "createdAt": "2026-07-30T12:39:17.987Z",
+      "updatedAt": "2026-07-30T12:39:17.987Z",
+      "escrowId": "id_zkkdxba8t_30513",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_1kzmbig8w_77801",
+      "createdAt": "2026-07-30T13:22:57.801Z",
+      "updatedAt": "2026-07-30T13:22:57.801Z",
+      "escrowId": "id_i0icfjmwi_54313",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "amount": "90.00",
+      "type": "PAYOUT",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "id_jfbcgs54l_77806",
+      "createdAt": "2026-07-30T13:22:57.806Z",
+      "updatedAt": "2026-07-30T13:22:57.806Z",
+      "escrowId": "id_i0icfjmwi_54313",
+      "userId": "system-fee-collector",
+      "amount": "10.00",
+      "type": "FEE",
+      "status": "SUCCESS"
     }
   ],
   "matchReplay": [
@@ -5354,49 +5516,33 @@
       "duration": 59430,
       "seed": "system-seed-v1",
       "checksum": "98d53fb947e27eb09d1b5f0017f5e0228b09c343c4c1628d17b403f043992b15"
+    },
+    {
+      "id": "id_0dy6mz7m0_59817",
+      "createdAt": "2026-07-30T12:39:19.817Z",
+      "updatedAt": "2026-07-30T12:39:19.817Z",
+      "matchId": "id_4ityyfemi_30496",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":5209,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6772,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7022,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8309,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9490,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10004,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10440,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11037,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11038,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11371,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12920,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13553,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14122,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14353,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14839,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15305,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15457,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16172,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16790,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":16819,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17040,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17341,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":17341,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 17341,
+      "seed": "system-seed-v1",
+      "checksum": "8a86ec6808eab1070418fed3e2c95b2ce16a323d36459a1b74e3eaf8b29db97c"
+    },
+    {
+      "id": "id_uqabfoq6w_79396",
+      "createdAt": "2026-07-30T13:22:59.396Z",
+      "updatedAt": "2026-07-30T13:22:59.396Z",
+      "matchId": "id_tbcd7yzf7_54299",
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "replayData": "{\"events\":[{\"t\":0,\"e\":\"pellet\",\"x\":400,\"y\":300,\"val\":0},{\"t\":0,\"e\":\"combo_up\",\"x\":400,\"y\":300,\"val\":1},{\"t\":4846,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6010,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":6766,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7291,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":7669,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8357,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8424,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8801,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":8931,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9523,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":9539,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10278,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":10804,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":11541,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12133,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12181,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":12887,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13035,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13182,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13429,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13478,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":13790,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":14546,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15267,\"e\":\"damage\",\"x\":100,\"y\":300},{\"t\":15268,\"e\":\"collision\",\"x\":400,\"y\":300}]}",
+      "score": 0,
+      "duration": 15268,
+      "seed": "system-seed-v1",
+      "checksum": "abddbedf3ee36285d1d0eadd3fb528e75921e4b285ab61a03e0e0b13693e31a2"
     }
   ],
   "leaderboardEntry": [
-    {
-      "id": "id_zrjo558pa_64887",
-      "createdAt": "2026-06-18T09:04:24.887Z",
-      "updatedAt": "2026-06-18T09:04:24.887Z",
-      "gameId": 5,
-      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
-      "seasonId": null,
-      "rank": 1,
-      "trophies": 100
-    },
-    {
-      "id": "id_polzcqt3l_64893",
-      "createdAt": "2026-06-18T09:04:24.893Z",
-      "updatedAt": "2026-06-18T09:04:24.893Z",
-      "gameId": 5,
-      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
-      "seasonId": null,
-      "rank": 2,
-      "trophies": 100
-    },
-    {
-      "id": "id_svxrt7o00_64899",
-      "createdAt": "2026-06-18T09:04:24.899Z",
-      "updatedAt": "2026-06-18T09:04:24.899Z",
-      "gameId": 5,
-      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
-      "seasonId": null,
-      "rank": 3,
-      "trophies": 100
-    },
-    {
-      "id": "id_20fak25qt_64906",
-      "createdAt": "2026-06-18T09:04:24.906Z",
-      "updatedAt": "2026-06-18T09:04:24.906Z",
-      "gameId": 5,
-      "userId": "ghost:system-bot",
-      "seasonId": null,
-      "rank": 4,
-      "trophies": 100
-    },
     {
       "id": "id_bfvbupx9n_71416",
       "createdAt": "2026-06-18T09:32:51.416Z",
@@ -5415,6 +5561,46 @@
       "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
       "seasonId": null,
       "rank": 2,
+      "trophies": 100
+    },
+    {
+      "id": "id_5g6wuesq5_77905",
+      "createdAt": "2026-07-30T13:22:57.905Z",
+      "updatedAt": "2026-07-30T13:22:57.905Z",
+      "gameId": 5,
+      "userId": "did:privy:cmoq3tljt00rx0cl1apvl8pw1",
+      "seasonId": null,
+      "rank": 1,
+      "trophies": 100
+    },
+    {
+      "id": "id_ht4pe69ly_77923",
+      "createdAt": "2026-07-30T13:22:57.923Z",
+      "updatedAt": "2026-07-30T13:22:57.923Z",
+      "gameId": 5,
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "seasonId": null,
+      "rank": 2,
+      "trophies": 100
+    },
+    {
+      "id": "id_v71wi3i8a_77931",
+      "createdAt": "2026-07-30T13:22:57.931Z",
+      "updatedAt": "2026-07-30T13:22:57.931Z",
+      "gameId": 5,
+      "userId": "did:privy:cmp4eylfc008r0cl8rwkqq4p1",
+      "seasonId": null,
+      "rank": 3,
+      "trophies": 100
+    },
+    {
+      "id": "id_4l75z8yvo_77937",
+      "createdAt": "2026-07-30T13:22:57.937Z",
+      "updatedAt": "2026-07-30T13:22:57.937Z",
+      "gameId": 5,
+      "userId": "ghost:system-bot",
+      "seasonId": null,
+      "rank": 4,
       "trophies": 100
     }
   ],
@@ -5628,6 +5814,16 @@
       "flagType": "SUSPICIOUS_WAGER_FARMING",
       "severity": "MEDIUM",
       "details": "Matched identical opponent did:privy:cmp4eylfc008r0cl8rwkqq4p1 consecutively 5 times."
+    },
+    {
+      "id": "id_vt5nv36yb_59809",
+      "createdAt": "2026-07-30T12:39:19.809Z",
+      "updatedAt": "2026-07-30T12:39:19.809Z",
+      "matchId": "id_4ityyfemi_30496",
+      "userId": "did:privy:cmpe50wnm000a0cjinr3ev8wp",
+      "flagType": "SUSPICIOUS_WAGER_FARMING",
+      "severity": "MEDIUM",
+      "details": "Matched identical opponent did:privy:cmoq3tljt00rx0cl1apvl8pw1 consecutively 17 times."
     }
   ]
 }

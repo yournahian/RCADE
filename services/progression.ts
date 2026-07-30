@@ -13,12 +13,13 @@ export async function recalculateUserProgression(wallet: string) {
         console.log(`[GameplayLoop][Progression] Recalculating progression for wallet ${wallet}...`);
 
         // 1. Fetch user by wallet
+        const lowerWallet = wallet.toLowerCase();
         const user = await prisma.user.findFirst({
             where: {
-                wallet: {
-                    equals: wallet,
-                    mode: 'insensitive'
-                }
+                OR: [
+                    { wallet: lowerWallet },
+                    { wallet: wallet }
+                ]
             }
         });
 

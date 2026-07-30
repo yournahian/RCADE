@@ -1,14 +1,17 @@
 'use client';
 
-import { usePrivy, useWallets } from '@privy-io/react-auth';
+import { usePrivy, useWallets, useExportWallet, useFundWallet } from '@privy-io/react-auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
 import { 
   Wallet, Trophy, Star, ExternalLink, Loader2, Send, ShieldAlert, ArrowRight, X, 
   Zap, TrendingUp, Award, Package, Info, ChevronDown, ChevronUp, RefreshCw, 
-  AlertTriangle, Cpu, Layers, Settings, ShieldCheck, Gamepad2, Swords, Grid
+  AlertTriangle, Cpu, Layers, Settings, ShieldCheck, Gamepad2, Swords, Grid,
+  Copy, Check, Key, Plus, Coins
 } from 'lucide-react';
 import Link from 'next/link';
+import { toast } from '@/components/ui/toast-provider';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const GAME_ICON_MAP: Record<string, any> = {
   Zap: Zap,
@@ -43,15 +46,116 @@ const RARITY_BORDER: Record<string, string> = {
   Rare: 'rgba(251,146,60,0.4)', Common: 'rgba(107,107,107,0.25)',
 };
 
+const copyToClipboardFallback = (text: string) => {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text);
+  } else {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    textArea.style.top = "-999999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      console.error('Fallback copy failed', err);
+    }
+    textArea.remove();
+  }
+};
+
 // ─── component ──────────────────────────────────────────────
 export default function Dashboard() {
   const { ready, authenticated, user, login, getAccessToken, createWallet } = usePrivy();
   const { wallets } = useWallets();
+  const { exportWallet } = useExportWallet();
+  const { fundWallet } = useFundWallet();
+
+  const [dbUser, setDbUser] = useState<any>(null);
+  const activeWalletAddress = useMemo(() => user?.wallet?.address || dbUser?.wallet, [user?.wallet?.address, dbUser?.wallet]);
+  
+  const showEmbeddedControls = useMemo(() => {
+    if (!authenticated) return false;
+    const hasExternalWallet = wallets.some(
+      w => w.walletClientType !== 'privy' && w.connectorType !== 'embedded'
+    );
+    const hasEmbeddedWallet = wallets.some(
+      w => w.walletClientType === 'privy' || w.connectorType === 'embedded'
+    );
+    const primaryIsEmbedded = user?.wallet?.walletClientType === 'privy' || user?.wallet?.connectorType === 'embedded';
+    
+    return primaryIsEmbedded || hasEmbeddedWallet || !hasExternalWallet;
+  }, [authenticated, wallets, user?.wallet]);
+
+  const [addressCopied, setAddressCopied] = useState(false);
+  const handleCopyAddress = () => {
+    const addr = activeWalletAddress;
+    if (addr) {
+      copyToClipboardFallback(addr);
+      setAddressCopied(true);
+      toast.success('COPIED', 'Wallet address copied to clipboard');
+      setTimeout(() => setAddressCopied(false), 2000);
+    }
+  };
+
+  const [showTopUpModal, setShowTopUpModal] = useState(false);
+  const [topUpAmount, setTopUpAmount] = useState<string>("10");
+  const [isCreatingIntent, setIsCreatingIntent] = useState(false);
+  const [isVerifyingPayment, setIsVerifyingPayment] = useState(false);
+
+  const handleFundWallet = () => {
+    setShowTopUpModal(true);
+  };
+
+  const handleCreateIntent = async () => {
+    setIsCreatingIntent(true);
+    try {
+      const token = await getAccessToken();
+      const res = await fetch('/api/pay/ababilpay/create-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          amount_usdc: Number(topUpAmount),
+          return_path: '/dashboard'
+        })
+      });
+      const result = await res.json();
+      if (res.ok && result.success && result.data.checkout_url) {
+        toast.info('REDIRECTING', 'Sending you to Ababilpay Hosted Checkout...');
+        window.location.href = result.data.checkout_url;
+      } else {
+        toast.error('INTENT ERROR', result.error || 'Failed to initiate checkout.');
+        setIsCreatingIntent(false);
+      }
+    } catch (err) {
+      console.error('Failed to initiate top up:', err);
+      toast.error('INTENT ERROR', 'Could not establish connection to Ababilpay.');
+      setIsCreatingIntent(false);
+    }
+  };
+
+  const handleExportWallet = async () => {
+    try {
+      await exportWallet();
+    } catch (err: any) {
+      console.error("Wallet export failed:", err);
+      const isCancel = err?.message?.toLowerCase().includes("cancel") || err?.message?.toLowerCase().includes("dismiss") || err?.message?.toLowerCase().includes("user rejected");
+      if (!isCancel) {
+        toast.error("EXPORT ERROR", err?.message || "An error occurred during wallet export.");
+      }
+    }
+  };
+
   const router = useRouter();
 
   const [mintingId, setMintingId] = useState<string | null>(null);
   const [transferringId, setTransferringId] = useState<string | null>(null);
-  const [dbUser, setDbUser] = useState<any>(null);
   const [leaderboards, setLeaderboards] = useState<any[]>([]);
   const [preparedRewards, setPreparedRewards] = useState<any[]>([]);
   const [inventory, setInventory] = useState<any[]>([]);
@@ -158,19 +262,68 @@ export default function Dashboard() {
     }
   };
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('ababilpay_status');
+    const intentId = urlParams.get('ababilpay_intent_id');
+
+    if (status === 'success' && intentId) {
+      const verifyPayment = async () => {
+        setIsVerifyingPayment(true);
+        try {
+          const token = await getAccessToken();
+          const res = await fetch('/api/pay/ababilpay/verify', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ intentId })
+          });
+          const result = await res.json();
+          if (res.ok && result.success) {
+            toast.success(
+              'TOP-UP SUCCESSFUL', 
+              result.alreadyProcessed 
+                ? 'Your top-up was already verified and processed.'
+                : `Successfully credited ${result.ethPayout} Base Sepolia ETH to your wallet!`
+            );
+            await fetchData();
+            await fetchEthBalance();
+          } else {
+            toast.error('TOP-UP VERIFICATION FAILED', result.error || 'Payment verification failed');
+          }
+        } catch (err) {
+          console.error('Verify error:', err);
+          toast.error('VERIFICATION ERROR', 'Could not complete top-up verification.');
+        } finally {
+          setIsVerifyingPayment(false);
+          const newUrl = window.location.pathname;
+          window.history.replaceState({}, '', newUrl);
+        }
+      };
+      
+      verifyPayment();
+    }
+  }, [ready, authenticated]);
+
   const fetchData = async () => {
     try {
-      const authRes = await ApiService.fetchWithAuth('/api/auth/sync', { method: 'POST' }, getAccessToken);
-      if (authRes.ok) { const data = await authRes.json(); setDbUser(data.user); }
-
-      const lbRes = await fetch('/api/leaderboard');
-      if (lbRes.ok) { const lbData = await lbRes.json(); setLeaderboards(lbData.leaderboards); }
-
-      const pRes = await ApiService.fetchWithAuth('/api/rewards/pending', {}, getAccessToken);
-      if (pRes.ok) { const pData = await pRes.json(); setPreparedRewards(pData.rewards); }
-
-      const hRes = await ApiService.fetchWithAuth('/api/rewards/history', {}, getAccessToken);
-      if (hRes.ok) { const hData = await hRes.json(); setInventory(hData.rewards); }
+      await Promise.all([
+        ApiService.fetchWithAuth('/api/auth/sync', { method: 'POST' }, getAccessToken)
+          .then(res => res.ok ? res.json() : null)
+          .then(data => { if (data?.user) setDbUser(data.user); }),
+        fetch('/api/leaderboard')
+          .then(res => res.ok ? res.json() : null)
+          .then(lbData => { if (lbData?.leaderboards) setLeaderboards(lbData.leaderboards); }),
+        ApiService.fetchWithAuth('/api/rewards/pending', {}, getAccessToken)
+          .then(res => res.ok ? res.json() : null)
+          .then(pData => { if (pData?.rewards) setPreparedRewards(pData.rewards); }),
+        ApiService.fetchWithAuth('/api/rewards/history', {}, getAccessToken)
+          .then(res => res.ok ? res.json() : null)
+          .then(hData => { if (hData?.rewards) setInventory(hData.rewards); })
+      ]);
     } catch (e) { console.error(e); }
     finally { setIsLoading(false); }
   };
@@ -281,9 +434,41 @@ export default function Dashboard() {
         <div>
           <p className="text-[10px] font-heading tracking-[0.25em] uppercase mb-2" style={{ color: '#a9ddd3' }}>Player Profile</p>
           <h1 className="font-heading font-black text-3xl md:text-4xl text-white uppercase tracking-tight">Dashboard</h1>
-          <div className="flex items-center gap-2 mt-2">
-            <Wallet className="w-3 h-3" style={{ color: '#a9ddd3' }} />
-            <span className="font-mono text-xs text-text-secondary">{dbUser?.wallet ? `${dbUser.wallet.slice(0, 8)}...${dbUser.wallet.slice(-6)}` : 'No wallet'}</span>
+          <div className="flex flex-wrap items-center gap-3 mt-2">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-[#09090c] border border-zinc-800 rounded">
+              <Wallet className="w-3.5 h-3.5" style={{ color: '#a9ddd3' }} />
+              <span className="font-mono text-xs text-text-secondary">
+                {user?.wallet?.address ? `${user.wallet.address.slice(0, 8)}...${user.wallet.address.slice(-6)}` : (dbUser?.wallet ? `${dbUser.wallet.slice(0, 8)}...${dbUser.wallet.slice(-6)}` : 'No wallet')}
+              </span>
+              {(user?.wallet?.address || dbUser?.wallet) && (
+                <button
+                  onClick={handleCopyAddress}
+                  className="p-1 text-zinc-500 hover:text-white transition-colors cursor-pointer ml-1"
+                  title="Copy Wallet Address"
+                >
+                  {addressCopied ? <Check className="w-3.5 h-3.5 text-[#a9ddd3]" /> : <Copy className="w-3.5 h-3.5" />}
+                </button>
+              )}
+            </div>
+
+            {showEmbeddedControls && (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleFundWallet}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-heading font-bold uppercase border border-zinc-800 hover:border-[#a9ddd3]/50 text-zinc-400 hover:text-white bg-[#09090c] transition-all rounded cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5 text-[#a9ddd3]" />
+                  Add Funds
+                </button>
+                <button
+                  onClick={handleExportWallet}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-heading font-bold uppercase border border-zinc-800 hover:border-[#a9ddd3]/50 text-zinc-400 hover:text-white bg-[#09090c] transition-all rounded cursor-pointer"
+                >
+                  <Key className="w-3.5 h-3.5 text-[#a9ddd3]" />
+                  Export Wallet
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -786,7 +971,7 @@ export default function Dashboard() {
                     {/* Table header */}
                     <div className="grid grid-cols-12 px-4 py-2.5" style={{ background: '#0d0d0d', borderBottom: '1px solid #1f1f1f' }}>
                       {['Asset', 'Rarity', 'Qty', 'Status', ''].map((h, i) => (
-                        <div key={h + i} className={`font-heading text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted ${h === 'Asset' ? 'col-span-3' : h === '' ? 'col-span-3 text-right' : 'col-span-2'}`}>{h}</div>
+                        <div key={`inv-header-${i}-${h}`} className={`font-heading text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted ${h === 'Asset' ? 'col-span-3' : h === '' ? 'col-span-3 text-right' : 'col-span-2'}`}>{h}</div>
                       ))}
                     </div>
                     {inventory.map((nft, i) => {
@@ -878,7 +1063,7 @@ export default function Dashboard() {
             <>
               <div className="grid grid-cols-12 px-4 py-2.5" style={{ background: '#0d0d0d', borderBottom: '1px solid #1f1f1f' }}>
                 {['Rank', 'Player', 'Score'].map((h, i) => (
-                  <div key={h} className={`font-heading text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted ${i === 0 ? 'col-span-2' : i === 1 ? 'col-span-7' : 'col-span-3 text-right'}`}>{h}</div>
+                  <div key={`lb-header-${i}-${h}`} className={`font-heading text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted ${i === 0 ? 'col-span-2' : i === 1 ? 'col-span-7' : 'col-span-3 text-right'}`}>{h}</div>
                 ))}
               </div>
               {leaderboards.map((lb, i) => (
@@ -1005,6 +1190,122 @@ export default function Dashboard() {
               >{transferringId ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Confirm'}</button>
             </div>
           </div>
+        </div>
+      )}
+      {/* ── Ababilpay Top Up Modal ────────────────────────────────── */}
+      <AnimatePresence>
+        {showTopUpModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => { if (!isCreatingIntent) setShowTopUpModal(false); }}
+              className="absolute inset-0 bg-black/80 backdrop-filter backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="relative w-full max-w-[400px] bg-[#09090c] border border-zinc-800 p-6 shadow-2xl rounded-sm z-10 overflow-hidden"
+            >
+              <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
+
+              <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#161616]">
+                <div className="flex items-center gap-2">
+                  <Coins className="w-4 h-4 text-[#a9ddd3]" />
+                  <span className="font-heading font-black text-sm text-white uppercase tracking-wider">Top Up Wallet</span>
+                </div>
+                <button
+                  disabled={isCreatingIntent}
+                  onClick={() => setShowTopUpModal(false)}
+                  className="p-1 hover:bg-zinc-800 text-zinc-400 hover:text-white rounded transition-colors disabled:opacity-30 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <p className="text-[10px] text-text-secondary leading-relaxed mb-6 font-heading tracking-wide">
+                Purchase Base Sepolia testnet ETH to pay for NFT wagers, marketplace purchases, and level progression mints.
+              </p>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <span className="text-[9px] font-heading tracking-widest text-text-muted uppercase block mb-2">Select Amount</span>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { usdc: "5", eth: "0.025" },
+                      { usdc: "10", eth: "0.050" },
+                      { usdc: "20", eth: "0.100" }
+                    ].map(preset => (
+                      <button
+                        key={preset.usdc}
+                        type="button"
+                        onClick={() => setTopUpAmount(preset.usdc)}
+                        className={`py-2 px-1 text-center border font-heading font-bold rounded-sm transition-all cursor-pointer ${
+                          topUpAmount === preset.usdc
+                            ? 'border-[#a9ddd3] bg-[#a9ddd3]/5 text-white'
+                            : 'border-[#161616] bg-[#040404] text-zinc-400 hover:border-zinc-800'
+                        }`}
+                      >
+                        <span className="block text-xs">${preset.usdc} USDC</span>
+                        <span className="text-[8px] text-zinc-500 font-mono font-medium block mt-0.5">{preset.eth} ETH</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <span className="text-[9px] font-heading tracking-widest text-text-muted uppercase block mb-2">Custom Amount (USDC)</span>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      min="1"
+                      max="1000"
+                      value={topUpAmount}
+                      onChange={(e) => setTopUpAmount(e.target.value)}
+                      disabled={isCreatingIntent}
+                      className="w-full bg-[#040404] border border-[#161616] focus:border-[#a9ddd3] text-white text-xs font-mono px-3 py-2 rounded-sm outline-none transition-all"
+                      placeholder="Enter amount..."
+                    />
+                    <span className="absolute right-3 top-2.5 text-[8px] font-heading font-black text-text-muted uppercase">USDC</span>
+                  </div>
+                  <span className="text-[8px] text-text-muted font-heading tracking-wide mt-1 block">
+                    Payout Rate: ~{(Number(topUpAmount || 0) * 0.005).toFixed(4)} Base Sepolia ETH
+                  </span>
+                </div>
+              </div>
+
+              <button
+                onClick={handleCreateIntent}
+                disabled={isCreatingIntent || !topUpAmount || Number(topUpAmount) <= 0}
+                className="w-full btn-primary text-xs py-3 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+              >
+                {isCreatingIntent ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-black" />
+                    Connecting...
+                  </>
+                ) : (
+                  <>
+                    <Coins className="w-4 h-4 fill-black" />
+                    Pay with Ababilpay
+                  </>
+                )}
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Verification Loader Overlay ────────────────────────────────── */}
+      {isVerifyingPayment && (
+        <div className="fixed inset-0 z-[150] bg-black/95 backdrop-filter backdrop-blur-md flex flex-col items-center justify-center p-4 animate-fadeIn">
+          <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
+          <div className="w-12 h-12 border-2 border-t-transparent animate-spin mb-4" style={{ borderColor: '#a9ddd3', borderTopColor: 'transparent' }} />
+          <h2 className="font-heading font-black text-lg text-white uppercase tracking-widest mb-1">Verifying Top Up</h2>
+          <p className="text-zinc-500 font-mono text-[9px] uppercase tracking-wider">Settling USDC intent via Ababilpay checkouts...</p>
         </div>
       )}
 

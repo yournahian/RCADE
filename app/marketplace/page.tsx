@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePrivy, useWallets } from '@privy-io/react-auth';
+import { usePrivy, useWallets, useExportWallet, useFundWallet } from '@privy-io/react-auth';
 import { useEffect, useState, useMemo } from 'react';
 import { 
   ShoppingBag, Tag, Trash2, ShieldAlert, ExternalLink, Loader2, Wallet,
@@ -9,7 +9,7 @@ import {
   History, AlertTriangle, RefreshCw, X, CheckCircle2, Info, Zap,
   Cpu, Trophy, Gamepad2, Swords, Grid, Search, ChevronDown, ChevronUp,
   Heart, Settings, Bell, HelpCircle, ArrowLeft, ArrowRight, Filter,
-  SlidersHorizontal
+  SlidersHorizontal, Copy, Check, Key, Plus
 } from 'lucide-react';
 import { baseSepolia } from 'viem/chains';
 import { formatEther, parseEther } from 'viem';
@@ -79,9 +79,110 @@ const FALLBACK_FEATURED: any[] = [
   }
 ];
 
+const copyToClipboardFallback = (text: string) => {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text);
+  } else {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    textArea.style.top = "-999999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      console.error('Fallback copy failed', err);
+    }
+    textArea.remove();
+  }
+};
+
 function Marketplace() {
   const { ready, authenticated, user, login, getAccessToken } = usePrivy();
   const { wallets } = useWallets();
+  const { exportWallet } = useExportWallet();
+  const { fundWallet } = useFundWallet();
+
+  const [dbUser, setDbUser] = useState<any>(null);
+  const activeWalletAddress = useMemo(() => user?.wallet?.address || dbUser?.wallet, [user?.wallet?.address, dbUser?.wallet]);
+  
+  const showEmbeddedControls = useMemo(() => {
+    if (!authenticated) return false;
+    const hasExternalWallet = wallets.some(
+      w => w.walletClientType !== 'privy' && w.connectorType !== 'embedded'
+    );
+    const hasEmbeddedWallet = wallets.some(
+      w => w.walletClientType === 'privy' || w.connectorType === 'embedded'
+    );
+    const primaryIsEmbedded = user?.wallet?.walletClientType === 'privy' || user?.wallet?.connectorType === 'embedded';
+    
+    return primaryIsEmbedded || hasEmbeddedWallet || !hasExternalWallet;
+  }, [authenticated, wallets, user?.wallet]);
+
+  const [addressCopied, setAddressCopied] = useState(false);
+  const handleCopyAddress = () => {
+    const addr = activeWalletAddress;
+    if (addr) {
+      copyToClipboardFallback(addr);
+      setAddressCopied(true);
+      toast.success('COPIED', 'Wallet address copied to clipboard');
+      setTimeout(() => setAddressCopied(false), 2000);
+    }
+  };
+
+  const [showTopUpModal, setShowTopUpModal] = useState(false);
+  const [topUpAmount, setTopUpAmount] = useState<string>("10");
+  const [isCreatingIntent, setIsCreatingIntent] = useState(false);
+  const [isVerifyingPayment, setIsVerifyingPayment] = useState(false);
+
+  const handleFundWallet = () => {
+    setShowTopUpModal(true);
+  };
+
+  const handleCreateIntent = async () => {
+    setIsCreatingIntent(true);
+    try {
+      const token = await getAccessToken();
+      const res = await fetch('/api/pay/ababilpay/create-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          amount_usdc: Number(topUpAmount),
+          return_path: '/marketplace'
+        })
+      });
+      const result = await res.json();
+      if (res.ok && result.success && result.data.checkout_url) {
+        toast.info('REDIRECTING', 'Sending you to Ababilpay Hosted Checkout...');
+        window.location.href = result.data.checkout_url;
+      } else {
+        toast.error('INTENT ERROR', result.error || 'Failed to initiate checkout.');
+        setIsCreatingIntent(false);
+      }
+    } catch (err) {
+      console.error('Failed to initiate top up:', err);
+      toast.error('INTENT ERROR', 'Could not establish connection to Ababilpay.');
+      setIsCreatingIntent(false);
+    }
+  };
+
+  const handleExportWallet = async () => {
+    try {
+      await exportWallet();
+    } catch (err: any) {
+      console.error("Wallet export failed:", err);
+      const isCancel = err?.message?.toLowerCase().includes("cancel") || err?.message?.toLowerCase().includes("dismiss") || err?.message?.toLowerCase().includes("user rejected");
+      if (!isCancel) {
+        toast.error("EXPORT ERROR", err?.message || "An error occurred during wallet export.");
+      }
+    }
+  };
 
   const [activeTab, setActiveTab] = useState<'buy' | 'sell' | 'dashboard'>('buy');
   const [selectedGameFilter, setSelectedGameFilter] = useState<string>('ALL');
@@ -97,7 +198,6 @@ function Marketplace() {
   const [sellExpiryDays, setSellExpiryDays] = useState<number>(3);
   const [marketplaceFeeBps, setMarketplaceFeeBps] = useState<number>(250);
   const [isSyncing, setIsSyncing] = useState(false);
-  const [dbUser, setDbUser] = useState<any>(null);
   const [preparedRewards, setPreparedRewards] = useState<any[]>([]);
   const [isLoadingRewards, setIsLoadingRewards] = useState(false);
   const [reservedInventory, setReservedInventory] = useState<any[]>([]);
@@ -135,7 +235,6 @@ function Marketplace() {
     setFavorites(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const activeWalletAddress = user?.wallet?.address;
   const activeWallet = useMemo(() => wallets.find(w => w.address?.toLowerCase() === activeWalletAddress?.toLowerCase()), [wallets, activeWalletAddress]);
   
   const isNetworkMismatch = useMemo(() => { 
@@ -338,9 +437,14 @@ function Marketplace() {
     }
   };
 
+  useEffect(() => {
+    fetchListings();
+  }, []);
+
   useEffect(() => { 
-    fetchListings(); 
-    fetchInventoryAndConfig(); 
+    if (ready && authenticated && activeWalletAddress) {
+      fetchInventoryAndConfig(); 
+    }
   }, [ready, authenticated, activeWalletAddress, wallets]);
 
   useEffect(() => {
@@ -361,6 +465,51 @@ function Marketplace() {
       forceSynchronizedRefresh(true);
     }
   }, [authenticated, wallets, isAnyTxActive]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('ababilpay_status');
+    const intentId = urlParams.get('ababilpay_intent_id');
+
+    if (status === 'success' && intentId) {
+      const verifyPayment = async () => {
+        setIsVerifyingPayment(true);
+        try {
+          const token = await getAccessToken();
+          const res = await fetch('/api/pay/ababilpay/verify', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ intentId })
+          });
+          const result = await res.json();
+          if (res.ok && result.success) {
+            toast.success(
+              'TOP-UP SUCCESSFUL', 
+              result.alreadyProcessed 
+                ? 'Your top-up was already verified and processed.'
+                : `Successfully credited ${result.ethPayout} Base Sepolia ETH to your wallet!`
+            );
+            await forceSynchronizedRefresh(true);
+          } else {
+            toast.error('TOP-UP VERIFICATION FAILED', result.error || 'Payment verification failed');
+          }
+        } catch (err) {
+          console.error('Verify error:', err);
+          toast.error('VERIFICATION ERROR', 'Could not complete top-up verification.');
+        } finally {
+          setIsVerifyingPayment(false);
+          const newUrl = window.location.pathname;
+          window.history.replaceState({}, '', newUrl);
+        }
+      };
+      
+      verifyPayment();
+    }
+  }, [ready, authenticated]);
 
   const fetchDiagnostics = async () => {
     setIsFetchingDiagnostics(true);
@@ -1102,17 +1251,46 @@ function Marketplace() {
               {/* Wallet Info Display */}
               {authenticated && (
                 <div className="flex items-center gap-3 px-4 py-2 bg-[#09090c] border border-[#161616] text-[10px]">
-                  <div className="pr-3 border-r border-[#161616]">
-                    <span className="text-[8px] font-heading tracking-widest text-text-muted uppercase block">Wallet</span>
-                    <span className="font-mono text-white text-[10px]">{activeWalletAddress?.slice(0, 6)}...{activeWalletAddress?.slice(-4)}</span>
+                  <div className="pr-3 border-r border-[#161616] flex items-center gap-2 group/copy">
+                    <div>
+                      <span className="text-[8px] font-heading tracking-widest text-text-muted uppercase block">Wallet</span>
+                      <span className="font-mono text-white text-[10px]">{activeWalletAddress?.slice(0, 6)}...{activeWalletAddress?.slice(-4)}</span>
+                    </div>
+                    <button
+                      onClick={handleCopyAddress}
+                      className="p-1 text-[#444] hover:text-white transition-colors cursor-pointer"
+                      title="Copy Wallet Address"
+                    >
+                      {addressCopied ? <Check className="w-3 h-3 text-[#a9ddd3]" /> : <Copy className="w-3 h-3" />}
+                    </button>
                   </div>
-                  <div className="pr-1">
+                  <div className="pr-2 border-r border-[#161616]">
                     <span className="text-[8px] font-heading tracking-widest text-text-muted uppercase block">Balance</span>
                     <span className="font-heading font-bold flex items-center gap-1 text-[#a9ddd3] text-[10px]"><Coins className="w-3 h-3" />{ethBalance} ETH</span>
                   </div>
-                  <button onClick={() => forceSynchronizedRefresh(false)} disabled={isSyncing || isAnyTxActive} className="p-1.5 transition-all border border-[#161616] hover:border-[#a9ddd3] rounded-sm ml-1 cursor-pointer disabled:opacity-30" style={{ color: isSyncing ? '#a9ddd3' : '#444' }} title="Sync">
-                    <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
-                  </button>
+                  <div className="flex items-center gap-1.5 ml-1">
+                    <button onClick={() => forceSynchronizedRefresh(false)} disabled={isSyncing || isAnyTxActive} className="p-1.5 transition-all border border-[#161616] hover:border-[#a9ddd3] rounded-sm cursor-pointer disabled:opacity-30" style={{ color: isSyncing ? '#a9ddd3' : '#444' }} title="Sync">
+                      <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
+                    </button>
+                    {showEmbeddedControls && (
+                      <>
+                        <button
+                          onClick={handleFundWallet}
+                          className="p-1.5 transition-all border border-[#161616] hover:border-[#a9ddd3] rounded-sm text-[#444] hover:text-[#a9ddd3] cursor-pointer"
+                          title="Fund Wallet (Get Sepolia ETH)"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={handleExportWallet}
+                          className="p-1.5 transition-all border border-[#161616] hover:border-[#a9ddd3] rounded-sm text-[#444] hover:text-[#a9ddd3] cursor-pointer"
+                          title="Export Private Key / Wallet Modal"
+                        >
+                          <Key className="w-3.5 h-3.5" />
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -1654,10 +1832,10 @@ function Marketplace() {
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
                   {inventory.map(nft => {
-                    const isSelected = selectedNft?.tokenId === nft.tokenId;
+                    const isSelected = selectedNft?.id === nft.id;
                     return (
                       <button
-                        key={nft.tokenId}
+                        key={nft.id || `${nft.tokenId}-${nft.gameSlug}-${nft.level}`}
                         disabled={isAnyTxActive}
                         onClick={() => { setSelectedNft(nft); setSellAmount(1); }}
                         className="relative p-4 flex flex-col items-center justify-center text-center transition-all cursor-pointer disabled:opacity-40 min-h-[120px] rounded-sm group overflow-hidden"
@@ -2420,6 +2598,123 @@ function Marketplace() {
           <span className="text-[7px] font-heading font-bold uppercase mt-1">Dev</span>
         </button>
       </div>
+
+      {/* ── Ababilpay Top Up Modal ────────────────────────────────── */}
+      <AnimatePresence>
+        {showTopUpModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => { if (!isCreatingIntent) setShowTopUpModal(false); }}
+              className="absolute inset-0 bg-black/80 backdrop-filter backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="relative w-full max-w-[400px] bg-[#09090c] border border-zinc-800 p-6 shadow-2xl rounded-sm z-10 overflow-hidden"
+            >
+              <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
+
+              <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#161616]">
+                <div className="flex items-center gap-2">
+                  <Coins className="w-4 h-4 text-[#a9ddd3]" />
+                  <span className="font-heading font-black text-sm text-white uppercase tracking-wider">Top Up Wallet</span>
+                </div>
+                <button
+                  disabled={isCreatingIntent}
+                  onClick={() => setShowTopUpModal(false)}
+                  className="p-1 hover:bg-zinc-800 text-zinc-400 hover:text-white rounded transition-colors disabled:opacity-30 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <p className="text-[10px] text-text-secondary leading-relaxed mb-6 font-heading tracking-wide">
+                Purchase Base Sepolia testnet ETH to pay for NFT wagers, marketplace purchases, and level progression mints.
+              </p>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <span className="text-[9px] font-heading tracking-widest text-text-muted uppercase block mb-2">Select Amount</span>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { usdc: "5", eth: "0.025" },
+                      { usdc: "10", eth: "0.050" },
+                      { usdc: "20", eth: "0.100" }
+                    ].map(preset => (
+                      <button
+                        key={preset.usdc}
+                        type="button"
+                        onClick={() => setTopUpAmount(preset.usdc)}
+                        className={`py-2 px-1 text-center border font-heading font-bold rounded-sm transition-all cursor-pointer ${
+                          topUpAmount === preset.usdc
+                            ? 'border-[#a9ddd3] bg-[#a9ddd3]/5 text-white'
+                            : 'border-[#161616] bg-[#040404] text-zinc-400 hover:border-zinc-800'
+                        }`}
+                      >
+                        <span className="block text-xs">${preset.usdc} USDC</span>
+                        <span className="text-[8px] text-zinc-500 font-mono font-medium block mt-0.5">{preset.eth} ETH</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <span className="text-[9px] font-heading tracking-widest text-text-muted uppercase block mb-2">Custom Amount (USDC)</span>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      min="1"
+                      max="1000"
+                      value={topUpAmount}
+                      onChange={(e) => setTopUpAmount(e.target.value)}
+                      disabled={isCreatingIntent}
+                      className="w-full bg-[#040404] border border-[#161616] focus:border-[#a9ddd3] text-white text-xs font-mono px-3 py-2 rounded-sm outline-none transition-all"
+                      placeholder="Enter amount..."
+                    />
+                    <span className="absolute right-3 top-2.5 text-[8px] font-heading font-black text-text-muted uppercase">USDC</span>
+                  </div>
+                  <span className="text-[8px] text-text-muted font-heading tracking-wide mt-1 block">
+                    Payout Rate: ~{(Number(topUpAmount || 0) * 0.005).toFixed(4)} Base Sepolia ETH
+                  </span>
+                </div>
+              </div>
+
+              <button
+                onClick={handleCreateIntent}
+                disabled={isCreatingIntent || !topUpAmount || Number(topUpAmount) <= 0}
+                className="w-full btn-primary text-xs py-3 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+              >
+                {isCreatingIntent ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-black" />
+                    Connecting...
+                  </>
+                ) : (
+                  <>
+                    <Coins className="w-4 h-4 fill-black" />
+                    Pay with Ababilpay
+                  </>
+                )}
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Verification Loader Overlay ────────────────────────────────── */}
+      {isVerifyingPayment && (
+        <div className="fixed inset-0 z-[150] bg-black/95 backdrop-filter backdrop-blur-md flex flex-col items-center justify-center p-4 animate-fadeIn">
+          <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
+          <div className="w-12 h-12 border-2 border-t-transparent animate-spin mb-4" style={{ borderColor: '#a9ddd3', borderTopColor: 'transparent' }} />
+          <h2 className="font-heading font-black text-lg text-white uppercase tracking-widest mb-1">Verifying Top Up</h2>
+          <p className="text-zinc-500 font-mono text-[9px] uppercase tracking-wider">Settling USDC intent via Ababilpay checkouts...</p>
+        </div>
+      )}
 
     </div>
   );

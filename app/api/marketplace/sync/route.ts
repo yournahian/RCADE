@@ -26,126 +26,89 @@ export async function POST(req: Request) {
 
         const wallet = user.wallet.toLowerCase();
 
-        // 2. Scan and Gather all candidate Token IDs to check on-chain
-        const tokensToScan = new Set<string>();
+        // Check if explicit forced on-chain resync requested
+        const { searchParams } = new URL(req.url);
+        const isForce = searchParams.get('force') === 'true';
 
-        // Gather existing ownership tokens
-        const dbOwnerships = await prisma.nFTOwnership.findMany({
-            where: { wallet: { equals: wallet, mode: 'insensitive' } }
-        });
-        dbOwnerships.forEach(o => tokensToScan.add(o.tokenId));
+        if (isForce) {
+            // 2. Scan and Gather all candidate Token IDs to check on-chain
+            const tokensToScan = new Set<string>();
 
-        // Gather tokens from user listings
-        const activeListings = await prisma.marketplaceListing.findMany({
-            where: {
-                OR: [
-                    { seller: { equals: wallet, mode: 'insensitive' } },
-                    { buyer: { equals: wallet, mode: 'insensitive' } }
-                ]
-            }
-        });
-        activeListings.forEach(l => tokensToScan.add(l.tokenId.toString()));
+            const dbOwnerships = await prisma.nFTOwnership.findMany({
+                where: { OR: [{ wallet: wallet }, { wallet: user.wallet }] }
+            });
+            dbOwnerships.forEach(o => tokensToScan.add(o.tokenId));
 
-        // Gather standard progression tokens (Levels 1 to 10, Rarities 0 to 3) for ALL games (using gameIdCode based on GAMES registry)
-        const seasonCode = 1n;
-        const categoryCode = 0n;
-        const maxGameId = BigInt(Math.max(...GAMES.map(g => g.gameId), 1));
-        for (let gameIdCode = 1n; gameIdCode <= maxGameId; gameIdCode++) {
-            for (let lvl = 1n; lvl <= 10n; lvl++) {
-                for (let rar = 0n; rar <= 3n; rar++) {
-                    const tid = (
-                        (gameIdCode << 224n) |
-                        (seasonCode << 208n) |
-                        (categoryCode << 192n) |
-                        (lvl << 176n) |
-                        (rar << 168n)
-                    ).toString();
-                    tokensToScan.add(tid);
+            const activeListings = await prisma.marketplaceListing.findMany({
+                where: {
+                    OR: [
+                        { seller: { equals: wallet, mode: 'insensitive' } },
+                        { buyer: { equals: wallet, mode: 'insensitive' } }
+                    ]
+                }
+            });
+            activeListings.forEach(l => tokensToScan.add(l.tokenId.toString()));
+
+            const seasonCode = 1n;
+            const categoryCode = 0n;
+            const maxGameId = BigInt(Math.max(...GAMES.map(g => g.gameId), 1));
+            for (let gameIdCode = 1n; gameIdCode <= maxGameId; gameIdCode++) {
+                for (let lvl = 1n; lvl <= 10n; lvl++) {
+                    for (let rar = 0n; rar <= 3n; rar++) {
+                        const tid = (
+                            (gameIdCode << 224n) |
+                            (seasonCode << 208n) |
+                            (categoryCode << 192n) |
+                            (lvl << 176n) |
+                            (rar << 168n)
+                        ).toString();
+                        tokensToScan.add(tid);
+                    }
                 }
             }
-        }
 
-        // 3. Chunked sequential balanceOf queries to avoid Alchemy 429 rate-limit
-        // Process 10 tokens per batch with a 200ms pause between batches
-        const tokenList = Array.from(tokensToScan);
-        console.log(`[Sync] Scanning ${tokenList.length} candidate token balances for ${wallet} (10 per batch)...`);
+            const tokenList = Array.from(tokensToScan);
+            console.log(`[Sync] Forced multicall scanning ${tokenList.length} candidate token balances for ${wallet}...`);
 
-        const CHUNK_SIZE = 10;
-        const CHUNK_DELAY_MS = 200;
-        const balances: { tokenId: string; balance: number | null }[] = [];
+            const calls = tokenList.map(tokenId => ({
+                address: CONTRACT_ADDRESS as `0x${string}`,
+                abi: RCADE_ERC1155_ABI,
+                functionName: 'balanceOf' as const,
+                args: [user.wallet as `0x${string}`, BigInt(tokenId)] as const,
+            }));
 
-        for (let i = 0; i < tokenList.length; i += CHUNK_SIZE) {
-            const chunk = tokenList.slice(i, i + CHUNK_SIZE);
+            const results = await publicClient.multicall({
+                contracts: calls,
+                allowFailure: true
+            }).catch(() => []);
 
-            const chunkResults = await Promise.all(
-                chunk.map(async (tokenId) => {
-                    try {
-                        const balance = await publicClient.readContract({
-                            address: CONTRACT_ADDRESS as `0x${string}`,
-                            abi: RCADE_ERC1155_ABI,
-                            functionName: 'balanceOf',
-                            args: [user.wallet as `0x${string}`, BigInt(tokenId)]
-                        });
-                        return { tokenId, balance: Number(balance) };
-                    } catch (err: any) {
-                        if (err?.status === 429 || err?.message?.includes('429')) {
-                            console.warn(`[Sync] Rate-limited on token ${tokenId}. Skipping.`);
-                        } else {
-                            console.error(`[Sync] Failed to read balance for token ${tokenId}:`, err.message);
-                        }
-                        return { tokenId, balance: null };
-                    }
-                })
-            );
-
-            balances.push(...chunkResults);
-
-            // Throttle: wait between batches (skip delay after the last batch)
-            if (i + CHUNK_SIZE < tokenList.length) {
-                await new Promise(resolve => setTimeout(resolve, CHUNK_DELAY_MS));
-            }
-        }
-
-        // 4. Update Database NFTOwnership states
-        await prisma.$transaction(
-            balances.map((item) => {
-                if (item.balance === null) return prisma.$executeRaw`SELECT 1;`; // Skip on error
-
-                return prisma.nFTOwnership.upsert({
-                    where: {
-                        wallet_tokenId: {
-                            wallet: wallet,
-                            tokenId: item.tokenId
-                        }
-                    },
-                    update: {
-                        amount: item.balance,
-                        isActive: item.balance > 0
-                    },
-                    create: {
-                        wallet: wallet,
-                        tokenId: item.tokenId,
-                        amount: item.balance,
-                        isActive: item.balance > 0
-                    }
+            if (results.length > 0) {
+                const balances = tokenList.map((tokenId, idx) => {
+                    const res = results[idx];
+                    return { tokenId, balance: (res && res.status === 'success' && res.result !== undefined) ? Number(res.result) : null };
                 });
-            })
-        );
 
-        // 5. Recalculate Effective Progression Level
-        const newLevel = await recalculateUserProgression(user.wallet);
+                await prisma.$transaction(
+                    balances.map((item) => {
+                        if (item.balance === null) return prisma.$executeRaw`SELECT 1;`;
+                        return prisma.nFTOwnership.upsert({
+                            where: { wallet_tokenId: { wallet: wallet, tokenId: item.tokenId } },
+                            update: { amount: item.balance, isActive: item.balance > 0 },
+                            create: { wallet: wallet, tokenId: item.tokenId, amount: item.balance, isActive: item.balance > 0 }
+                        });
+                    })
+                ).catch(console.error);
+            }
 
-        // 6. Prune and reconcile active listings
-        await reconcileMarketplaceListings(true).catch((err) => {
-            console.error("[Sync] Active listing pruning failed:", err);
-        });
+            await recalculateUserProgression(user.wallet).catch(console.error);
+            await reconcileMarketplaceListings(true).catch(console.error);
+        }
 
-        // 7. Fetch the updated state to return to client
+        // Fetch user state directly from DB (instant <30ms response)
         const updatedUser = await prisma.user.findUnique({
             where: { id: user.id }
         });
 
-        // Get aggregated inventory using centralized inventory resolver
         const inventory = await getUsableInventory(wallet);
         const reserved = await getReservedInventory(wallet);
 
@@ -164,7 +127,7 @@ export async function POST(req: Request) {
         return NextResponse.json({
             success: true,
             user: updatedUser,
-            effectiveProgressionLevel: newLevel,
+            effectiveProgressionLevel: updatedUser?.effectiveProgressionLevel ?? 0,
             inventory,
             reserved
         });

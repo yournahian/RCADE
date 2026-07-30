@@ -12,17 +12,24 @@ export async function POST(req: Request) {
         const verifiedClaims = await privy.verifyAuthToken(token);
         const privyUserId = verifiedClaims.userId;
         
-        let wallet = null;
-        try {
-            const privyUser = await privy.getUserById(privyUserId);
-            wallet = privyUser.wallet?.address || null;
-        } catch (e) {
-            console.warn("Could not fetch Privy user info. Proceeding without wallet address.");
+        let dbUser = await prisma.user.findUnique({
+            where: { id: privyUserId },
+            include: { levelProgress: true }
+        });
+
+        let wallet = dbUser?.wallet || null;
+        if (!wallet) {
+            try {
+                const privyUser = await privy.getUserById(privyUserId);
+                wallet = privyUser.wallet?.address || null;
+            } catch (e) {
+                console.warn("Could not fetch Privy user info. Proceeding without wallet address.");
+            }
         }
 
-        const dbUser = await prisma.user.upsert({
+        dbUser = await prisma.user.upsert({
             where: { id: privyUserId },
-            update: { wallet },
+            update: { wallet: wallet ? wallet : undefined },
             create: {
                 id: privyUserId,
                 wallet,
@@ -33,14 +40,9 @@ export async function POST(req: Request) {
         });
 
         if (wallet) {
-            try {
-                const newLevel = await recalculateUserProgression(wallet);
-                if (newLevel !== undefined) {
-                    dbUser.effectiveProgressionLevel = newLevel;
-                }
-            } catch (err) {
-                console.error(`[Sync] Failed to recalculate progression for ${wallet}:`, err);
-            }
+            recalculateUserProgression(wallet).catch((err) => {
+                console.error(`[Sync] Background progression recalculation failed for ${wallet}:`, err);
+            });
         }
 
         return NextResponse.json({ user: dbUser });

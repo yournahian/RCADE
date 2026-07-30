@@ -17,10 +17,11 @@ export async function GET(req: Request) {
         }
 
         if (sellerParam) {
-            whereClause.seller = {
-                equals: sellerParam.toLowerCase(),
-                mode: 'insensitive'
-            };
+            const lowerSeller = sellerParam.toLowerCase();
+            whereClause.OR = [
+                { seller: lowerSeller },
+                { seller: sellerParam }
+            ];
         }
 
         if (tokenIdParam) {

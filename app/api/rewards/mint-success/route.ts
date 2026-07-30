@@ -35,6 +35,33 @@ export async function POST(req: Request) {
             }
         });
 
+        // 4. Upsert NFTOwnership & Recalculate Progression so the user immediately gets inventory + level unlock
+        const user = await prisma.user.findUnique({ where: { id: verifiedClaims.userId } });
+        if (user?.wallet && reward.tokenId) {
+            const existingOwnership = await prisma.nFTOwnership.findFirst({
+                where: { wallet: user.wallet, tokenId: reward.tokenId }
+            });
+
+            if (existingOwnership) {
+                await prisma.nFTOwnership.update({
+                    where: { id: existingOwnership.id },
+                    data: { amount: existingOwnership.amount + 1, isActive: true }
+                });
+            } else {
+                await prisma.nFTOwnership.create({
+                    data: {
+                        wallet: user.wallet,
+                        tokenId: reward.tokenId,
+                        amount: 1,
+                        isActive: true
+                    }
+                });
+            }
+
+            const { recalculateUserProgression } = await import('@/services/progression');
+            await recalculateUserProgression(user.wallet).catch(console.error);
+        }
+
         return NextResponse.json({ success: true, reward: updatedReward });
     } catch (error) {
         console.error("Failed to verify mint success", error);

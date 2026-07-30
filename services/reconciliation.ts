@@ -22,63 +22,75 @@ export async function reconcileOwnerships(autoRepair = false) {
         const matches = [];
         let repairedCount = 0;
 
-        for (const o of allOwnerships) {
+        // ── Multicall batching ────────────────────────────────────────────────
+        // Instead of 1 RPC call per NFT (N calls), we batch in chunks of 500.
+        // Each chunk is a single eth_call to the Multicall3 contract.
+        const CHUNK_SIZE = 500;
+        for (let i = 0; i < allOwnerships.length; i += CHUNK_SIZE) {
+            const chunk = allOwnerships.slice(i, i + CHUNK_SIZE);
+
+            // Build multicall contracts array
+            const calls = chunk.map(o => ({
+                address: CONTRACT_ADDRESS as `0x${string}`,
+                abi: RCADE_ERC1155_ABI,
+                functionName: 'balanceOf' as const,
+                args: [o.wallet as `0x${string}`, BigInt(o.tokenId)] as const,
+            }));
+
+            let results: { status: 'success' | 'failure'; result?: bigint; error?: Error }[] = [];
             try {
-                const chainBalance = await publicClient.readContract({
-                    address: CONTRACT_ADDRESS as `0x${string}`,
-                    abi: RCADE_ERC1155_ABI,
-                    functionName: 'balanceOf',
-                    args: [o.wallet as `0x${string}`, BigInt(o.tokenId)]
+                results = await publicClient.multicall({
+                    contracts: calls,
+                    allowFailure: true,
                 });
+            } catch (batchErr: any) {
+                console.error(`[Reconciliation] Multicall batch ${Math.floor(i / CHUNK_SIZE) + 1} failed:`, batchErr.message);
+                // Mark all in this chunk as errors and continue
+                for (const o of chunk) {
+                    mismatches.push({ id: o.id, wallet: o.wallet, tokenId: o.tokenId, dbAmount: o.amount, chainAmount: 'BATCH_ERROR', error: batchErr.message });
+                }
+                continue;
+            }
+
+            // Process batch results
+            for (let j = 0; j < chunk.length; j++) {
+                const o = chunk[j];
+                const result = results[j];
+
+                if (result.status === 'failure' || result.result === undefined) {
+                    mismatches.push({ id: o.id, wallet: o.wallet, tokenId: o.tokenId, dbAmount: o.amount, chainAmount: 'ERROR', error: result.error?.message });
+                    continue;
+                }
 
                 const dbAmount = o.amount;
-                const chainAmount = Number(chainBalance);
+                const chainAmount = Number(result.result);
 
                 if (dbAmount !== chainAmount) {
-                    mismatches.push({
-                        id: o.id,
-                        wallet: o.wallet,
-                        tokenId: o.tokenId,
-                        dbAmount,
-                        chainAmount,
-                        mismatch: Math.abs(dbAmount - chainAmount)
-                    });
+                    mismatches.push({ id: o.id, wallet: o.wallet, tokenId: o.tokenId, dbAmount, chainAmount, mismatch: Math.abs(dbAmount - chainAmount) });
 
                     if (autoRepair) {
                         await prisma.nFTOwnership.update({
                             where: { id: o.id },
-                            data: {
-                                amount: chainAmount,
-                                isActive: chainAmount > 0
-                            }
+                            data: { amount: chainAmount, isActive: chainAmount > 0 }
                         });
                         repairedCount++;
                         console.log(`[Reconciliation][Repair] Repaired wallet ${o.wallet} token ${o.tokenId}: DB(${dbAmount}) -> Chain(${chainAmount})`);
-                        // Recalculate progression so gameplay gates reflect corrected balance
                         recalculateUserProgression(o.wallet).catch(e =>
                             console.error(`[Reconciliation] Progression recalc failed for ${o.wallet}:`, e)
                         );
                     }
                 } else {
-                    matches.push({
-                        wallet: o.wallet,
-                        tokenId: o.tokenId,
-                        dbAmount,
-                        chainAmount
-                    });
+                    matches.push({ wallet: o.wallet, tokenId: o.tokenId, dbAmount, chainAmount });
                 }
-            } catch (e: any) {
-                mismatches.push({
-                    id: o.id,
-                    wallet: o.wallet,
-                    tokenId: o.tokenId,
-                    dbAmount: o.amount,
-                    chainAmount: 'ERROR',
-                    error: e.message
-                });
+            }
+
+            // Brief pause between chunks to avoid rate-limit bursts on free-tier RPCs
+            if (i + CHUNK_SIZE < allOwnerships.length) {
+                await new Promise(res => setTimeout(res, 200));
             }
         }
 
+        console.log(`[Reconciliation] Done. Analyzed: ${allOwnerships.length}, Matches: ${matches.length}, Mismatches: ${mismatches.length}, Repaired: ${repairedCount}`);
         return {
             status: 'completed',
             totalAnalyzed: allOwnerships.length,
@@ -92,6 +104,7 @@ export async function reconcileOwnerships(autoRepair = false) {
         globalForRecon.reconRunning = false;
     }
 }
+
 
 export async function reconcileMarketplaceListings(autoRepair = false) {
     if (globalForRecon.marketplaceReconRunning) {

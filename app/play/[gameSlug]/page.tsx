@@ -61,24 +61,22 @@ export default function GameDashboardPage() {
       if (!ready) return;
       if (!authenticated) { setIsLoading(false); return; }
       try {
-        const token = await getAccessToken();
-        const progRes = await fetch(`/api/session/progression?gameSlug=${gameSlug}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        if (progRes.ok) {
-          const d = await progRes.json();
-          setProgression(d.effectiveProgressionLevel ?? 0);
-        }
-        const syncRes = await ApiService.fetchWithAuth('/api/auth/sync', { method: 'POST' }, getAccessToken);
-        if (syncRes.ok) {
-          const d = await syncRes.json();
-          setDbUser(d.user);
-        }
-        const histRes = await ApiService.fetchWithAuth('/api/rewards/history', {}, getAccessToken);
-        if (histRes.ok) {
-          const d = await histRes.json();
-          setInventory(d.rewards);
-        }
+        const tokenPromise = getAccessToken().catch(() => null);
+        const [token] = await Promise.all([tokenPromise]);
+
+        const authHeaders: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+
+        await Promise.all([
+          fetch(`/api/session/progression?gameSlug=${gameSlug}`, { headers: authHeaders })
+            .then(res => res.ok ? res.json() : null)
+            .then(d => { if (d) setProgression(d.effectiveProgressionLevel ?? 0); }),
+          fetch('/api/auth/sync', { method: 'POST', headers: authHeaders })
+            .then(res => res.ok ? res.json() : null)
+            .then(d => { if (d?.user) setDbUser(d.user); }),
+          fetch('/api/rewards/history', { headers: authHeaders })
+            .then(res => res.ok ? res.json() : null)
+            .then(d => { if (d?.rewards) setInventory(d.rewards); })
+        ]);
       } catch (err) {
         console.error('[GameDashboard] Load error:', err);
       } finally {

@@ -71,61 +71,10 @@ export async function startIndexer() {
 }
 
 function startWatchers() {
-    if (globalForIndexer.isPollingFallback) {
-        console.log("[Indexer][StartWatchers] In polling fallback mode, skipping websocket watch binding");
-        return;
-    }
-
-    // Clean up any existing watchers first to prevent duplicate connections/listeners
-    if (globalForIndexer.unwatchNFT) {
-        try { globalForIndexer.unwatchNFT(); } catch { }
-        globalForIndexer.unwatchNFT = undefined;
-    }
-    if (globalForIndexer.unwatchMarketplace) {
-        try { globalForIndexer.unwatchMarketplace(); } catch { }
-        globalForIndexer.unwatchMarketplace = undefined;
-    }
-
-    console.log(`[Indexer][Started] Watching contract ${CONTRACT_ADDRESS} for live TransferSingle events.`);
-
-    try {
-        globalForIndexer.unwatchNFT = publicClient.watchContractEvent({
-            address: CONTRACT_ADDRESS as `0x${string}`,
-            abi: RCADE_ERC1155_ABI,
-            eventName: 'TransferSingle',
-            onLogs: (logs) => {
-                queueLogs(logs);
-            },
-            onError: (error) => {
-                console.error("[Indexer][Disconnected] ERC1155 WebSocket watcher failed:", error);
-                triggerWatcherReconnect();
-            }
-        });
-    } catch (err: any) {
-        console.error("[Indexer] Failed to bind NFT watcher:", err.message);
-        triggerWatcherReconnect();
-    }
-
-    // Watch Marketplace contract if active
-    if (MARKETPLACE_ADDRESS && MARKETPLACE_ADDRESS !== "0x0000000000000000000000000000000000000000") {
-        console.log(`[Indexer][Started] Watching Marketplace ${MARKETPLACE_ADDRESS} for live trade events.`);
-        try {
-            globalForIndexer.unwatchMarketplace = publicClient.watchContractEvent({
-                address: MARKETPLACE_ADDRESS as `0x${string}`,
-                abi: RCADE_MARKETPLACE_ABI,
-                onLogs: (logs) => {
-                    queueLogs(logs);
-                },
-                onError: (error) => {
-                    console.error("[Indexer][Disconnected] Marketplace WebSocket watcher failed:", error);
-                    triggerWatcherReconnect();
-                }
-            });
-        } catch (err: any) {
-            console.error("[Indexer] Failed to bind Marketplace watcher:", err.message);
-            triggerWatcherReconnect();
-        }
-    }
+    // Public HTTP endpoints (like https://sepolia.base.org) use load-balancers that do not support stateful eth_newFilter calls.
+    // Transition directly into stateless polling mode to avoid 'filter not found' errors.
+    console.log("[Indexer][Started] Using stateless HTTP polling mode for contract events.");
+    startPollingFallback();
 }
 
 function startPollingFallback() {
@@ -196,10 +145,13 @@ async function fetchChunkLogs(fromBlock: bigint, toBlock: bigint): Promise<any[]
             return logs;
         } catch (err: any) {
             retries++;
-            const is429 = err?.status === 429 || err?.message?.includes('429') || (err?.details || '').includes('Too Many');
+            const is429 = err?.status === 429 || 
+                          err?.message?.includes('429') || 
+                          err?.message?.includes('rate limit') || 
+                          (err?.details || '').includes('rate limit') || 
+                          (err?.shortMessage || '').includes('rate limit');
             if (is429 && retries <= 3) {
                 const backoffMs = 2000 * retries; // 2s, 4s, 6s
-                console.warn(`[Indexer] 429 rate-limit hit. Backoff ${backoffMs}ms (retry ${retries}/3)...`);
                 await new Promise(resolve => setTimeout(resolve, backoffMs));
             } else {
                 recordRPCFailure();
@@ -236,8 +188,6 @@ async function runPollingSync() {
                 await new Promise(resolve => setTimeout(resolve, INTER_CHUNK_DELAY_MS));
             }
             isFirstChunk = false;
-
-            console.log(`[Indexer][Polling] Fetching logs in range [${startBlock.toString()} - ${nextEndBlock.toString()}]`);
 
             // Single batched call for all contracts and events
             const logs = await fetchChunkLogs(startBlock, nextEndBlock);
