@@ -113,6 +113,15 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
 
   const lowerWallet = wallet.toLowerCase();
 
+  const user = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { wallet: lowerWallet },
+        { wallet: wallet }
+      ]
+    }
+  });
+
   const ownerships = await prisma.nFTOwnership.findMany({
     where: {
       OR: [
@@ -124,6 +133,14 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
     },
     orderBy: { acquiredAt: 'desc' }
   });
+
+  const mintedRewards = user ? await prisma.reward.findMany({
+    where: {
+      userId: user.id,
+      claimStatus: 'MINTED',
+      tokenId: { not: null }
+    }
+  }) : [];
 
   const activeListings = await prisma.marketplaceListing.findMany({
     where: {
@@ -143,8 +160,10 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
   }
 
   const result: UsableInventoryItem[] = [];
+  const processedTokenIds = new Set<string>();
 
   for (const o of ownerships) {
+    processedTokenIds.add(o.tokenId);
     const currentlyListed = listedCountMap.get(o.tokenId) ?? 0;
     
     // Deduct active listings from available copies
@@ -170,6 +189,33 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
       amount: availableAmount,
       txHash: null
     });
+  }
+
+  // Include any MINTED reward tokens that were not yet in nFTOwnership table
+  for (const r of mintedRewards) {
+    if (!r.tokenId) continue;
+    if (processedTokenIds.has(r.tokenId)) continue;
+
+    const currentlyListed = listedCountMap.get(r.tokenId) ?? 0;
+    if (currentlyListed >= 1) {
+      listedCountMap.set(r.tokenId, currentlyListed - 1);
+      continue;
+    }
+
+    const { gameId, gameName, gameSlug, gameIcon, level, rarity } = parseTokenId(r.tokenId);
+    result.push({
+      id: r.id,
+      tokenId: r.tokenId,
+      gameId,
+      gameName,
+      gameSlug,
+      gameIcon,
+      level,
+      rarity,
+      amount: 1,
+      txHash: r.txHash
+    });
+    processedTokenIds.add(r.tokenId);
   }
 
   return result;
