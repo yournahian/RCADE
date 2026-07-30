@@ -2001,11 +2001,13 @@ function Marketplace() {
                         This reward NFT is stored off-chain in your Vault. Click below to mint it to Base Sepolia so you can list it on the marketplace.
                       </p>
                       <button
-                        onClick={() => handleMintNFT(selectedNft.id)}
-                        disabled={mintingId === selectedNft.id}
+                        onClick={() => handleMintReward(selectedNft)}
+                        disabled={listingTxStates[selectedNft.id] === 'signing' || listingTxStates[selectedNft.id] === 'pending'}
                         className="w-full py-3 text-[9px] font-heading font-bold uppercase tracking-wider bg-[#a9ddd3] text-black hover:bg-[#b9ede3] transition-all rounded-sm flex items-center justify-center gap-1 cursor-pointer font-bold shadow-[0_0_15px_rgba(169,221,211,0.2)] disabled:opacity-50"
                       >
-                        {mintingId === selectedNft.id ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Minting to Base Sepolia...</> : 'Mint NFT Now'}
+                        {(listingTxStates[selectedNft.id] === 'signing' || listingTxStates[selectedNft.id] === 'pending') ? (
+                          <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Minting to Base Sepolia...</>
+                        ) : 'Mint NFT Now'}
                       </button>
                     </div>
                   ) : (
