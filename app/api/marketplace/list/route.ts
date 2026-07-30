@@ -42,9 +42,24 @@ export async function POST(req: Request) {
         if (expiry <= Math.floor(Date.now() / 1000)) return NextResponse.json({ error: 'Listing has already expired' }, { status: 400 });
 
         // 3. ERC1155 Overlisting Prevention using Centralized Resolver
-        const usableInventory = await getUsableInventory(listing.seller.toLowerCase());
-        const usableItem = usableInventory.find(item => item.tokenId === tokenId);
-        const available = usableItem?.amount ?? 0;
+        const usableInventory = await getUsableInventory(user.wallet);
+        const targetTokenId = listing.tokenId.toString();
+        
+        let available = 0;
+        try {
+            const targetBig = BigInt(targetTokenId);
+            const usableItem = usableInventory.find(item => {
+                try {
+                    return BigInt(item.tokenId) === targetBig;
+                } catch {
+                    return item.tokenId === targetTokenId;
+                }
+            });
+            available = usableItem?.amount ?? 0;
+        } catch {
+            const usableItem = usableInventory.find(item => item.tokenId === targetTokenId);
+            available = usableItem?.amount ?? 0;
+        }
 
         if (amount > available) {
             return NextResponse.json({

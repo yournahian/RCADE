@@ -152,10 +152,18 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
     }
   });
 
-  // Track listed amounts per tokenId so active listings deduct correctly
+  const normalizeTokenId = (tid: string | bigint) => {
+    try {
+      return BigInt(tid).toString();
+    } catch {
+      return String(tid);
+    }
+  };
+
+  // Track listed amounts per normalized tokenId so active listings deduct correctly
   const listedCountMap = new Map<string, number>();
   for (const listing of activeListings) {
-    const key = listing.tokenId.toString();
+    const key = normalizeTokenId(listing.tokenId);
     listedCountMap.set(key, (listedCountMap.get(key) ?? 0) + listing.amount);
   }
 
@@ -163,17 +171,18 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
   const processedTokenIds = new Set<string>();
 
   for (const o of ownerships) {
-    processedTokenIds.add(o.tokenId);
-    const currentlyListed = listedCountMap.get(o.tokenId) ?? 0;
+    const normId = normalizeTokenId(o.tokenId);
+    processedTokenIds.add(normId);
+    const currentlyListed = listedCountMap.get(normId) ?? 0;
     
     // Deduct active listings from available copies
     if (currentlyListed >= o.amount) {
-      listedCountMap.set(o.tokenId, currentlyListed - o.amount);
+      listedCountMap.set(normId, currentlyListed - o.amount);
       continue; // This ownership row is fully listed
     }
 
     const availableAmount = o.amount - currentlyListed;
-    listedCountMap.set(o.tokenId, 0);
+    listedCountMap.set(normId, 0);
 
     const { gameId, gameName, gameSlug, gameIcon, level, rarity } = parseTokenId(o.tokenId);
 
@@ -194,11 +203,12 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
   // Include any MINTED reward tokens that were not yet in nFTOwnership table
   for (const r of mintedRewards) {
     if (!r.tokenId) continue;
-    if (processedTokenIds.has(r.tokenId)) continue;
+    const normId = normalizeTokenId(r.tokenId);
+    if (processedTokenIds.has(normId)) continue;
 
-    const currentlyListed = listedCountMap.get(r.tokenId) ?? 0;
+    const currentlyListed = listedCountMap.get(normId) ?? 0;
     if (currentlyListed >= 1) {
-      listedCountMap.set(r.tokenId, currentlyListed - 1);
+      listedCountMap.set(normId, currentlyListed - 1);
       continue;
     }
 
@@ -215,7 +225,7 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
       amount: 1,
       txHash: r.txHash
     });
-    processedTokenIds.add(r.tokenId);
+    processedTokenIds.add(normId);
   }
 
   return result;
