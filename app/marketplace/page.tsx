@@ -364,7 +364,7 @@ function Marketplace() {
 
         await Promise.all([
           // 1. Sync backend DB with chain & retrieve usable inventory
-          ApiService.fetchWithAuth('/api/marketplace/sync', { method: 'POST' }, getAccessToken)
+          ApiService.fetchWithAuth('/api/marketplace/sync?force=true', { method: 'POST' }, getAccessToken)
             .then(async (res) => {
               if (res.ok) {
                 const syncData = await res.json();
@@ -979,7 +979,12 @@ function Marketplace() {
         body: JSON.stringify({ listingHash: listing.listingHash }) 
       }, getAccessToken);
 
-      if (!cancelRes.ok) { 
+      if (cancelRes.ok) { 
+        const cancelData = await cancelRes.json();
+        if (cancelData.user) {
+          setDbUser(cancelData.user);
+        }
+      } else { 
         console.warn("Off-chain cancel API failed. Relaying to periodic reconciler."); 
       }
 

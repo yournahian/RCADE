@@ -49,12 +49,16 @@ export async function POST(req: Request) {
         console.log(`[GameplayLoop][Marketplace] Listing hash: ${listingHash} voided and marked as CANCELLED by seller: ${user.wallet}`);
 
         // Instantly restore seller's usable inventory by recalculating progression
-        recalculateUserProgression(user.wallet!).catch((err) => {
-            console.error('[Cancel] Background progression recalculation failed:', err);
+        const updatedProgressionLevel = await recalculateUserProgression(user.wallet!);
+
+        const updatedUser = await prisma.user.findUnique({
+            where: { id: user.id }
         });
 
         return NextResponse.json({ 
             success: true, 
+            user: updatedUser,
+            effectiveProgressionLevel: updatedProgressionLevel ?? 0,
             listing: {
                 ...updatedListing,
                 createdBlockNumber: updatedListing.createdBlockNumber?.toString() || null
