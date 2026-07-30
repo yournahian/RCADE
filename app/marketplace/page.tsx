@@ -1992,13 +1992,31 @@ function Marketplace() {
                   </div>
 
                   {/* Action Button */}
-                  <button onClick={handleCreateListing} disabled={Number(sellPrice) <= 0 || isNetworkMismatch || isWalletAccountMismatch || isAnyTxActive}
-                    className="w-full py-4 text-[9px] font-heading font-black uppercase tracking-[0.2em] disabled:opacity-40 transition-all flex items-center justify-center gap-2 cursor-pointer bg-[#a9ddd3] text-black hover:bg-[#b9ede3] rounded-sm font-bold shadow-[0_0_15px_rgba(169,221,211,0.2)]"
-                  >
-                    {listingTxStates.list === 'signing' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Signing...</> :
-                     listingTxStates.list === 'pending' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Publishing...</> :
-                     "Sign & List Off-Chain"}
-                  </button>
+                  {selectedNft.isMinted === false && !selectedNft.txHash ? (
+                    <div className="p-3.5 bg-amber-500/10 border border-amber-500/30 rounded-sm text-center">
+                      <p className="text-[10px] font-heading font-bold text-amber-400 uppercase mb-1.5 flex items-center justify-center gap-1.5">
+                        <ShieldAlert className="w-3.5 h-3.5" /> On-Chain Mint Required
+                      </p>
+                      <p className="text-[9px] text-zinc-400 mb-3 leading-relaxed">
+                        This reward NFT is stored off-chain in your Vault. Click below to mint it to Base Sepolia so you can list it on the marketplace.
+                      </p>
+                      <button
+                        onClick={() => handleMintNFT(selectedNft.id)}
+                        disabled={mintingId === selectedNft.id}
+                        className="w-full py-3 text-[9px] font-heading font-bold uppercase tracking-wider bg-[#a9ddd3] text-black hover:bg-[#b9ede3] transition-all rounded-sm flex items-center justify-center gap-1 cursor-pointer font-bold shadow-[0_0_15px_rgba(169,221,211,0.2)] disabled:opacity-50"
+                      >
+                        {mintingId === selectedNft.id ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Minting to Base Sepolia...</> : 'Mint NFT Now'}
+                      </button>
+                    </div>
+                  ) : (
+                    <button onClick={handleCreateListing} disabled={Number(sellPrice) <= 0 || isNetworkMismatch || isWalletAccountMismatch || isAnyTxActive}
+                      className="w-full py-4 text-[9px] font-heading font-black uppercase tracking-[0.2em] disabled:opacity-40 transition-all flex items-center justify-center gap-2 cursor-pointer bg-[#a9ddd3] text-black hover:bg-[#b9ede3] rounded-sm font-bold shadow-[0_0_15px_rgba(169,221,211,0.2)]"
+                    >
+                      {listingTxStates.list === 'signing' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Signing...</> :
+                       listingTxStates.list === 'pending' ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Publishing...</> :
+                       "Sign & List Off-Chain"}
+                    </button>
+                  )}
                 </div>
               ) : (
                 <div className="py-24 text-center text-[9px] font-heading tracking-[0.2em] text-text-muted uppercase border border-dashed border-[#161616] rounded-sm">

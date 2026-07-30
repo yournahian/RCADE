@@ -12,6 +12,7 @@ export interface UsableInventoryItem {
   rarity: string;
   amount: number;
   txHash: string | null;
+  isMinted?: boolean;
 }
 
 export interface ReservedInventoryItem {
@@ -196,7 +197,8 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
       level,
       rarity,
       amount: availableAmount,
-      txHash: null
+      txHash: null,
+      isMinted: true
     });
   }
 
@@ -223,7 +225,8 @@ export async function getUsableInventory(wallet: string): Promise<UsableInventor
       level,
       rarity,
       amount: 1,
-      txHash: r.txHash
+      txHash: r.txHash,
+      isMinted: Boolean(r.txHash)
     });
     processedTokenIds.add(normId);
   }
