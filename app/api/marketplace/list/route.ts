@@ -147,14 +147,17 @@ export async function POST(req: Request) {
             }
         });
 
-        // Prisma BigInt field is serializable by converting it to string
         // Instantly recalculate user progression to reflect newly reserved asset
-        recalculateUserProgression(user.wallet!).catch((err) => {
-            console.error('[List] Background progression recalculation failed:', err);
+        const updatedProgressionLevel = await recalculateUserProgression(user.wallet!);
+
+        const updatedUser = await prisma.user.findUnique({
+            where: { id: user.id }
         });
 
         return NextResponse.json({ 
             success: true, 
+            user: updatedUser,
+            effectiveProgressionLevel: updatedProgressionLevel ?? 0,
             listing: {
                 ...dbListing,
                 createdBlockNumber: dbListing.createdBlockNumber?.toString() || null

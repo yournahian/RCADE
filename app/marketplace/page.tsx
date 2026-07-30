@@ -824,6 +824,11 @@ function Marketplace() {
         throw new Error(errData.error || 'Failed to publish listing to database'); 
       }
 
+      const listData = await res.json();
+      if (listData.user) {
+        setDbUser(listData.user);
+      }
+
       toast.success("Listing Created", `Asset listed off-chain successfully.`);
       setListingTxStates(prev => ({ ...prev, list: 'success' }));
       AnalyticsService.track('LISTING_CREATED', activeWalletAddress, { tokenId: selectedNft.tokenId, price: sellPrice, amount: sellAmount });
