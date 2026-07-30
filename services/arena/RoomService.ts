@@ -63,8 +63,14 @@ export class RoomService {
       });
     }
 
-    const room = await prisma.arenaRoom.findUnique({
-      where: { roomCode: cleanCode }
+    const room = await prisma.arenaRoom.findFirst({
+      where: {
+        OR: [
+          { roomCode: cleanCode },
+          { roomCode: roomCode.trim() },
+          { roomCode: roomCode.trim().toLowerCase() }
+        ]
+      }
     });
 
     if (!room) {
@@ -74,8 +80,6 @@ export class RoomService {
     if (room.status !== 'LOBBY') {
       throw new Error(`Lobby is currently unavailable (Status: ${room.status})`);
     }
-
-
 
     const updatedRoom = await prisma.arenaRoom.update({
       where: { id: room.id },
@@ -95,8 +99,14 @@ export class RoomService {
     const cleanCode = roomCode.trim().toUpperCase();
     console.log(`[Room][Start] Advancing lobby ${cleanCode} into competitive match mode.`);
 
-    const room = await prisma.arenaRoom.findUnique({
-      where: { roomCode: cleanCode }
+    const room = await prisma.arenaRoom.findFirst({
+      where: {
+        OR: [
+          { roomCode: cleanCode },
+          { roomCode: roomCode.trim() },
+          { roomCode: roomCode.trim().toLowerCase() }
+        ]
+      }
     });
 
     if (!room || !room.guestId) {
@@ -148,8 +158,14 @@ export class RoomService {
    */
   static async leaveRoom(userId: string, roomCode: string) {
     const cleanCode = roomCode.trim().toUpperCase();
-    const room = await prisma.arenaRoom.findUnique({
-      where: { roomCode: cleanCode }
+    const room = await prisma.arenaRoom.findFirst({
+      where: {
+        OR: [
+          { roomCode: cleanCode },
+          { roomCode: roomCode.trim() },
+          { roomCode: roomCode.trim().toLowerCase() }
+        ]
+      }
     });
 
     if (!room) {

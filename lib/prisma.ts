@@ -324,7 +324,7 @@ export const prisma = new Proxy(realPrisma, {
       'antiFraudFlag'
     ];
 
-    if (newTables.includes(propStr) || (target as any)[prop] === undefined) {
+    if ((target as any)[prop] === undefined) {
       return new MockCollection(propStr);
     }
 
