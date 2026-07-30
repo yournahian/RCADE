@@ -419,9 +419,15 @@ function Marketplace() {
     if (!ready || !authenticated) return;
     setIsLoadingInventory(true);
     try {
-      // Execute silent full sync to align db and on-chain state
-      await forceSynchronizedRefresh(true);
-      
+      // 1. Fetch user inventory directly from fast DB endpoint first (<50ms)
+      const histRes = await ApiService.fetchWithAuth('/api/rewards/history', {}, getAccessToken);
+      if (histRes.ok) {
+        const data = await histRes.json();
+        if (data.rewards) {
+          setInventory(data.rewards);
+        }
+      }
+
       if (MARKETPLACE_ADDRESS !== "0x0000000000000000000000000000000000000000") {
         const fee = await publicClient.readContract({ 
           address: MARKETPLACE_ADDRESS as `0x${string}`, 
@@ -433,7 +439,8 @@ function Marketplace() {
     } catch (err) { 
       console.error("Failed to sync initial marketplace configuration:", err); 
     } finally { 
-      setIsLoadingInventory(false); 
+      setIsLoadingInventory(false);
+      forceSynchronizedRefresh(true).catch(console.error);
     }
   };
 
